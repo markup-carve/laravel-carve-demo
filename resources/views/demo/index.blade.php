@@ -9,7 +9,7 @@
     <p>
         <a href="https://github.com/markup-carve/laravel-carve" target="_blank">GitHub</a>
         ·
-        <a href="https://carve.net" target="_blank">Carve</a>
+        <a href="https://github.com/markup-carve/carve" target="_blank">Carve</a>
         ·
         Laravel {{ app()->version() }}
     </p>

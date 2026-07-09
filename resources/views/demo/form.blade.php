@@ -22,7 +22,7 @@
             <label for="body">Body (Carve markup)</label>
             <textarea id="body" name="body" rows="10" placeholder="# My Article&#10;&#10;Write your content using *Carve* markup...">{{ old('body', $article->body) }}</textarea>
             @error('body')<div class="error">{{ $message }}</div>@enderror
-            <small style="color: #666;">Supports <a href="https://carve.net" target="_blank">Carve markup</a></small>
+            <small style="color: #666;">Supports <a href="https://github.com/markup-carve/carve" target="_blank">Carve markup</a></small>
 
             <label for="comment">Comment (strict Carve validation, safe mode preview)</label>
             <textarea id="comment" name="comment" rows="4" placeholder="Optional comment with strict Carve validation">{{ old('comment', $article->comment) }}</textarea>

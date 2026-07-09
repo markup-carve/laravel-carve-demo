@@ -35,7 +35,7 @@
                 '*strong text*',
                 '_emphasized text_',
                 '`inline code`',
-                '[link](https://carve.net)',
+                '[link](https://github.com/markup-carve/carve)',
                 'H~2~O',
                 'E=mc^2^',
                 '{=highlighted=}',

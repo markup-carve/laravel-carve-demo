@@ -57,6 +57,8 @@ return [
             'safe_mode' => false,
             'extensions' => [
                 ['type' => 'table_of_contents', 'toc_class' => 'toc'],
+                // Expands ::: toc placement blocks in the source document.
+                'toc_placement',
                 ['type' => 'heading_permalinks'],
             ],
         ],

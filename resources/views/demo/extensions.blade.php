@@ -102,7 +102,7 @@
 
 <div class="card">
     <h2>Table of Contents</h2>
-    <p>Generates a table of contents from headings. Use <code>{toc}</code> placeholder.</p>
+    <p>Generates a table of contents from headings. Place it with a <code>::: toc</code> block.</p>
     <div class="columns">
         <div>
             <h3>Source</h3>

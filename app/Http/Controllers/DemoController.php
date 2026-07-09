@@ -166,7 +166,7 @@ class DemoController extends Controller
     public function extensions(CarveManager $manager): View
     {
         $autolinkSource = <<<'CARVE'
-        Check out https://carve.net for more info.
+        Check out https://github.com/markup-carve/carve for more info.
 
         Email us at hello@example.com for support.
         CARVE;
@@ -198,11 +198,12 @@ class DemoController extends Controller
         $mentionsSource = <<<'CARVE'
         Thanks @dereuromark for the review!
 
-        Also cc @jmacfarlane for the original Carve spec.
+        Also cc @teamlead for the docs review.
         CARVE;
 
         $tocSource = <<<'CARVE'
-        {toc}
+        ::: toc
+        :::
 
         # Chapter 1
 
