@@ -263,6 +263,15 @@ class DemoController extends Controller
         [HTML]{abbr="HyperText Markup Language"} is the foundation of the web.
         CARVE;
 
+        $mermaidSource = <<<'CARVE'
+        ``` mermaid
+        graph LR
+            A[Write Carve] --> B{Render}
+            B --> C[Interactive HTML]
+            B --> D[Static / PDF]
+        ```
+        CARVE;
+
         $codeGroupSource = <<<'CARVE'
         ::: code-group
         ``` php [Composer]
@@ -316,6 +325,8 @@ class DemoController extends Controller
             'frontmatter_html' => $manager->toHtml($frontmatterSource, 'with_frontmatter'),
             'semantic_source' => $semanticSource,
             'semantic_html' => $manager->toHtml($semanticSource, 'with_semantic'),
+            'mermaid_source' => $mermaidSource,
+            'mermaid_html' => $manager->toHtml($mermaidSource, 'with_mermaid'),
             'code_group_source' => $codeGroupSource,
             'code_group_html' => $manager->toHtml($codeGroupSource, 'with_code_group'),
             'admonition_source' => $admonitionSource,

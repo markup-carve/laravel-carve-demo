@@ -120,6 +120,13 @@ return [
             ],
         ],
 
+        'with_mermaid' => [
+            'safe_mode' => false,
+            'extensions' => [
+                ['type' => 'mermaid'],
+            ],
+        ],
+
         'with_admonition' => [
             'safe_mode' => false,
             'extensions' => [

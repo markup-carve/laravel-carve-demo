@@ -199,6 +199,28 @@
 </div>
 
 <div class="card">
+    <h2>Mermaid Diagrams</h2>
+    <p>A <code>mermaid</code> fence renders as a diagram in the browser; in static
+       mode the source is preserved (graceful degradation).</p>
+    <div class="columns">
+        <div>
+            <h3>Source</h3>
+            <pre><code>{{ $mermaid_source }}</code></pre>
+        </div>
+        <div>
+            <h3>Rendered</h3>
+            <div class="rendered">{!! $mermaid_html !!}</div>
+        </div>
+    </div>
+    <h3>Configuration</h3>
+    <pre><code>'with_mermaid' => [
+    'extensions' => [
+        ['type' => 'mermaid'],
+    ],
+],</code></pre>
+</div>
+
+<div class="card">
     <h2>Code Group</h2>
     <p>Transforms code-group divs into tabbed code block interfaces. Click the tabs below!</p>
     <div class="columns">
