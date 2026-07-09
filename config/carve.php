@@ -6,9 +6,11 @@ return [
 
     'converters' => [
 
-        // Default: trusted content (admin/CMS), with handy extensions
+        // Default: safe rendering (XSS protection) with handy extensions.
+        // The @carve directive uses this converter; use @carveRaw for
+        // trusted content that needs raw HTML passthrough.
         'default' => [
-            'safe_mode' => false,
+            'safe_mode' => true,
             'extensions' => [
                 'details',
                 ['type' => 'autolink'],
