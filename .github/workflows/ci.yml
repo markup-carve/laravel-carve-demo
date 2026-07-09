@@ -46,6 +46,7 @@ jobs:
           cp .env.example .env
           php artisan key:generate
           touch database/database.sqlite
+          php artisan migrate --graceful --force
 
       - name: Cache config
         run: php artisan config:cache
@@ -54,4 +55,8 @@ jobs:
         run: php artisan about
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        # Clear the cached config first: a cached config would override the
+        # phpunit.xml test environment (array drivers, in-memory sqlite).
+        run: |
+          php artisan config:clear
+          vendor/bin/phpunit
