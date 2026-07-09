@@ -146,19 +146,20 @@ return [
 
 ## Extensions Showcased
 
-The demo configures profiles for every Carve extension supported by the library:
+The demo's converter profiles in `config/carve.php` enable these Carve extensions:
 
 - **Autolink** — Converts bare URLs to links
 - **Admonition** — Styled note/tip/warning/danger blocks
 - **Code Group** — Tabbed code blocks (`::: code-group`)
 - **Default Attributes** — Auto-applied `loading="lazy"`, etc.
+- **Details** — Native `<details>`/`<summary>` disclosure blocks (enabled in the static `print` profile)
 - **External Links** — `target="_blank"` + `rel` attributes
 - **Frontmatter** — YAML/TOML/JSON frontmatter parsing
 - **Heading Permalinks** — Anchor links on headings
 - **Mentions** — `@username` → profile links
 - **Semantic Spans** — `<kbd>`, `<dfn>`, `<abbr>` from span syntax
 - **Smart Quotes** — Typographic (curly) quotes
-- **Table of Contents** — `{toc}` placeholder expansion
+- **Table of Contents** — Generated heading TOC via the `table_of_contents` extension
 - **Wikilinks** — `[[Page Name]]` wiki-style links
 
 ## Configuration
