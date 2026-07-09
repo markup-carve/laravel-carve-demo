@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d80b59d3dd0a339676eed5bebbba0e7",
+    "content-hash": "58161646619f8961a065c517edc9b594",
     "packages": [
         {
             "name": "brick/math",
@@ -2100,16 +2100,16 @@
         },
         {
             "name": "markup-carve/laravel-carve",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/laravel-carve.git",
-                "reference": "200efbc30d077ca43a5b5b9070185cde7f4e28cf"
+                "reference": "8eec25fcd546ea32b5495df715ddbf766992e285"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/200efbc30d077ca43a5b5b9070185cde7f4e28cf",
-                "reference": "200efbc30d077ca43a5b5b9070185cde7f4e28cf",
+                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/8eec25fcd546ea32b5495df715ddbf766992e285",
+                "reference": "8eec25fcd546ea32b5495df715ddbf766992e285",
                 "shasum": ""
             },
             "require": {
@@ -2120,20 +2120,20 @@
                 "php": "^8.2"
             },
             "require-dev": {
-                "markup-carve/code-sniffer": "dev-master",
                 "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
+                "php-collective/code-sniffer": "dev-master",
                 "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^11.5 || ^12.5 || ^13.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "MarkupCarve\\LaravelCarve\\LaravelCarveServiceProvider"
-                    ],
                     "aliases": {
                         "Carve": "MarkupCarve\\LaravelCarve\\Facades\\Carve"
-                    }
+                    },
+                    "providers": [
+                        "MarkupCarve\\LaravelCarve\\LaravelCarveServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -2141,28 +2141,7 @@
                     "MarkupCarve\\LaravelCarve\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "MarkupCarve\\LaravelCarve\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "cs-check": [
-                    "phpcs -p"
-                ],
-                "cs-fix": [
-                    "phpcbf -p"
-                ],
-                "stan": [
-                    "phpstan analyse"
-                ],
-                "stan-setup": [
-                    "composer require --dev phpstan/phpstan"
-                ],
-                "test": [
-                    "phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2183,10 +2162,10 @@
                 "parser"
             ],
             "support": {
-                "source": "https://github.com/markup-carve/laravel-carve/tree/0.1.0",
-                "issues": "https://github.com/markup-carve/laravel-carve/issues"
+                "issues": "https://github.com/markup-carve/laravel-carve/issues",
+                "source": "https://github.com/markup-carve/laravel-carve/tree/0.1.1"
             },
-            "time": "2026-07-09T07:55:24+00:00"
+            "time": "2026-07-09T08:27:46+00:00"
         },
         {
             "name": "monolog/monolog",
