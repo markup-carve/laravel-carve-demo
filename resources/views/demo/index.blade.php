@@ -67,7 +67,7 @@
 
     <div class="card">
         <h2>Extensions</h2>
-        <p>All 17 extensions: autolinks, mentions, TOC, wikilinks, admonitions, tabs, code groups &amp; more.</p>
+        <p>All bundled extensions: autolink, mentions, TOC, wikilinks, admonitions, tabs, code groups &amp; more.</p>
         <pre><code>'extensions' => [
     ['type' => 'mentions'],
     ['type' => 'table_of_contents'],

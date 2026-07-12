@@ -5,7 +5,7 @@
 @section('body')
 <div class="card">
     <h1>Extensions Demo</h1>
-    <p>Carve supports various extensions to enhance markup capabilities. All 17 extensions from markup-carve/carve-php are available.</p>
+    <p>Carve supports various extensions to enhance markup capabilities. All bundled markup-carve/carve-php extensions are available - autolink, mentions, table of contents, wikilinks, admonitions, tabs, code groups and more.</p>
 </div>
 
 <div class="card">
