@@ -29,7 +29,7 @@ class DemoController extends Controller
 
     ### Code Example
 
-    ``` php
+    ```php
     $html = $carve->toHtml('Hello *world*!');
     ```
 
@@ -274,7 +274,7 @@ class DemoController extends Controller
 
         $codeGroupSource = <<<'CARVE'
         ::: code-group
-        ``` php [Composer]
+        ```php [Composer]
         composer require markup-carve/laravel-carve
         ```
 
