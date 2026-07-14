@@ -36,8 +36,8 @@
                 '_emphasized text_',
                 '`inline code`',
                 '[link](https://github.com/markup-carve/carve)',
-                'H~2~O',
-                'E=mc^2^',
+                'H{,2,}O',
+                'E=mc{^2^}',
                 '{=highlighted=}',
                 '{-deleted-} {+inserted+}',
             ] as $snippet)
