@@ -157,6 +157,40 @@ return [
             ],
         ],
 
+        // Full fenced-diagram gallery. Registers every FencedRenderExtension
+        // preset so all eight diagram languages emit their client-hydration
+        // markup at once. Text-mode presets emit <pre class="TYPE">source</pre>;
+        // JSON-mode presets (vega-lite, chart) emit
+        // <div class="TYPE"><script type="application/json">spec</script></div>.
+        // A browser renderer per type (loaded on the Diagrams page) draws each
+        // one; without it the source stays visible (graceful degradation).
+        // safe_mode is off so the JSON <script> wrappers survive - the sources
+        // here are trusted author content, not user input.
+        'with_diagrams' => [
+            'safe_mode' => false,
+            'extensions' => [
+                ['type' => 'fenced_render', 'language' => 'mermaid'],
+                ['type' => 'fenced_render', 'language' => 'd2'],
+                ['type' => 'fenced_render', 'language' => ['dot', 'graphviz'], 'css_class' => 'graphviz'],
+                ['type' => 'fenced_render', 'language' => ['plantuml', 'puml'], 'css_class' => 'plantuml'],
+                ['type' => 'fenced_render', 'language' => 'vega-lite', 'content_mode' => 'json'],
+                ['type' => 'fenced_render', 'language' => 'wavedrom'],
+                ['type' => 'fenced_render', 'language' => 'chart', 'content_mode' => 'json'],
+                ['type' => 'fenced_render', 'language' => 'abc'],
+            ],
+        ],
+
+        // Smart-typography-only profile used by the Syntax showcase: shows the
+        // core Carve grammar (inline literal, definition lists, footnotes,
+        // tight/loose lists, strict column-0) with dash-run and quote
+        // typography enabled, but no link/heading decoration to add noise.
+        'syntax' => [
+            'safe_mode' => true,
+            'extensions' => [
+                ['type' => 'smart_quotes'],
+            ],
+        ],
+
     ],
 
     'cache' => [
