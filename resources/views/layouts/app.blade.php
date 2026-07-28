@@ -137,6 +137,19 @@
         .code-group-radio:nth-of-type(5):checked ~ .code-group-panel:nth-of-type(5) {
             display: block;
         }
+        /* Extension type chips (Diagrams page) */
+        .types-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 1em 0; }
+        .type-chip {
+            display: inline-block;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 13px;
+            color: #333;
+        }
+        /* PlantUML fence: rendered image scales to its container */
+        .plantuml-img { max-width: 100%; height: auto; }
     </style>
 </head>
 <body>
@@ -150,6 +163,7 @@
         <a href="{{ route('static_mode') }}" @class(['active' => request()->routeIs('static_mode')])>Static Mode</a>
         <a href="{{ route('plain_text') }}" @class(['active' => request()->routeIs('plain_text')])>Plain Text</a>
         <a href="{{ route('extensions') }}" @class(['active' => request()->routeIs('extensions')])>Extensions</a>
+        <a href="{{ route('diagrams') }}" @class(['active' => request()->routeIs('diagrams')])>Diagrams</a>
     </nav>
     @yield('body')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
@@ -165,6 +179,23 @@
         // leave mermaid sources alone
         document.querySelectorAll('pre code[class*="language-"]').forEach((el) => {
             window.hljs.highlightElement(el);
+        });
+        // Hydrate PlantUML fences (<pre class="plantuml">) into rendered SVG via
+        // the public PlantUML server, using its ~h hex source encoding. This is a
+        // progressive enhancement: without it the diagram source stays visible.
+        document.querySelectorAll('pre.plantuml').forEach((el) => {
+            const source = el.textContent.trim();
+            if (!source) { return; }
+            const hex = Array.from(new TextEncoder().encode(source))
+                .map((b) => b.toString(16).padStart(2, '0')).join('');
+            const img = document.createElement('img');
+            img.alt = 'PlantUML diagram';
+            img.className = 'plantuml-img';
+            // Only swap in the rendered image once it has actually loaded. If the
+            // PlantUML server is unreachable (offline, CSP, blocked host), keep the
+            // readable source <pre> in place - graceful degradation, no broken image.
+            img.addEventListener('load', () => el.replaceWith(img));
+            img.src = 'https://www.plantuml.com/plantuml/svg/~h' + hex;
         });
     </script>
 </body>
