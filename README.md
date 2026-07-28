@@ -43,6 +43,10 @@ Then open <http://127.0.0.1:8000> in your browser.
 
 ![Home](docs/screenshots/home.png)
 
+**Live Diagram Gallery** - all eight fenced-render presets drawn in the browser (mermaid, plantuml, graphviz, d2, vega-lite, wavedrom, chart, abc), plus the sanitized SVG image fence and the discoverable shorthand types:
+
+![Live Diagram Gallery](docs/screenshots/diagram-gallery.png)
+
 **Blade Directive** demo (shown at the top of this README) — `@carve`, `@carveRaw`, `@carveText` usage with side-by-side source/rendered output.
 
 ## Demo Pages
