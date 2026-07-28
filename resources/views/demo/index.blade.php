@@ -76,13 +76,30 @@
     </div>
 
     <div class="card">
-        <h2>Diagrams &amp; Media</h2>
-        <p>PlantUML fenced diagrams and sanitized SVG image fences (0.1.3).</p>
-        <pre><code>'extensions' => [
-    'plantuml',
-    'img_fence',
-]</code></pre>
+        <h2>Live Diagram Gallery</h2>
+        <p>All eight fenced-diagram types drawn live: Mermaid, PlantUML, Graphviz, D2,
+           Vega-Lite, WaveDrom, Chart.js and ABC - plus the sanitized SVG image fence.</p>
+        <pre><code>['type' => 'fenced_render',
+ 'language' => 'vega-lite',
+ 'content_mode' => 'json']</code></pre>
         <p><a href="{{ route('diagrams') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
+        <h2>Syntax &amp; What is New</h2>
+        <p>Inline literals, definition lists, footnotes, tight vs loose lists, smart
+           typography and strict column-0 block markers.</p>
+        <pre><code>Type !`*strong*` to show
+the literal delimiters.</code></pre>
+        <p><a href="{{ route('syntax') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
+        <h2>Render Targets</h2>
+        <p>One source, four outputs: HTML, plain text, Markdown and ANSI terminal.</p>
+        <pre><code>$carve->toMarkdown($src);
+$carve->toAnsi($src);</code></pre>
+        <p><a href="{{ route('render_targets') }}">View Demo &rarr;</a></p>
     </div>
 </div>
 @endsection

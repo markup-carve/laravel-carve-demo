@@ -14,15 +14,30 @@ class DiagramsTest extends TestCase
         $response = $this->get('/diagrams');
 
         $response->assertStatus(200);
-        $response->assertSee('Diagrams &amp; Media', escape: false);
+        $response->assertSee('Live Diagram Gallery');
     }
 
-    public function test_plantuml_fence_renders_hydration_element(): void
+    /**
+     * Every FencedRenderExtension preset must emit its client-hydration markup:
+     * a <pre class="TYPE"> for text-mode presets and a <div class="TYPE"> with a
+     * JSON <script> for the json-mode ones.
+     */
+    public function test_all_eight_diagram_types_emit_hydration_markup(): void
     {
         $response = $this->get('/diagrams');
 
-        // The plantuml shorthand emits <pre class="plantuml"> for client hydration.
-        $response->assertSee('<pre class="plantuml">', escape: false);
+        // Text-mode presets: <pre class="TYPE">.
+        foreach (['mermaid', 'd2', 'graphviz', 'plantuml', 'wavedrom', 'abc'] as $type) {
+            $response->assertSee('<pre class="' . $type . '">', escape: false);
+        }
+
+        // JSON-mode presets: <div class="TYPE"><script type="application/json">.
+        foreach (['vega-lite', 'chart'] as $type) {
+            $response->assertSee(
+                '<div class="' . $type . '"><script type="application/json">',
+                escape: false,
+            );
+        }
     }
 
     public function test_img_fence_renders_sandboxed_svg_image(): void
@@ -58,7 +73,7 @@ class DiagramsTest extends TestCase
         $response = $this->get('/diagrams');
 
         $response->assertSee('Available Shorthand Types');
-        // Both new 0.1.3 shorthands appear in ExtensionFactory::types().
+        // Both 0.1.3 shorthands appear in ExtensionFactory::types().
         $response->assertSee('plantuml');
         $response->assertSee('img_fence');
     }

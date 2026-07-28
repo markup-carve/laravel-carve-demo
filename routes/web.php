@@ -16,3 +16,5 @@ Route::get('/static-mode', [DemoController::class, 'staticMode'])->name('static_
 Route::get('/plain-text', [DemoController::class, 'plainText'])->name('plain_text');
 Route::get('/extensions', [DemoController::class, 'extensions'])->name('extensions');
 Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');
+Route::get('/syntax', [DemoController::class, 'syntax'])->name('syntax');
+Route::get('/render-targets', [DemoController::class, 'renderTargets'])->name('render_targets');

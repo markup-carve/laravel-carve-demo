@@ -150,7 +150,25 @@
         }
         /* PlantUML fence: rendered image scales to its container */
         .plantuml-img { max-width: 100%; height: auto; }
+        /* Diagram gallery: drawn result container + rendered SVG/canvas scaling */
+        .diagram-draw { min-height: 60px; }
+        .diagram-draw svg, .diagram-draw canvas { max-width: 100%; height: auto; }
+        .diagram-draw .kroki-img { max-width: 100%; height: auto; }
+        .renderer-note { font-size: 13px; color: #666; margin: 4px 0 12px; }
+        /* Terminal block for the ANSI render target */
+        .terminal {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre;
+        }
     </style>
+    @stack('head')
 </head>
 <body>
     <nav>
@@ -164,6 +182,8 @@
         <a href="{{ route('plain_text') }}" @class(['active' => request()->routeIs('plain_text')])>Plain Text</a>
         <a href="{{ route('extensions') }}" @class(['active' => request()->routeIs('extensions')])>Extensions</a>
         <a href="{{ route('diagrams') }}" @class(['active' => request()->routeIs('diagrams')])>Diagrams</a>
+        <a href="{{ route('syntax') }}" @class(['active' => request()->routeIs('syntax')])>Syntax</a>
+        <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
     </nav>
     @yield('body')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
@@ -198,5 +218,6 @@
             img.src = 'https://www.plantuml.com/plantuml/svg/~h' + hex;
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

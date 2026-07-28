@@ -337,23 +337,149 @@ class DemoController extends Controller
 
     public function diagrams(CarveManager $manager): View
     {
-        // PlantUML fence: covers UML shapes Mermaid does not (sequence, use case,
-        // component, deployment). Rendered server-side to <pre class="plantuml">;
-        // the layout hydrates it into an image via the public PlantUML server.
-        $plantumlSource = <<<'CARVE'
-        ``` plantuml
-        @startuml
-        actor User
-        participant "Laravel App" as App
-        participant "laravel-carve" as Carve
+        // Every FencedRenderExtension preset, keyed by the CSS class the
+        // extension emits. Each entry carries a short blurb, its browser
+        // renderer, and a valid sample so it actually draws in the gallery.
+        $diagrams = [
+            'mermaid' => [
+                'title' => 'Mermaid',
+                'renderer' => 'mermaid.js (ESM, jsDelivr)',
+                'blurb' => 'Flowcharts, sequence and state diagrams. Emits <pre class="mermaid">; mermaid.run() draws it.',
+                'source' => <<<'CARVE'
+                ``` mermaid
+                graph LR
+                    A[Write Carve] --> B{Render}
+                    B --> C[Interactive HTML]
+                    B --> D[Static / PDF]
+                ```
+                CARVE,
+            ],
+            'plantuml' => [
+                'title' => 'PlantUML',
+                'renderer' => 'public PlantUML server (~h hex encoding)',
+                'blurb' => 'UML shapes Mermaid does not cover (sequence, use case, component). Claims plantuml and puml fences.',
+                'source' => <<<'CARVE'
+                ``` plantuml
+                @startuml
+                actor User
+                participant "Laravel App" as App
+                participant "laravel-carve" as Carve
 
-        User -> App: submit Carve markup
-        App -> Carve: toHtml(source, 'with_plantuml')
-        Carve --> App: <pre class="plantuml">...</pre>
-        App --> User: rendered page
-        @enduml
-        ```
-        CARVE;
+                User -> App: submit Carve markup
+                App -> Carve: toHtml(source, 'with_diagrams')
+                Carve --> App: <pre class="plantuml">...</pre>
+                App --> User: rendered page
+                @enduml
+                ```
+                CARVE,
+            ],
+            'graphviz' => [
+                'title' => 'Graphviz',
+                'renderer' => '@hpcc-js/wasm Graphviz (WASM, jsDelivr)',
+                'blurb' => 'DOT graphs. Claims both dot and graphviz fences; rendered to SVG entirely in the browser.',
+                'source' => <<<'CARVE'
+                ``` graphviz
+                digraph Pipeline {
+                    rankdir=LR;
+                    node [shape=box, style=rounded];
+                    Carve -> Parser -> AST -> Renderer -> HTML;
+                    AST -> Markdown;
+                    AST -> ANSI;
+                }
+                ```
+                CARVE,
+            ],
+            'd2' => [
+                'title' => 'D2',
+                'renderer' => 'Kroki server (POST /d2/svg)',
+                'blurb' => 'Terrastruct D2 diagrams. No practical in-browser build, so the demo posts the source to a public Kroki server; without network the source stays visible.',
+                'source' => <<<'CARVE'
+                ``` d2
+                Author -> Carve: markup
+                Carve -> Browser: <pre class="d2">
+                Browser -> Kroki: render
+                Kroki -> Browser: SVG
+                ```
+                CARVE,
+            ],
+            'vega-lite' => [
+                'title' => 'Vega-Lite',
+                'renderer' => 'vega + vega-lite + vega-embed (jsDelivr)',
+                'blurb' => 'Declarative charts from a JSON spec. JSON mode: emits <div class="vega-lite"><script type="application/json">.',
+                'source' => <<<'CARVE'
+                ``` vega-lite
+                {
+                  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                  "description": "A simple bar chart.",
+                  "data": {"values": [
+                    {"lang": "carve-rs", "speed": 100},
+                    {"lang": "carve-js", "speed": 15},
+                    {"lang": "carve-php", "speed": 5}
+                  ]},
+                  "mark": "bar",
+                  "encoding": {
+                    "x": {"field": "lang", "type": "nominal", "axis": {"labelAngle": 0}},
+                    "y": {"field": "speed", "type": "quantitative"}
+                  }
+                }
+                ```
+                CARVE,
+            ],
+            'wavedrom' => [
+                'title' => 'WaveDrom',
+                'renderer' => 'wavedrom + default skin (jsDelivr)',
+                'blurb' => 'Digital timing diagrams from a WaveJSON description.',
+                'source' => <<<'CARVE'
+                ``` wavedrom
+                {"signal": [
+                  {"name": "clk",  "wave": "p......"},
+                  {"name": "req",  "wave": "0.1..0."},
+                  {"name": "ack",  "wave": "0...1.0"}
+                ]}
+                ```
+                CARVE,
+            ],
+            'chart' => [
+                'title' => 'Chart.js',
+                'renderer' => 'chart.js (UMD, jsDelivr)',
+                'blurb' => 'Chart.js config as JSON. JSON mode: emits <div class="chart"><script type="application/json">.',
+                'source' => <<<'CARVE'
+                ``` chart
+                {
+                  "type": "doughnut",
+                  "data": {
+                    "labels": ["HTML", "Markdown", "ANSI", "Plain text"],
+                    "datasets": [{
+                      "data": [40, 25, 20, 15],
+                      "backgroundColor": ["#ff2d20", "#f6ad55", "#4299e1", "#48bb78"]
+                    }]
+                  },
+                  "options": {"plugins": {"legend": {"position": "right"}}}
+                }
+                ```
+                CARVE,
+            ],
+            'abc' => [
+                'title' => 'ABC notation',
+                'renderer' => 'abcjs (jsDelivr)',
+                'blurb' => 'Sheet music from ABC music notation, rendered to SVG.',
+                'source' => <<<'CARVE'
+                ``` abc
+                X:1
+                T:Carve Fanfare
+                M:4/4
+                L:1/4
+                K:C
+                C D E F | G A B c | c B A G | F E D C |]
+                ```
+                CARVE,
+            ],
+        ];
+
+        foreach ($diagrams as $key => &$entry) {
+            $entry['html'] = $manager->toHtml($entry['source'], 'with_diagrams');
+        }
+        unset($entry);
 
         // SVG img fence: the SVG body is sanitized (the <script> and the inline
         // onclick handler below are stripped) and emitted as a sandboxed
@@ -373,11 +499,99 @@ class DemoController extends Controller
         CARVE;
 
         return view('demo.diagrams', [
-            'plantuml_source' => $plantumlSource,
-            'plantuml_html' => $manager->toHtml($plantumlSource, 'with_plantuml'),
+            'diagrams' => $diagrams,
             'img_fence_source' => $imgFenceSource,
             'img_fence_html' => $manager->toHtml($imgFenceSource, 'with_img_fence'),
             'extension_types' => ExtensionFactory::types(),
+        ]);
+    }
+
+    public function syntax(CarveManager $manager): View
+    {
+        $samples = [
+            'inline_literal' => [
+                'title' => 'Inline literal',
+                'blurb' => 'A ! before a code span renders its contents as literal text with no code styling - '
+                    . 'perfect for showing Carve syntax without it being interpreted or monospaced.',
+                'source' => 'Type !`*strong*` and !`/emphasis/` to show the raw delimiters, '
+                    . 'while `regular code` still gets a code box.',
+            ],
+            'task_lists' => [
+                'title' => 'Task list markers',
+                'blurb' => 'Carve recognises done, dropped and deferred task states in addition to the plain checkbox.',
+                'source' => "- [x] Ship the gallery\n- [ ] Write the docs\n- [-] Drop the old approach\n- [>] Defer the polish",
+            ],
+            'tight_loose' => [
+                'title' => 'Tight vs loose lists',
+                'blurb' => 'Blank lines between items make a list loose: each item is wrapped in <p>, adding vertical '
+                    . 'rhythm. Without blank lines the list is tight and compact.',
+                'source' => "Tight:\n\n- one\n- two\n- three\n\nLoose:\n\n- one\n\n- two\n\n- three",
+            ],
+            'definition_lists' => [
+                'title' => 'Definition lists',
+                'blurb' => 'A term line starts with :: and each definition line starts with a colon and two spaces.',
+                'source' => ":: Carve\n:  A post-Markdown lightweight markup language.\n\n"
+                    . ":: Djot\n:  The syntax Carve builds on and diverges from.",
+            ],
+            'smart_typography' => [
+                'title' => 'Dash-run and quote typography',
+                'blurb' => 'Two hyphens become an en dash, three become an em dash, and three dots become an ellipsis. '
+                    . 'Straight quotes curl into typographic quotes.',
+                'source' => 'Pages 10--20 cover it -- but the details --- all of them --- come later... '
+                    . 'She said "it just works" and I agreed.',
+            ],
+            'footnotes' => [
+                'title' => 'Footnotes',
+                'blurb' => 'A reference like [^1] links to a definition collected into an endnotes section, with a '
+                    . 'back-link to where it was cited.',
+                'source' => "Carve renders identically across every implementation.[^spec]\n\n"
+                    . "[^spec]: Guaranteed by a shared conformance corpus.",
+            ],
+            'strict_column0' => [
+                'title' => 'Strict column-0 block markers',
+                'blurb' => 'Block markers only open a block at column 0. Indent a heading or fence marker and it stays '
+                    . 'literal text - no accidental structure from stray leading spaces.',
+                'source' => "This paragraph is real.\n\n   ### This stays literal (indented three spaces)\n\n"
+                    . "# This is a real heading",
+            ],
+        ];
+
+        foreach ($samples as &$sample) {
+            $sample['html'] = $manager->toHtml($sample['source'], 'syntax');
+        }
+        unset($sample);
+
+        return view('demo.syntax', [
+            'samples' => $samples,
+        ]);
+    }
+
+    public function renderTargets(CarveConverterInterface $carve): View
+    {
+        $source = <<<'CARVE'
+        # Release notes
+
+        Carve /renders/ to *four* targets from one source.
+
+        - [x] HTML for the web
+        - [x] Plain text for search
+        - [ ] Your custom renderer
+
+        > One syntax, one meaning.
+
+        ```php
+        $html = $carve->toHtml($source);
+        ```
+
+        See the [Carve org](https://github.com/markup-carve).
+        CARVE;
+
+        return view('demo.render_targets', [
+            'source' => $source,
+            'html' => $carve->toHtml($source),
+            'text' => $carve->toText($source),
+            'markdown' => $carve->toMarkdown($source),
+            'ansi' => $carve->toAnsi($source),
         ]);
     }
 }
