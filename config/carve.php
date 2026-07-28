@@ -134,6 +134,29 @@ return [
             ],
         ],
 
+        // PlantUML fenced diagrams. The `plantuml` shorthand registers the
+        // FencedRenderExtension::plantuml() preset, which claims `plantuml` and
+        // `puml` fences and emits <pre class="plantuml"> for a client-side
+        // PlantUML renderer to hydrate (see the runtime note in the README).
+        'with_plantuml' => [
+            'safe_mode' => false,
+            'extensions' => [
+                'plantuml',
+            ],
+        ],
+
+        // Sanitized SVG image fences. The `img_fence` shorthand registers the
+        // carve-php ImgFenceExtension: an `img` / `image` fence renders its SVG
+        // body sandboxed into a `data:image/svg+xml` <img>, with scripts and
+        // active content stripped. Safe under untrusted input, so safe_mode
+        // stays on.
+        'with_img_fence' => [
+            'safe_mode' => true,
+            'extensions' => [
+                'img_fence',
+            ],
+        ],
+
     ],
 
     'cache' => [

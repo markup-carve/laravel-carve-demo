@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use MarkupCarve\LaravelCarve\Service\CarveConverterInterface;
 use MarkupCarve\LaravelCarve\Service\CarveManager;
+use MarkupCarve\LaravelCarve\Service\ExtensionFactory;
 
 class DemoController extends Controller
 {
@@ -331,6 +332,52 @@ class DemoController extends Controller
             'code_group_html' => $manager->toHtml($codeGroupSource, 'with_code_group'),
             'admonition_source' => $admonitionSource,
             'admonition_html' => $manager->toHtml($admonitionSource, 'with_admonition'),
+        ]);
+    }
+
+    public function diagrams(CarveManager $manager): View
+    {
+        // PlantUML fence: covers UML shapes Mermaid does not (sequence, use case,
+        // component, deployment). Rendered server-side to <pre class="plantuml">;
+        // the layout hydrates it into an image via the public PlantUML server.
+        $plantumlSource = <<<'CARVE'
+        ``` plantuml
+        @startuml
+        actor User
+        participant "Laravel App" as App
+        participant "laravel-carve" as Carve
+
+        User -> App: submit Carve markup
+        App -> Carve: toHtml(source, 'with_plantuml')
+        Carve --> App: <pre class="plantuml">...</pre>
+        App --> User: rendered page
+        @enduml
+        ```
+        CARVE;
+
+        // SVG img fence: the SVG body is sanitized (the <script> and the inline
+        // onclick handler below are stripped) and emitted as a sandboxed
+        // data:image/svg+xml <img>. Fully server-side, no client library needed.
+        $imgFenceSource = <<<'CARVE'
+        {alt="Carve logo mark"}
+        ``` img
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+          <title>Carve logo mark</title>
+          <rect width="120" height="120" rx="16" fill="#ff2d20"/>
+          <path d="M30 78 L60 30 L90 78 Z" fill="#ffffff"/>
+          <circle cx="60" cy="70" r="10" fill="#ff2d20"/>
+          <script>alert('this script is stripped by the sanitizer')</script>
+          <rect x="0" y="0" width="10" height="10" onclick="alert('handler stripped too')"/>
+        </svg>
+        ```
+        CARVE;
+
+        return view('demo.diagrams', [
+            'plantuml_source' => $plantumlSource,
+            'plantuml_html' => $manager->toHtml($plantumlSource, 'with_plantuml'),
+            'img_fence_source' => $imgFenceSource,
+            'img_fence_html' => $manager->toHtml($imgFenceSource, 'with_img_fence'),
+            'extension_types' => ExtensionFactory::types(),
         ]);
     }
 }

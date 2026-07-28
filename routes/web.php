@@ -15,3 +15,4 @@ Route::get('/safe-mode', [DemoController::class, 'safeMode'])->name('safe_mode')
 Route::get('/static-mode', [DemoController::class, 'staticMode'])->name('static_mode');
 Route::get('/plain-text', [DemoController::class, 'plainText'])->name('plain_text');
 Route::get('/extensions', [DemoController::class, 'extensions'])->name('extensions');
+Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');

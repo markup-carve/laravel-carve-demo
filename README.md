@@ -57,6 +57,7 @@ Then open <http://127.0.0.1:8000> in your browser.
 | `/safe-mode` | XSS protection for untrusted content |
 | `/plain-text` | Extracting plain text for search/excerpts |
 | `/extensions` | Live demo of all configured Carve extensions |
+| `/diagrams` | PlantUML fenced diagrams and sanitized SVG image fences (0.1.3) |
 
 ## Features Demonstrated
 
@@ -156,11 +157,27 @@ The demo's converter profiles in `config/carve.php` enable these Carve extension
 - **External Links** — `target="_blank"` + `rel` attributes
 - **Frontmatter** — YAML/TOML/JSON frontmatter parsing
 - **Heading Permalinks** — Anchor links on headings
+- **Image Fence** — `img` / `image` fences render sanitized SVG as a sandboxed `data:image/svg+xml` `<img>` (`img_fence` shorthand, 0.1.3)
 - **Mentions** — `@username` → profile links
+- **PlantUML** — `plantuml` / `puml` fenced diagrams via the `plantuml` shorthand (0.1.3)
 - **Semantic Spans** — `<kbd>`, `<dfn>`, `<abbr>` from span syntax
 - **Smart Quotes** — Typographic (curly) quotes
 - **Table of Contents** — Generated heading TOC via the `table_of_contents` extension
 - **Wikilinks** — `[[Page Name]]` wiki-style links
+
+All shorthand extension types are discoverable at runtime via
+`MarkupCarve\LaravelCarve\Service\ExtensionFactory::types()`, listed live on the
+`/diagrams` page.
+
+### Runtime note: PlantUML rendering
+
+The `plantuml` shorthand renders server-side to `<pre class="plantuml">` (the same
+graceful-degradation shape as Mermaid); the diagram source is always visible even
+with no client renderer. The `/diagrams` page hydrates that source into an image in
+the browser using the public PlantUML server (`https://www.plantuml.com/plantuml/`),
+so live diagram rendering needs outbound network access to that host (or a
+self-hosted PlantUML server). Without it, the page still renders — the diagram
+source simply stays as text. No PlantUML binary is required by the demo itself.
 
 ## Configuration
 

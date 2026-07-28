@@ -74,5 +74,15 @@
 ]</code></pre>
         <p><a href="{{ route('extensions') }}">View Demo &rarr;</a></p>
     </div>
+
+    <div class="card">
+        <h2>Diagrams &amp; Media</h2>
+        <p>PlantUML fenced diagrams and sanitized SVG image fences (0.1.3).</p>
+        <pre><code>'extensions' => [
+    'plantuml',
+    'img_fence',
+]</code></pre>
+        <p><a href="{{ route('diagrams') }}">View Demo &rarr;</a></p>
+    </div>
 </div>
 @endsection
