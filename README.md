@@ -2,8 +2,6 @@
 
 A demo application showcasing all features of the [markup-carve/laravel-carve](https://github.com/markup-carve/laravel-carve) package.
 
-![Blade Directive Demo](docs/screenshots/blade-directive.png)
-
 ## Requirements
 
 - PHP 8.2+
@@ -39,15 +37,8 @@ Then open <http://127.0.0.1:8000> in your browser.
 
 ## Screenshots
 
-**Home** — overview of all features:
+See the **[screenshot gallery](docs/screenshots/)** for a visual tour - the home overview, the Blade directive, and the live diagram gallery (all eight fenced-render presets drawn live).
 
-![Home](docs/screenshots/home.png)
-
-**Live Diagram Gallery** - all eight fenced-render presets drawn in the browser (mermaid, plantuml, graphviz, d2, vega-lite, wavedrom, chart, abc), plus the sanitized SVG image fence and the discoverable shorthand types:
-
-![Live Diagram Gallery](docs/screenshots/diagram-gallery.png)
-
-**Blade Directive** demo (shown at the top of this README) — `@carve`, `@carveRaw`, `@carveText` usage with side-by-side source/rendered output.
 
 ## Demo Pages
 
