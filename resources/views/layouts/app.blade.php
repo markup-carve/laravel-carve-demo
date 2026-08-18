@@ -184,6 +184,7 @@
         <a href="{{ route('diagrams') }}" @class(['active' => request()->routeIs('diagrams')])>Diagrams</a>
         <a href="{{ route('syntax') }}" @class(['active' => request()->routeIs('syntax')])>Syntax</a>
         <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
+        <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
     </nav>
     @yield('body')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">

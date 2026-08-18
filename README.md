@@ -53,6 +53,7 @@ See the **[screenshot gallery](docs/screenshots/)** for a visual tour - the home
 | `/plain-text` | Extracting plain text for search/excerpts |
 | `/extensions` | Live demo of all configured Carve extensions |
 | `/diagrams` | PlantUML fenced diagrams and sanitized SVG image fences (0.1.3) |
+| `/editor-preview` | Trusted symbols and source-line metadata for synchronized previews (0.1.5) |
 
 ## Features Demonstrated
 
@@ -177,6 +178,14 @@ source simply stays as text. No PlantUML binary is required by the demo itself.
 ## Configuration
 
 See `config/carve.php` for the full example configuration covering every profile used by the demo.
+
+The `editor_preview` profile demonstrates the 0.1.5 `symbols` and
+`source_lines` options. Symbol values are trusted raw HTML configuration and
+must never be populated from user input. Source-line mode adds 1-based
+`data-source-line` attributes to rendered blocks for editor scroll sync.
+The demo also enables the self-contained `array` cache store; its feature tests
+render identical source through safe and trusted profiles to prove cached HTML
+cannot leak between converter configurations.
 
 ## Ecosystem
 

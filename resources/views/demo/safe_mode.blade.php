@@ -16,7 +16,7 @@
 
 <div class="columns">
     <div class="card">
-        <h2><span class="badge badge-unsafe">UNSAFE</span> Default Profile</h2>
+        <h2><span class="badge badge-unsafe">UNSAFE</span> trusted Profile</h2>
         <pre><code>'safe_mode' => false</code></pre>
         <div class="warning">
             <strong>Warning:</strong> Raw HTML passes through!
@@ -43,7 +43,7 @@
     <pre><code>// config/carve.php
 return [
     'converters' => [
-        'default' => [
+        'trusted' => [
             'safe_mode' => false, // For trusted content (admin, CMS)
         ],
         'user_content' => [
@@ -53,8 +53,8 @@ return [
 ];</code></pre>
 
     <h3>Usage in Blade</h3>
-    <pre><code>{{-- Trusted content - default converter --}}
-@@carve($article->body)
+    <pre><code>{{-- Trusted content - explicitly selected converter --}}
+&#123;!! Carve::toHtml($article->body, 'trusted') !!&#125;
 
 {{-- User content - safe converter via facade --}}
 &#123;!! Carve::toHtml($comment->body, 'user_content') !!&#125;</code></pre>

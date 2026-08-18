@@ -18,3 +18,4 @@ Route::get('/extensions', [DemoController::class, 'extensions'])->name('extensio
 Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');
 Route::get('/syntax', [DemoController::class, 'syntax'])->name('syntax');
 Route::get('/render-targets', [DemoController::class, 'renderTargets'])->name('render_targets');
+Route::get('/editor-preview', [DemoController::class, 'editorPreview'])->name('editor_preview');

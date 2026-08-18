@@ -101,5 +101,13 @@ the literal delimiters.</code></pre>
 $carve->toAnsi($src);</code></pre>
         <p><a href="{{ route('render_targets') }}">View Demo &rarr;</a></p>
     </div>
+
+    <div class="card">
+        <h2>Editor Preview Metadata</h2>
+        <p>Trusted symbol replacements and <code>data-source-line</code> markers for editor preview synchronization.</p>
+        <pre><code>'symbols' => ['spark' => '✦'],
+'source_lines' => true,</code></pre>
+        <p><a href="{{ route('editor_preview') }}">View Demo &rarr;</a></p>
+    </div>
 </div>
 @endsection
