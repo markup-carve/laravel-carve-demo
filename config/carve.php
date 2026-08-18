@@ -42,6 +42,23 @@ return [
             'safe_mode' => true,
         ],
 
+        // Explicit raw-HTML passthrough for trusted administrator-authored
+        // content only. Never select this profile for user submissions.
+        'trusted' => [
+            'safe_mode' => false,
+        ],
+
+        // Editor preview profile: trusted symbol replacements and source-line
+        // markers for scroll synchronization. Symbol HTML is configuration,
+        // never user input.
+        'editor_preview' => [
+            'safe_mode' => true,
+            'symbols' => [
+                'spark' => '<span class="carve-symbol" aria-label="spark">✦</span>',
+            ],
+            'source_lines' => true,
+        ],
+
         'with_mentions' => [
             'safe_mode' => false,
             'extensions' => [
@@ -194,8 +211,10 @@ return [
     ],
 
     'cache' => [
-        'enabled' => false,
-        'store' => null,
+        // The in-memory store keeps the runnable demo self-contained while
+        // exercising the integration's converter-aware render cache.
+        'enabled' => true,
+        'store' => 'array',
     ],
 
 ];
