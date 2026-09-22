@@ -567,8 +567,8 @@ class DemoController extends Controller
             'definition_lists' => [
                 'title' => 'Definition lists',
                 'blurb' => 'A term line starts with :: and each definition line starts with a colon and two spaces.',
-                'source' => ":: Carve\n:  A post-Markdown lightweight markup language.\n\n"
-                    . ":: Djot\n:  The syntax Carve builds on and diverges from.",
+                'source' => ":: Carve\n:  A lightweight markup language for structured documents.\n\n"
+                    . ":: Renderer\n:  An engine that turns Carve source into HTML, text, Markdown, or ANSI.",
             ],
             'smart_typography' => [
                 'title' => 'Dash-run and quote typography',

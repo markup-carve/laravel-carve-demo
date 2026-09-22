@@ -5,7 +5,7 @@
 @section('body')
 <div class="card">
     <h1>Carve Syntax &amp; What is New</h1>
-    <p>Carve is a post-Markdown markup language: one syntax, one meaning, the same HTML
+    <p>Carve is a lightweight markup language with one syntax, one meaning, and the same HTML
        from every implementation. This page shows the newest addition -
        <strong>inline literals</strong> - alongside the convergence behaviours worth
        knowing when you author Carve. Every sample below is rendered live through the
