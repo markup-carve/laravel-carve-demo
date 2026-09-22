@@ -14,6 +14,7 @@ Route::post('/form', [DemoController::class, 'formSubmit'])->name('form.submit')
 Route::get('/safe-mode', [DemoController::class, 'safeMode'])->name('safe_mode');
 Route::get('/static-mode', [DemoController::class, 'staticMode'])->name('static_mode');
 Route::get('/plain-text', [DemoController::class, 'plainText'])->name('plain_text');
+Route::get('/file-includes', [DemoController::class, 'fileIncludes'])->name('file_includes');
 Route::get('/extensions', [DemoController::class, 'extensions'])->name('extensions');
 Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');
 Route::get('/syntax', [DemoController::class, 'syntax'])->name('syntax');

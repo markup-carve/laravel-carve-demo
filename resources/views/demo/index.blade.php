@@ -66,6 +66,13 @@
     </div>
 
     <div class="card">
+        <h2>File Includes</h2>
+        <p>Render a trusted document with nested, root-contained <code>{{ '{{ path.crv }}' }}</code> includes.</p>
+        <pre><code>Carve::toHtmlFileWithReport($path)</code></pre>
+        <p><a href="{{ route('file_includes') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
         <h2>Extensions</h2>
         <p>All bundled extensions: autolink, mentions, TOC, wikilinks, admonitions, tabs, code groups &amp; more.</p>
         <pre><code>'extensions' => [

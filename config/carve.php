@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 return [
 
+    // The demo's trusted, file-backed documents. String rendering stays literal.
+    'include_root' => resource_path('carve'),
+
     'converters' => [
 
         // Default: safe rendering (XSS protection) with handy extensions.
