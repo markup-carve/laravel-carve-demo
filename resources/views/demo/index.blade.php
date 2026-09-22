@@ -67,7 +67,7 @@
 
     <div class="card">
         <h2>File Includes</h2>
-        <p>Render a trusted document with nested, root-contained <code>{{ '{{ path.crv }}' }}</code> includes.</p>
+        <p>Render a trusted document with nested, root-contained <code>&#123;&#123; path.crv &#125;&#125;</code> includes.</p>
         <pre><code>Carve::toHtmlFileWithReport($path)</code></pre>
         <p><a href="{{ route('file_includes') }}">View Demo &rarr;</a></p>
     </div>
