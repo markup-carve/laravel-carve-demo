@@ -166,6 +166,19 @@ class DemoController extends Controller
         ]);
     }
 
+    public function fileIncludes(CarveConverterInterface $carve): View
+    {
+        $path = resource_path('carve/main.crv');
+        $report = $carve->toHtmlFileWithReport($path);
+
+        return view('demo.file_includes', [
+            'source' => (string) file_get_contents($path),
+            'html' => $report['value'],
+            'dependencies' => $report['dependencies'],
+            'warnings' => $report['warnings'],
+        ]);
+    }
+
     public function extensions(CarveManager $manager): View
     {
         $autolinkSource = <<<'CARVE'
