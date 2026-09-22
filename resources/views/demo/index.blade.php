@@ -66,10 +66,10 @@
     </div>
 
     <div class="card">
-        <h2>File Includes</h2>
-        <p>Render a trusted document with nested, root-contained <code>&#123;&#123; path.crv &#125;&#125;</code> includes.</p>
+        <h2>Includes</h2>
+        <p>Render trusted file-backed content or resolve dynamic snippets from application configuration.</p>
         <pre><code>Carve::toHtmlFileWithReport($path)</code></pre>
-        <p><a href="{{ route('file_includes') }}">View Demo &rarr;</a></p>
+        <p><a href="{{ route('includes') }}">View Demo &rarr;</a></p>
     </div>
 
     <div class="card">

@@ -7,6 +7,17 @@ return [
     // The demo's trusted, file-backed documents. String rendering stays literal.
     'include_root' => resource_path('carve'),
 
+    // Application-owned, trusted snippets for the Includes page. A resolver
+    // can use this same contract for rows from a database or CMS.
+    'include_snippets' => [
+        'account-status' => <<<'CARVE'
+        ::: note "Account status"
+        You have *3 pending reviews* in the current workspace.
+        :::
+        CARVE,
+        'support-hours' => 'Support is available Monday to Friday, 09:00 to 17:00 UTC.',
+    ],
+
     'converters' => [
 
         // Default: safe rendering (XSS protection) with handy extensions.
