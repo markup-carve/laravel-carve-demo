@@ -180,6 +180,7 @@
         <a href="{{ route('safe_mode') }}" @class(['active' => request()->routeIs('safe_mode')])>Safe Mode</a>
         <a href="{{ route('static_mode') }}" @class(['active' => request()->routeIs('static_mode')])>Static Mode</a>
         <a href="{{ route('plain_text') }}" @class(['active' => request()->routeIs('plain_text')])>Plain Text</a>
+        <a href="{{ route('includes') }}" @class(['active' => request()->routeIs('includes')])>Includes</a>
         <a href="{{ route('extensions') }}" @class(['active' => request()->routeIs('extensions')])>Extensions</a>
         <a href="{{ route('diagrams') }}" @class(['active' => request()->routeIs('diagrams')])>Diagrams</a>
         <a href="{{ route('syntax') }}" @class(['active' => request()->routeIs('syntax')])>Syntax</a>

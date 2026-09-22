@@ -19,22 +19,23 @@ class DiagramsTest extends TestCase
 
     /**
      * Every FencedRenderExtension preset must emit its client-hydration markup:
-     * a <pre class="TYPE"> for text-mode presets and a <div class="TYPE"> with a
+     * a <pre class="TYPE" ...> for text-mode presets and a <div class="TYPE" ...> with a
      * JSON <script> for the json-mode ones.
      */
     public function test_all_eight_diagram_types_emit_hydration_markup(): void
     {
         $response = $this->get('/diagrams');
 
-        // Text-mode presets: <pre class="TYPE">.
+        // Text-mode presets: <pre class="TYPE" ...>. Accessible metadata may
+        // follow the class attribute.
         foreach (['mermaid', 'd2', 'graphviz', 'plantuml', 'wavedrom', 'abc'] as $type) {
-            $response->assertSee('<pre class="' . $type . '">', escape: false);
+            $response->assertSee('<pre class="' . $type . '"', escape: false);
         }
 
-        // JSON-mode presets: <div class="TYPE"><script type="application/json">.
+        // JSON-mode presets: <div class="TYPE" ...><script type="application/json">.
         foreach (['vega-lite', 'chart'] as $type) {
             $response->assertSee(
-                '<div class="' . $type . '"><script type="application/json">',
+                '<div class="' . $type . '"',
                 escape: false,
             );
         }

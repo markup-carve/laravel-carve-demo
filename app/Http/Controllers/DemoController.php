@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use App\Carve\ConfigIncludeResolver;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use MarkupCarve\Carve\CarveConverter as BaseCarveConverter;
+use MarkupCarve\Carve\Transform\IncludeExpander;
 use MarkupCarve\LaravelCarve\Service\CarveConverterInterface;
 use MarkupCarve\LaravelCarve\Service\CarveManager;
 use MarkupCarve\LaravelCarve\Service\ExtensionFactory;
@@ -166,16 +169,35 @@ class DemoController extends Controller
         ]);
     }
 
-    public function fileIncludes(CarveConverterInterface $carve): View
+    public function includes(CarveConverterInterface $carve): View
     {
         $path = resource_path('carve/main.crv');
-        $report = $carve->toHtmlFileWithReport($path);
+        $fileReport = $carve->toHtmlFileWithReport($path);
+        $dynamicSource = <<<'CARVE'
+        # Account overview
+
+        {{ account-status }}
+
+        {{ support-hours }}
+        CARVE;
+        $converter = new BaseCarveConverter(safeMode: true);
+        $expander = new IncludeExpander(
+            resolver: new ConfigIncludeResolver(config('carve.include_snippets')),
+            currentPath: 'config:account-overview',
+            source: $dynamicSource,
+            extensions: $converter->getExtensions(),
+        );
+        $dynamicDocument = $converter->transform($converter->parse($dynamicSource), $expander);
 
         return view('demo.file_includes', [
-            'source' => (string) file_get_contents($path),
-            'html' => $report['value'],
-            'dependencies' => $report['dependencies'],
-            'warnings' => $report['warnings'],
+            'file_source' => (string) file_get_contents($path),
+            'file_html' => $fileReport['value'],
+            'file_dependencies' => $fileReport['dependencies'],
+            'file_warnings' => $fileReport['warnings'],
+            'dynamic_source' => $dynamicSource,
+            'dynamic_html' => $converter->render($dynamicDocument),
+            'dynamic_dependencies' => $expander->getDependencies(),
+            'dynamic_warnings' => $expander->getWarnings(),
         ]);
     }
 

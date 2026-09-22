@@ -16,4 +16,13 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_includes_page_renders_file_and_configuration_content(): void
+    {
+        $this->get('/includes')
+            ->assertOk()
+            ->assertSee('Reusable content')
+            ->assertSee('parts/intro.crv')
+            ->assertSee('Account status');
+    }
 }
