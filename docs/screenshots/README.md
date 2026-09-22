@@ -9,6 +9,13 @@ Overview of all features.
 
 ![Home](home.png)
 
+## Includes
+
+Trusted file-backed content and application-provided snippets, with each
+directive's resolved dependency report.
+
+![Includes](includes.png)
+
 ## Blade Directive
 
 `@carve`, `@carveRaw`, and `@carveText` with side-by-side source and rendered

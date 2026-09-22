@@ -37,7 +37,7 @@ Then open <http://127.0.0.1:8000> in your browser.
 
 ## Screenshots
 
-See the **[screenshot gallery](docs/screenshots/)** for a visual tour - the home overview, the Blade directive, and the live diagram gallery (all eight fenced-render presets drawn live).
+See the **[screenshot gallery](docs/screenshots/)** for a visual tour of the home overview, Includes, the Blade directive, and the live diagram gallery with all eight presets drawn live.
 
 
 ## Demo Pages
@@ -51,6 +51,7 @@ See the **[screenshot gallery](docs/screenshots/)** for a visual tour - the home
 | `/form` | Form validation with the `ValidCarve` rule |
 | `/safe-mode` | XSS protection for untrusted content |
 | `/plain-text` | Extracting plain text for search/excerpts |
+| `/includes` | Trusted file-backed content and configuration-backed snippets |
 | `/extensions` | Live demo of all configured Carve extensions |
 | `/diagrams` | PlantUML fenced diagrams and sanitized SVG image fences (0.1.3) |
 | `/editor-preview` | Trusted symbols and source-line metadata for synchronized previews (0.1.5) |
