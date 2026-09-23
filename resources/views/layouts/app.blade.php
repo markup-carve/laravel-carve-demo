@@ -167,10 +167,14 @@
             line-height: 1.5;
             white-space: pre;
         }
+        .static-preview { background: #e8f0fe; border: 1px solid #7aa2e3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; }
     </style>
     @stack('head')
 </head>
 <body>
+    @if (config('demo-pages.static_export'))
+        <div class="static-preview"><strong>Static preview.</strong> Server-backed interactions are available only in a local checkout.</div>
+    @endif
     <nav>
         <a href="{{ route('home') }}" @class(['active' => request()->routeIs('home')])>Home</a>
         <a href="{{ route('blade_directive') }}" @class(['active' => request()->routeIs('blade_directive')])>Blade Directive</a>

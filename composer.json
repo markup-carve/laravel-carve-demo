@@ -53,7 +53,8 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "serve": "@php artisan serve"
+        "serve": "@php artisan serve",
+        "export-static": "STATIC_EXPORT=true APP_URL=https://markup-carve.github.io/laravel-carve-demo SESSION_DRIVER=array CACHE_STORE=array php artisan demo:export"
     },
     "extra": {
         "laravel": {
