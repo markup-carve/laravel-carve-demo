@@ -58,12 +58,30 @@
             padding: 15px;
         }
         .rendered h1, .rendered h2, .rendered h3 { color: #333; }
+        .rendered > :first-child { margin-top: 0; }
+        .rendered > :last-child { margin-bottom: 0; }
+        .rendered ul, .rendered ol { padding-left: 1.5rem; }
+        .rendered li > input[type="checkbox"] { margin: 0 0.5rem 0 0; vertical-align: -0.1em; }
+        .rendered li:has(> input[type="checkbox"]) { list-style: none; }
+        .rendered li[data-task-state="-"] { text-decoration: line-through; opacity: 0.65; }
+        .rendered li[data-task-state=">"]::before { content: "↪"; margin-left: -1.25rem; margin-right: 0.35rem; }
         .rendered blockquote {
             border-left: 4px solid #ff2d20;
             margin: 0;
             padding-left: 15px;
             color: #666;
         }
+        .rendered dl { margin: 1em 0; }
+        .rendered dt { font-weight: 700; }
+        .rendered dd { margin: 0 0 0.75em 1.5em; }
+        .rendered table { border-collapse: collapse; width: 100%; }
+        .rendered th, .rendered td { border: 1px solid #ddd; padding: 6px 12px; }
+        .rendered th { background: #f1f1f1; text-align: left; }
+        .rendered hr { border: 0; border-top: 1px solid #ddd; margin: 1.5em 0; }
+        .rendered img, .rendered svg, .rendered canvas { max-width: 100%; height: auto; }
+        .rendered pre.mermaid, .diagram-draw > pre[class] { background: #fff; color: #222; border: 1px dashed #ddd; }
+        .rendered pre.mermaid[data-processed] { border: 0; padding: 0; }
+        .rendered pre.mermaid[data-processed] svg { display: block; margin: 0 auto; }
         .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 768px) { .columns { grid-template-columns: 1fr; } }
         form label { display: block; font-weight: bold; margin-top: 15px; }
@@ -200,7 +218,7 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/highlight.min.js"></script>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
         // highlight fenced code blocks (language-* classes from Carve), but
         // leave mermaid sources alone
         document.querySelectorAll('pre code[class*="language-"]').forEach((el) => {

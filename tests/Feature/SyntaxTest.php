@@ -34,6 +34,14 @@ class SyntaxTest extends TestCase
         $response->assertSee('<dt>Carve</dt>', escape: false);
     }
 
+    public function test_preferred_ordered_list_marker_renders_as_an_ordered_list(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('. First item');
+        $response->assertSee("<ol>\n  <li>First item</li>", escape: false);
+    }
+
     public function test_footnotes_render_endnotes_section(): void
     {
         $response = $this->get('/syntax');

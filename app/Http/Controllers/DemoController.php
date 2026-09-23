@@ -558,6 +558,11 @@ class DemoController extends Controller
                 'blurb' => 'Carve recognises done, dropped and deferred task states in addition to the plain checkbox.',
                 'source' => "- [x] Ship the gallery\n- [ ] Write the docs\n- [-] Drop the old approach\n- [>] Defer the polish",
             ],
+            'ordered_lists' => [
+                'title' => 'Ordered list markers',
+                'blurb' => 'A bare dot is Carve’s preferred ordered-list marker. It stays aligned as numbering grows.',
+                'source' => ". First item\n. Second item\n. Third item",
+            ],
             'tight_loose' => [
                 'title' => 'Tight vs loose lists',
                 'blurb' => 'Blank lines between items make a list loose: each item is wrapped in <p>, adding vertical '
