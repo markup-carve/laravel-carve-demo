@@ -565,7 +565,7 @@ class DemoController extends Controller
             'tables' => [
                 'title' => 'Table headers',
                 'blurb' => 'The |= marker defines a header cell directly, without a Markdown separator row.',
-                'source' => "|= Lang |= Status |\n| PHP   | ready  |\n| JS    | ready  |",
+                'source' => "|= Lang |= Status |\n| PHP | ready |\n| JS | ready |",
             ],
             'tight_loose' => [
                 'title' => 'Tight vs loose lists',
@@ -575,9 +575,9 @@ class DemoController extends Controller
             ],
             'definition_lists' => [
                 'title' => 'Definition lists',
-                'blurb' => 'A term line starts with :: and each definition line starts with a colon and two spaces.',
-                'source' => ":: Carve\n:  A lightweight markup language for structured documents.\n\n"
-                    . ":: Renderer\n:  An engine that turns Carve source into HTML, text, Markdown, or ANSI.",
+                'blurb' => 'A term line starts with :: and each definition line starts with a colon and one space.',
+                'source' => ":: Carve\n: A lightweight markup language for structured documents.\n"
+                    . ":: Renderer\n: An engine that turns Carve source into HTML, text, Markdown, or ANSI.",
             ],
             'smart_typography' => [
                 'title' => 'Dash-run and quote typography',
@@ -593,16 +593,17 @@ class DemoController extends Controller
                 'source' => "Carve renders identically across every implementation.[^spec]\n\n"
                     . "[^spec]: Guaranteed by a shared conformance corpus.",
             ],
-            'strict_column0' => [
-                'title' => 'Strict column-0 block markers',
-                'blurb' => 'Block markers only open a block at column 0. Indent a heading or fence marker and it stays '
-                    . 'literal text - no accidental structure from stray leading spaces.',
-                'source' => "This paragraph is real.\n\n   ### This stays literal (indented three spaces)\n\n"
-                    . "# This is a real heading",
+            'escaped_markers' => [
+                'title' => 'Escaped block markers',
+                'blurb' => 'A backslash keeps a block marker literal when it appears at the start of a line.',
+                'source' => "This paragraph is real.\n\n\\#\\#\\# This stays literal\n\n# This is a real heading",
             ],
         ];
 
         foreach ($samples as &$sample) {
+            if (BaseCarveConverter::toCarve($sample['source']) !== $sample['source']."\n") {
+                throw new \LogicException("Syntax example is not canonical: {$sample['title']}");
+            }
             $sample['html'] = $manager->toHtml($sample['source'], 'syntax');
         }
         unset($sample);

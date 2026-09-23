@@ -30,6 +30,8 @@ class SyntaxTest extends TestCase
     {
         $response = $this->get('/syntax');
 
+        $response->assertSee(': A lightweight markup language');
+        $response->assertDontSee(':  A lightweight markup language');
         $response->assertSee('<dl>', escape: false);
         $response->assertSee('<dt>Carve</dt>', escape: false);
     }
@@ -73,13 +75,14 @@ class SyntaxTest extends TestCase
         $response->assertSee('role="doc-endnotes"', escape: false);
     }
 
-    public function test_strict_column0_keeps_indented_heading_literal(): void
+    public function test_escaped_block_marker_stays_literal(): void
     {
         $response = $this->get('/syntax');
 
-        // The indented "### This stays literal" must NOT become an <h3>, while
-        // the flush-left "# This is a real heading" must.
+        // The escaped "### This stays literal" must not become an <h3>, while
+        // the unescaped heading must.
         $response->assertDontSee('<h3>This stays literal', escape: false);
+        $response->assertSee('\#\#\# This stays literal');
         $response->assertSee('This is a real heading');
     }
 }

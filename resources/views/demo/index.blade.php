@@ -95,7 +95,7 @@
     <div class="card">
         <h2>Syntax &amp; What is New</h2>
         <p>Inline literals, definition lists, footnotes, tight vs loose lists, smart
-           typography and strict column-0 block markers.</p>
+           typography and escaped block markers.</p>
         <pre><code>Type !`*strong*` to show
 the literal delimiters.</code></pre>
         <p><a href="{{ route('syntax') }}">View Demo &rarr;</a></p>
