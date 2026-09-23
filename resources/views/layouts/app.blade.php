@@ -32,6 +32,8 @@
         }
         nav a:hover { background: #555; }
         nav a.active { background: #ff2d20; }
+        .repo-links { margin: -10px 0 20px; text-align: right; font-size: 14px; }
+        .repo-links a { margin-left: 12px; }
         h1, h2, h3 { color: #333; }
         .card {
             background: #fff;
@@ -209,6 +211,10 @@
         <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
         <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
     </nav>
+    <div class="repo-links">
+        <a href="https://github.com/markup-carve/laravel-carve-demo">Demo source</a>
+        <a href="https://github.com/markup-carve/laravel-carve">laravel-carve package</a>
+    </div>
     @yield('body')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>

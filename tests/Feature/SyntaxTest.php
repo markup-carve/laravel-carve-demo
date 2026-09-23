@@ -42,6 +42,30 @@ class SyntaxTest extends TestCase
         $response->assertSee("<ol>\n  <li>First item</li>", escape: false);
     }
 
+    public function test_canonical_table_headers_render_without_a_separator_row(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('|= Lang |= Status |');
+        $this->assertDoesNotMatchRegularExpression(
+            '/^\|(?:\s*:?-+:?\s*\|)+$/m',
+            $response->getContent(),
+        );
+        $response->assertSee('<th scope="col">Lang</th>', escape: false);
+        $response->assertSee('<th scope="col">Status</th>', escape: false);
+    }
+
+    public function test_extension_examples_use_canonical_table_headers(): void
+    {
+        $response = $this->get('/extensions');
+
+        $response->assertSee('|= Name |= Role |');
+        $this->assertDoesNotMatchRegularExpression(
+            '/^\|(?:\s*:?-+:?\s*\|)+$/m',
+            $response->getContent(),
+        );
+    }
+
     public function test_footnotes_render_endnotes_section(): void
     {
         $response = $this->get('/syntax');

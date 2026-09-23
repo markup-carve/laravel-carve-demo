@@ -273,8 +273,7 @@ class DemoController extends Controller
 
         And a table:
 
-        | Name | Role |
-        |------|------|
+        |= Name |= Role |
         | Alice | Admin |
         | Bob | User |
 
@@ -562,6 +561,11 @@ class DemoController extends Controller
                 'title' => 'Ordered list markers',
                 'blurb' => 'A bare dot is Carve’s preferred ordered-list marker. It stays aligned as numbering grows.',
                 'source' => ". First item\n. Second item\n. Third item",
+            ],
+            'tables' => [
+                'title' => 'Table headers',
+                'blurb' => 'The |= marker defines a header cell directly, without a Markdown separator row.',
+                'source' => "|= Lang |= Status |\n| PHP   | ready  |\n| JS    | ready  |",
             ],
             'tight_loose' => [
                 'title' => 'Tight vs loose lists',

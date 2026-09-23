@@ -30,7 +30,11 @@ class DemoRouteCoverageTest extends TestCase
 
         foreach ($declared as $name => $mode) {
             $this->assertContains($mode, $allowedModes, "Unknown mode for {$name}");
-            $this->get($actual[$name])->assertOk()->assertSee('<nav', false);
+            $this->get($actual[$name])
+                ->assertOk()
+                ->assertSee('<nav', false)
+                ->assertSee('href="https://github.com/markup-carve/laravel-carve-demo"', false)
+                ->assertSee('href="https://github.com/markup-carve/laravel-carve"', false);
         }
     }
 
