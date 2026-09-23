@@ -32,6 +32,8 @@
         }
         nav a:hover { background: #555; }
         nav a.active { background: #ff2d20; }
+        .repo-links { margin: -10px 0 20px; text-align: right; font-size: 14px; }
+        .repo-links a { margin-left: 12px; }
         h1, h2, h3 { color: #333; }
         .card {
             background: #fff;
@@ -58,12 +60,30 @@
             padding: 15px;
         }
         .rendered h1, .rendered h2, .rendered h3 { color: #333; }
+        .rendered > :first-child { margin-top: 0; }
+        .rendered > :last-child { margin-bottom: 0; }
+        .rendered ul, .rendered ol { padding-left: 1.5rem; }
+        .rendered li > input[type="checkbox"] { margin: 0 0.5rem 0 0; vertical-align: -0.1em; }
+        .rendered li:has(> input[type="checkbox"]) { list-style: none; }
+        .rendered li[data-task-state="-"] { text-decoration: line-through; opacity: 0.65; }
+        .rendered li[data-task-state=">"]::before { content: "↪"; margin-left: -1.25rem; margin-right: 0.35rem; }
         .rendered blockquote {
             border-left: 4px solid #ff2d20;
             margin: 0;
             padding-left: 15px;
             color: #666;
         }
+        .rendered dl { margin: 1em 0; }
+        .rendered dt { font-weight: 700; }
+        .rendered dd { margin: 0 0 0.75em 1.5em; }
+        .rendered table { border-collapse: collapse; width: 100%; }
+        .rendered th, .rendered td { border: 1px solid #ddd; padding: 6px 12px; }
+        .rendered th { background: #f1f1f1; text-align: left; }
+        .rendered hr { border: 0; border-top: 1px solid #ddd; margin: 1.5em 0; }
+        .rendered img, .rendered svg, .rendered canvas { max-width: 100%; height: auto; }
+        .rendered pre.mermaid, .diagram-draw > pre[class] { background: #fff; color: #222; border: 1px dashed #ddd; }
+        .rendered pre.mermaid[data-processed] { border: 0; padding: 0; }
+        .rendered pre.mermaid[data-processed] svg { display: block; margin: 0 auto; }
         .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 768px) { .columns { grid-template-columns: 1fr; } }
         form label { display: block; font-weight: bold; margin-top: 15px; }
@@ -120,8 +140,15 @@
             transition: background 0.2s, border-color 0.2s;
         }
         .code-group-label:hover { background: #e8e8e8; }
-        .code-group-panel { display: none; }
+        .code-group-radio ~ .code-group-panel { display: none; }
         .code-group-panel pre { margin: 0; border-radius: 0; }
+        section.code-group-panel > .code-group-label {
+            display: block;
+            margin: 0;
+            cursor: default;
+            border-bottom-color: #ddd;
+        }
+        section.code-group-panel > .code-group-label:hover { background: #f5f5f5; }
         .code-group-radio:nth-of-type(1):checked ~ .code-group-label:nth-of-type(1),
         .code-group-radio:nth-of-type(2):checked ~ .code-group-label:nth-of-type(2),
         .code-group-radio:nth-of-type(3):checked ~ .code-group-label:nth-of-type(3),
@@ -167,10 +194,14 @@
             line-height: 1.5;
             white-space: pre;
         }
+        .static-preview { background: #e8f0fe; border: 1px solid #7aa2e3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; }
     </style>
     @stack('head')
 </head>
 <body>
+    @if (config('demo-pages.static_export'))
+        <div class="static-preview"><strong>Static preview.</strong> Server-backed interactions are available only in a local checkout.</div>
+    @endif
     <nav>
         <a href="{{ route('home') }}" @class(['active' => request()->routeIs('home')])>Home</a>
         <a href="{{ route('blade_directive') }}" @class(['active' => request()->routeIs('blade_directive')])>Blade Directive</a>
@@ -187,6 +218,11 @@
         <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
         <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
     </nav>
+    <div class="repo-links">
+        <a href="https://markup-carve.github.io/carve/">Carve website</a>
+        <a href="https://github.com/markup-carve/laravel-carve-demo">Demo source</a>
+        <a href="https://github.com/markup-carve/laravel-carve">laravel-carve package</a>
+    </div>
     @yield('body')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
@@ -196,7 +232,7 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/highlight.min.js"></script>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
         // highlight fenced code blocks (language-* classes from Carve), but
         // leave mermaid sources alone
         document.querySelectorAll('pre code[class*="language-"]').forEach((el) => {

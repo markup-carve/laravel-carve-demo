@@ -134,7 +134,7 @@
     </div>
     <pre><code>[
     'type' => 'wikilinks',
-    'url_template' => '/wiki/{page}',
+    'url_template' => '/extensions?wiki={page}',
     'link_class' => 'wiki-link',
 ]</code></pre>
 </div>

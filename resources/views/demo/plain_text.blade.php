@@ -43,11 +43,11 @@ $excerpt = Str::limit($text, 200);</code></pre>
 <div class="card">
     <h2>Use Cases</h2>
     <ul>
-        <li><strong>Search indexing</strong> — Index plain text for full-text search (Laravel Scout, Meilisearch, Algolia)</li>
-        <li><strong>Excerpts</strong> — Generate article previews without markup</li>
-        <li><strong>Meta descriptions</strong> — Auto-generate SEO descriptions</li>
-        <li><strong>Notifications</strong> — Send plain text emails or SMS</li>
-        <li><strong>Accessibility</strong> — Provide alt text or screen reader content</li>
+        <li><strong>Search indexing:</strong> Index plain text for full-text search (Laravel Scout, Meilisearch, Algolia)</li>
+        <li><strong>Excerpts:</strong> Generate article previews without markup</li>
+        <li><strong>Meta descriptions:</strong> Auto-generate SEO descriptions</li>
+        <li><strong>Notifications:</strong> Send plain text emails or SMS</li>
+        <li><strong>Accessibility:</strong> Provide alt text or screen reader content</li>
     </ul>
 </div>
 @endsection

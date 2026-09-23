@@ -1,6 +1,8 @@
 # Laravel Carve Demo
 
-A demo application showcasing all features of the [markup-carve/laravel-carve](https://github.com/markup-carve/laravel-carve) package.
+A runnable application demonstrating [markup-carve/laravel-carve](https://github.com/markup-carve/laravel-carve).
+
+**[View the live demo →](https://markup-carve.github.io/laravel-carve-demo/)**
 
 ## Requirements
 
@@ -37,14 +39,14 @@ Then open <http://127.0.0.1:8000> in your browser.
 
 ## Screenshots
 
-See the **[screenshot gallery](docs/screenshots/)** for a visual tour of the home overview, Includes, the Blade directive, and the live diagram gallery with all eight presets drawn live.
+See the [screenshot gallery](docs/screenshots/) for the home page, Includes, the Blade directive, and the diagram gallery.
 
 
 ## Demo Pages
 
 | Route | Description |
 |-------|-------------|
-| `/` | Home — overview of all features |
+| `/` | Home: overview of all pages |
 | `/blade-directive` | Using the `@carve` / `@carveRaw` / `@carveText` Blade directives |
 | `/facade` | Using the `Carve` facade for inline rendering |
 | `/service` | Injecting `CarveConverterInterface` and `CarveManager` into services |
@@ -142,25 +144,25 @@ return [
 ];
 ```
 
-## Extensions Showcased
+## Extensions
 
 The demo's converter profiles in `config/carve.php` enable these Carve extensions:
 
-- **Autolink** — Converts bare URLs to links
-- **Admonition** — Styled note/tip/warning/danger blocks
-- **Code Group** — Tabbed code blocks (`::: code-group`)
-- **Default Attributes** — Auto-applied `loading="lazy"`, etc.
-- **Details** — Native `<details>`/`<summary>` disclosure blocks (enabled in the static `print` profile)
-- **External Links** — `target="_blank"` + `rel` attributes
-- **Frontmatter** — YAML/TOML/JSON frontmatter parsing
-- **Heading Permalinks** — Anchor links on headings
-- **Image Fence** — `img` / `image` fences render sanitized SVG as a sandboxed `data:image/svg+xml` `<img>` (`img_fence` shorthand, 0.1.3)
-- **Mentions** — `@username` → profile links
-- **PlantUML** — `plantuml` / `puml` fenced diagrams via the `plantuml` shorthand (0.1.3)
-- **Semantic Spans** — `<kbd>`, `<dfn>`, `<abbr>` from span syntax
-- **Smart Quotes** — Typographic (curly) quotes
-- **Table of Contents** — Generated heading TOC via the `table_of_contents` extension
-- **Wikilinks** — `[[Page Name]]` wiki-style links
+- Autolink: Converts bare URLs to links
+- Admonition: Styled note/tip/warning/danger blocks
+- Code Group: Tabbed code blocks (`::: code-group`)
+- Default Attributes: Auto-applied `loading="lazy"`, etc.
+- Details: Native `<details>`/`<summary>` disclosure blocks
+- External Links: `target="_blank"` + `rel` attributes
+- Frontmatter: YAML/TOML/JSON frontmatter parsing
+- Heading Permalinks: Anchor links on headings
+- Image Fence: `img` / `image` fences render sanitized SVG as a sandboxed `data:image/svg+xml` `<img>` (`img_fence` shorthand, 0.1.3)
+- Mentions: `@username` → profile links
+- PlantUML: `plantuml` / `puml` fenced diagrams via the `plantuml` shorthand (0.1.3)
+- Semantic Spans: `<kbd>`, `<dfn>`, `<abbr>` from span syntax
+- Smart Quotes: Typographic (curly) quotes
+- Table of Contents: Generated heading TOC via the `table_of_contents` extension
+- Wikilinks: `[[Page Name]]` wiki-style links
 
 All shorthand extension types are discoverable at runtime via
 `MarkupCarve\LaravelCarve\Service\ExtensionFactory::types()`, listed live on the
@@ -173,7 +175,7 @@ graceful-degradation shape as Mermaid); the diagram source is always visible eve
 with no client renderer. The `/diagrams` page hydrates that source into an image in
 the browser using the public PlantUML server (`https://www.plantuml.com/plantuml/`),
 so live diagram rendering needs outbound network access to that host (or a
-self-hosted PlantUML server). Without it, the page still renders — the diagram
+self-hosted PlantUML server). Without it, the page still renders; the diagram
 source simply stays as text. No PlantUML binary is required by the demo itself.
 
 ## Configuration

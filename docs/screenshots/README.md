@@ -5,7 +5,7 @@ and click through the pages in the nav.
 
 ## Home
 
-Overview of all features.
+Overview of all demo pages.
 
 ![Home](home.png)
 

@@ -12,8 +12,14 @@
     <div class="card">
         <h2>Article Form</h2>
 
+        @if (config('demo-pages.static_export'))
+            <p class="warning">This form works only in a local checkout. Clone the repository and run <code>composer install &amp;&amp; php artisan serve</code>.</p>
+        @endif
+
         <form method="POST" action="{{ route('form.submit') }}">
             @csrf
+
+            <fieldset @disabled(config('demo-pages.static_export'))>
 
             <label for="title">Title</label>
             <input type="text" id="title" name="title" value="{{ old('title', $article->title) }}" placeholder="Enter article title">
@@ -30,6 +36,7 @@
             <small style="color: #666;">Uses strict validation and the <code>user_content</code> profile</small>
 
             <button type="submit">Preview Article</button>
+            </fieldset>
         </form>
     </div>
 

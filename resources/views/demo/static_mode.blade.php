@@ -5,10 +5,9 @@
 @section('body')
 <div class="card">
     <h1>Static Mode (Graceful Degradation)</h1>
-    <p>Carve documents are online-first, but the spec guarantees graceful degradation:
-       when rendered for a script-free target (print, PDF, email), interactive
-       constructs keep their <em>content and structure</em> and drop only their
-       <em>interaction</em>. Losing the click is fine; losing the words is not.</p>
+    <p>In a script-free target such as print, PDF, or email, interactive constructs
+       keep their content and structure while dropping the interaction. The examples
+       below include a disclosure and a code group.</p>
     <p>Switch a converter profile to static mode with one config line:</p>
     <pre><code>'mode' => 'static'</code></pre>
 </div>
@@ -45,6 +44,7 @@
     'print' => [
         'safe_mode' => true,
         'mode' => 'static',
+        'extensions' => ['details', 'code_group'],
     ],
 ],</code></pre>
     <p>Then render with the named profile:</p>

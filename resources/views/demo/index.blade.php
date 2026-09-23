@@ -5,7 +5,7 @@
 @section('body')
 <div class="card">
     <h1>Laravel Carve Demo</h1>
-    <p>This demo application showcases all features of the <code>markup-carve/laravel-carve</code> package.</p>
+    <p>This application demonstrates the <code>markup-carve/laravel-carve</code> package.</p>
     <p>
         <a href="https://github.com/markup-carve/laravel-carve" target="_blank">GitHub</a>
         ·
@@ -95,7 +95,7 @@
     <div class="card">
         <h2>Syntax &amp; What is New</h2>
         <p>Inline literals, definition lists, footnotes, tight vs loose lists, smart
-           typography and strict column-0 block markers.</p>
+           typography and escaped block markers.</p>
         <pre><code>Type !`*strong*` to show
 the literal delimiters.</code></pre>
         <p><a href="{{ route('syntax') }}">View Demo &rarr;</a></p>

@@ -56,6 +56,6 @@
 <div class="card">
     <h2>Raw Directive</h2>
     <pre><code>@@carveRaw($trustedContent)</code></pre>
-    <p>The <code>@@carveRaw</code> directive renders Carve <em>without</em> safe mode — use only for content you fully control.</p>
+    <p>The <code>@@carveRaw</code> directive renders Carve <em>without</em> safe mode. Use it only for content you fully control.</p>
 </div>
 @endsection
