@@ -140,8 +140,15 @@
             transition: background 0.2s, border-color 0.2s;
         }
         .code-group-label:hover { background: #e8e8e8; }
-        .code-group-panel { display: none; }
+        .code-group-radio ~ .code-group-panel { display: none; }
         .code-group-panel pre { margin: 0; border-radius: 0; }
+        section.code-group-panel > .code-group-label {
+            display: block;
+            margin: 0;
+            cursor: default;
+            border-bottom-color: #ddd;
+        }
+        section.code-group-panel > .code-group-label:hover { background: #f5f5f5; }
         .code-group-radio:nth-of-type(1):checked ~ .code-group-label:nth-of-type(1),
         .code-group-radio:nth-of-type(2):checked ~ .code-group-label:nth-of-type(2),
         .code-group-radio:nth-of-type(3):checked ~ .code-group-label:nth-of-type(3),
@@ -212,6 +219,7 @@
         <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
     </nav>
     <div class="repo-links">
+        <a href="https://markup-carve.github.io/carve/">Carve website</a>
         <a href="https://github.com/markup-carve/laravel-carve-demo">Demo source</a>
         <a href="https://github.com/markup-carve/laravel-carve">laravel-carve package</a>
     </div>

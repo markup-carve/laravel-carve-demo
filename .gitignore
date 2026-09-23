@@ -20,6 +20,7 @@
 /storage/pail
 /vendor
 /dist
+/local-static-preview
 Homestead.json
 Homestead.yaml
 Thumbs.db

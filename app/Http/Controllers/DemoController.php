@@ -125,6 +125,16 @@ class DemoController extends Controller
         :::
 
         Math survives too: $`E = mc^2`.
+
+        ::: code-group
+        ``` bash [PHP]
+        composer require markup-carve/laravel-carve
+        ```
+
+        ``` bash [JavaScript]
+        npm install @markup-carve/carve-js
+        ```
+        :::
         CARVE;
 
         return view('demo.static_mode', [

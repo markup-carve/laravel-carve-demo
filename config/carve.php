@@ -27,6 +27,7 @@ return [
             'safe_mode' => true,
             'extensions' => [
                 'details',
+                'code_group',
                 ['type' => 'autolink'],
                 [
                     'type' => 'external_links',
@@ -48,6 +49,7 @@ return [
             'mode' => 'static',
             'extensions' => [
                 'details',
+                'code_group',
             ],
         ],
 

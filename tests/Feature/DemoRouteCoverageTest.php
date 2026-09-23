@@ -33,6 +33,7 @@ class DemoRouteCoverageTest extends TestCase
             $this->get($actual[$name])
                 ->assertOk()
                 ->assertSee('<nav', false)
+                ->assertSee('href="https://markup-carve.github.io/carve/"', false)
                 ->assertSee('href="https://github.com/markup-carve/laravel-carve-demo"', false)
                 ->assertSee('href="https://github.com/markup-carve/laravel-carve"', false);
         }
@@ -52,5 +53,14 @@ class DemoRouteCoverageTest extends TestCase
             ->assertOk()
             ->assertSee('Preview title')
             ->assertSee('<h2>Preview</h2>', false);
+    }
+
+    public function test_static_profile_emits_every_code_group_panel(): void
+    {
+        $this->get('/static-mode')
+            ->assertOk()
+            ->assertSee('<section class="code-group-panel">', false)
+            ->assertSee('<h3 class="code-group-label">PHP</h3>', false)
+            ->assertSee('<h3 class="code-group-label">JavaScript</h3>', false);
     }
 }

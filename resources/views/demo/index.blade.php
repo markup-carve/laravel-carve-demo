@@ -5,7 +5,7 @@
 @section('body')
 <div class="card">
     <h1>Laravel Carve Demo</h1>
-    <p>This demo application showcases all features of the <code>markup-carve/laravel-carve</code> package.</p>
+    <p>This application demonstrates the <code>markup-carve/laravel-carve</code> package.</p>
     <p>
         <a href="https://github.com/markup-carve/laravel-carve" target="_blank">GitHub</a>
         ·
