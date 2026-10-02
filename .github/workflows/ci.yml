@@ -6,10 +6,14 @@ on:
       - main
   pull_request:
 
+# Jobs carry an explicit timeout-minutes: without one GitHub applies a
+# 360-minute default, long enough for a stalled job to go unnoticed.
+
 jobs:
   smoke:
     name: Boot smoke test and tests (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     strategy:
       matrix:
