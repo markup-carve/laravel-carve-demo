@@ -6,7 +6,8 @@ A runnable application demonstrating [markup-carve/laravel-carve](https://github
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.4.1+ for the checked-in dependency lockfile
+- PHP DOM extension for the HTML import example
 - Composer
 
 ## Installation
@@ -49,6 +50,7 @@ See the [screenshot gallery](docs/screenshots/) for the home page, Includes, the
 | `/` | Home: overview of all pages |
 | `/blade-directive` | Using the `@carve` / `@carveRaw` / `@carveText` Blade directives |
 | `/facade` | Using the `Carve` facade for inline rendering |
+| `/authoring` | Rendered metadata, Eloquent casts, Blade components, static documents, presets, imports and CLI tools |
 | `/service` | Injecting `CarveConverterInterface` and `CarveManager` into services |
 | `/form` | Form validation with the `ValidCarve` rule |
 | `/safe-mode` | XSS protection for untrusted content |
@@ -189,6 +191,33 @@ must never be populated from user input. Source-line mode adds 1-based
 The demo also enables the self-contained `array` cache store; its feature tests
 render identical source through safe and trusted profiles to prove cached HTML
 cannot leak between converter configurations.
+
+## Authoring examples
+
+Composer installs stable releases. The lockfile records the versions used
+by the demo and static export.
+
+The `/authoring` page runs `Carve::render()` and displays JSON frontmatter and
+collected headings. An unsaved `CarvePost` model demonstrates `AsCarve` without
+a database write, and `<x-carve>` renders its value. The static document example
+uses `view()->file()` under `resources/carve`, inside the configured include root.
+
+The comment profile combines strict safe mode with the comment preset. Live
+validation examples demonstrate forbidden headings, an 80-character limit and
+lint findings for Markdown spelling. Markdown and HTML imports show the source
+they produce and its output through the safe default converter.
+
+Run the file tools locally:
+
+```sh
+php artisan carve:render resources/carve/authoring-guide.crv --format=html
+php artisan carve:render resources/carve/authoring-guide.crv --format=text
+php artisan carve:convert README.md --output=storage/app/readme.crv
+php artisan carve:lint resources/carve
+```
+
+The Authoring page also appears in the static export. Its results are generated
+when exporting; the CLI examples run only in a local checkout.
 
 ## Ecosystem
 

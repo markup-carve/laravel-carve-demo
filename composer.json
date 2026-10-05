@@ -11,10 +11,11 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4.1",
+        "ext-dom": "*",
         "laravel/framework": "^12.0 || ^13.0",
         "laravel/tinker": "^2.10.1 || ^3.0",
-        "markup-carve/laravel-carve": "dev-main"
+        "markup-carve/laravel-carve": "^0.1.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -70,6 +71,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

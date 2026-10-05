@@ -195,6 +195,8 @@
             white-space: pre;
         }
         .static-preview { background: #e8f0fe; border: 1px solid #7aa2e3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; }
+        .validation-results { overflow-x: auto; }
+        .validation-results code { overflow-wrap: anywhere; white-space: normal; }
     </style>
     @stack('head')
 </head>
@@ -207,6 +209,7 @@
         <a href="{{ route('blade_directive') }}" @class(['active' => request()->routeIs('blade_directive')])>Blade Directive</a>
         <a href="{{ route('facade') }}" @class(['active' => request()->routeIs('facade')])>Facade</a>
         <a href="{{ route('service') }}" @class(['active' => request()->routeIs('service')])>Service</a>
+        <a href="{{ route('authoring') }}" @class(['active' => request()->routeIs('authoring')])>Authoring</a>
         <a href="{{ route('form') }}" @class(['active' => request()->routeIs('form*')])>Form</a>
         <a href="{{ route('safe_mode') }}" @class(['active' => request()->routeIs('safe_mode')])>Safe Mode</a>
         <a href="{{ route('static_mode') }}" @class(['active' => request()->routeIs('static_mode')])>Static Mode</a>

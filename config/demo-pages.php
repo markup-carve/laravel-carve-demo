@@ -9,6 +9,7 @@ return [
         'blade_directive' => 'static',
         'facade' => 'static',
         'service' => 'static',
+        'authoring' => 'static',
         'form' => 'local-only',
         'safe_mode' => 'static',
         'static_mode' => 'static',

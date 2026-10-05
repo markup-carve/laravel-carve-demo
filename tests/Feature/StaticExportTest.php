@@ -35,6 +35,10 @@ class StaticExportTest extends TestCase
             $html = (string) file_get_contents(base_path($directory.'/index.html'));
             $this->assertStringContainsString('https://markup-carve.github.io/laravel-carve-demo/facade', $html);
             $this->assertStringNotContainsString('://localhost', $html);
+            $authoring = (string) file_get_contents(base_path($directory.'/authoring/index.html'));
+            $this->assertStringContainsString('Authoring in Laravel', $authoring);
+            $this->assertStringContainsString('A static Carve view', $authoring);
+            $this->assertStringContainsString('https://markup-carve.github.io/laravel-carve-demo/authoring', $html);
         } finally {
             File::deleteDirectory(base_path($directory));
         }
