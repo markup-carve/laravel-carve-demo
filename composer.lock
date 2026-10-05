@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e43407fe9025262e75655980cd7633a4",
+    "content-hash": "7c7be94f79862cfed1b1229140715e4d",
     "packages": [
         {
             "name": "brick/math",
@@ -2039,16 +2039,16 @@
         },
         {
             "name": "markup-carve/carve-php",
-            "version": "0.1.9",
+            "version": "0.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/carve-php.git",
-                "reference": "d4b53388df891158c9c868177a4213a5e8b2f608"
+                "reference": "6d94607eaa9d51c9ed782342161beca77b05aaf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/d4b53388df891158c9c868177a4213a5e8b2f608",
-                "reference": "d4b53388df891158c9c868177a4213a5e8b2f608",
+                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/6d94607eaa9d51c9ed782342161beca77b05aaf9",
+                "reference": "6d94607eaa9d51c9ed782342161beca77b05aaf9",
                 "shasum": ""
             },
             "require": {
@@ -2062,6 +2062,7 @@
                 "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0"
             },
             "suggest": {
+                "ext-dom": "Required for HTML import and HTML heading-ID conversion.",
                 "ext-intl": "Recommended for heading-ID transliteration: enables ICU romanization of non-Latin scripts (e.g. CJK, Arabic). Without it, a baked map covers Latin/Cyrillic/punctuation identically and other scripts fall back to the generated `section` id."
             },
             "bin": [
@@ -2097,7 +2098,7 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/carve-php/issues",
-                "source": "https://github.com/markup-carve/carve-php/tree/0.1.9"
+                "source": "https://github.com/markup-carve/carve-php/tree/0.1.10"
             },
             "funding": [
                 {
@@ -2105,28 +2106,31 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-19T09:41:32+00:00"
+            "time": "2026-09-29T22:40:16+00:00"
         },
         {
             "name": "markup-carve/laravel-carve",
-            "version": "dev-main",
+            "version": "0.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/laravel-carve.git",
-                "reference": "c810198300216755f4d135f3e5f5de127e7319c8"
+                "reference": "02a7921b4cf49435cde3e0e1baf3ed13f0a7f00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/c810198300216755f4d135f3e5f5de127e7319c8",
-                "reference": "c810198300216755f4d135f3e5f5de127e7319c8",
+                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/02a7921b4cf49435cde3e0e1baf3ed13f0a7f00a",
+                "reference": "02a7921b4cf49435cde3e0e1baf3ed13f0a7f00a",
                 "shasum": ""
             },
             "require": {
+                "illuminate/console": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
+                "illuminate/database": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/support": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/view": "^11.0 || ^12.0 || ^13.0",
                 "markup-carve/carve-php": "^0.1.9",
-                "php": "^8.2"
+                "php": "^8.2",
+                "symfony/finder": "^7.0 || ^8.0"
             },
             "require-dev": {
                 "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
@@ -2134,7 +2138,9 @@
                 "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^11.5 || ^12.5 || ^13.0"
             },
-            "default-branch": true,
+            "suggest": {
+                "symfony/yaml": "Parse YAML frontmatter with RenderedCarve::meta()."
+            },
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2161,7 +2167,7 @@
                     "homepage": "https://github.com/markup-carve"
                 }
             ],
-            "description": "Laravel integration for markup-carve/carve-php — Blade directives, services, validation, and caching",
+            "description": "Laravel integration for Carve: rendering, validation, views, casts, imports, commands and caching",
             "homepage": "https://github.com/markup-carve/laravel-carve",
             "keywords": [
                 "blade",
@@ -2173,9 +2179,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/laravel-carve/issues",
-                "source": "https://github.com/markup-carve/laravel-carve/tree/main"
+                "source": "https://github.com/markup-carve/laravel-carve/tree/0.1.7"
             },
-            "time": "2026-09-20T10:02:55+00:00"
+            "time": "2026-10-04T14:32:05+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8461,14 +8467,13 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "markup-carve/laravel-carve": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.4.1",
+        "ext-dom": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"

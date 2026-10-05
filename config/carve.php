@@ -53,6 +53,13 @@ return [
             ],
         ],
 
+        // Restricted comment markup with strict safe mode.
+        'comment' => [
+            'safe_mode' => 'strict',
+            'preset' => 'comment',
+            'on_disallowed' => 'to_text',
+        ],
+
         // User-submitted content: safe mode ON (XSS protection)
         'user_content' => [
             'safe_mode' => true,

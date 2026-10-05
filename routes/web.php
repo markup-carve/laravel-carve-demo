@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AuthoringController;
 use App\Http\Controllers\DemoController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +10,7 @@ Route::get('/', [DemoController::class, 'index'])->name('home');
 Route::get('/blade-directive', [DemoController::class, 'bladeDirective'])->name('blade_directive');
 Route::get('/facade', [DemoController::class, 'facade'])->name('facade');
 Route::get('/service', [DemoController::class, 'service'])->name('service');
+Route::get('/authoring', AuthoringController::class)->name('authoring');
 Route::get('/form', [DemoController::class, 'form'])->name('form');
 Route::post('/form', [DemoController::class, 'formSubmit'])->name('form.submit');
 Route::get('/safe-mode', [DemoController::class, 'safeMode'])->name('safe_mode');

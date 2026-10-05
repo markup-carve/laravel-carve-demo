@@ -38,6 +38,13 @@
     </div>
 
     <div class="card">
+        <h2>Authoring</h2>
+        <p>Rendered values, model casts, components, document views, presets and imports.</p>
+        <pre><code>$document = Carve::render($source);</code></pre>
+        <p><a href="{{ route('authoring') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
         <h2>Form Integration</h2>
         <p>Use <code>ValidCarve</code> rule in Form Requests.</p>
         <pre><code>'body' => [new ValidCarve()]</code></pre>
