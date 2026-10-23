@@ -55,7 +55,7 @@ See the [screenshot gallery](docs/screenshots/) for the home page, Includes, the
 | `/form` | Form validation with the `ValidCarve` rule |
 | `/safe-mode` | XSS protection for untrusted content |
 | `/plain-text` | Extracting plain text for search/excerpts |
-| `/includes` | Trusted file-backed content and configuration-backed snippets |
+| `/includes` | Trusted file-backed content, a named region, source and CSV data included as code, and configuration-backed snippets |
 | `/extensions` | Live demo of all configured Carve extensions |
 | `/diagrams` | PlantUML fenced diagrams and sanitized SVG image fences (0.1.3) |
 | `/editor-preview` | Trusted symbols and source-line metadata for synchronized previews (0.1.5) |

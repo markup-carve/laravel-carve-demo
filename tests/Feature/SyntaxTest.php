@@ -97,4 +97,19 @@ class SyntaxTest extends TestCase
         $response->assertSee('\#\#\# This stays literal');
         $response->assertSee('This is a real heading');
     }
+
+    public function test_continuation_marker_attaches_the_quote_to_the_item(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSeeInOrder(['<li>Install the package', '<blockquote><p>Run composer from the project root.</p></blockquote>', '</li>'], escape: false);
+    }
+
+    public function test_csv_and_tsv_fences_render_as_tables(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('<td>Pear, green</td>', escape: false);
+        $response->assertSee('<th scope="col">Lang</th>', escape: false);
+    }
 }
