@@ -16,6 +16,18 @@ class SyntaxTest extends TestCase
         $response->assertSee('Carve Syntax');
     }
 
+    public function test_layout_loads_the_carve_csv_and_tsv_highlighters(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSeeInOrder([
+            'highlight.min.js',
+            'carve-grammars@v0.1.19/highlightjs/carve.js',
+            'carve-grammars@v0.1.19/highlightjs/delimited.js',
+            'hljs.highlightElement',
+        ], escape: false);
+    }
+
     public function test_inline_literal_renders_delimiters_as_literal_text(): void
     {
         $response = $this->get('/syntax');

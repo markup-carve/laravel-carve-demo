@@ -233,6 +233,10 @@
             onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}]});"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github.min.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/highlight.min.js"></script>
+    {{-- carve-grammars' definitions register themselves on window.hljs: carve, plus csv/tsv so delimited table bodies show their separators. --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.19/shiki/table-tokens.css">
+    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.19/highlightjs/carve.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.19/highlightjs/delimited.js"></script>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
