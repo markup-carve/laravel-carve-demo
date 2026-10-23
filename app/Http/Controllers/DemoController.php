@@ -589,6 +589,21 @@ class DemoController extends Controller
                 'source' => ":: Carve\n: A lightweight markup language for structured documents.\n"
                     . ":: Renderer\n: An engine that turns Carve source into HTML, text, Markdown, or ANSI.",
             ],
+            'continuation_marker' => [
+                'title' => 'Continuation marker',
+                'blurb' => 'A lone + attaches the next block to the open list item, quote, footnote or description, '
+                    . 'without indenting it. The list stays tight.',
+                'source' => "- Install the package\n+\n> Run composer from the project root.\n- Publish the config",
+                // The canonical writer spells the attached block as indentation instead.
+                'canonical' => false,
+            ],
+            'delimited_tables' => [
+                'title' => 'CSV and TSV tables',
+                'blurb' => 'A {table} flag turns a csv or tsv fence into a table. The first record is the header, '
+                    . 'and RFC 4180 quoting lets a field hold a comma.',
+                'source' => "{table}\n```csv\nItem,Qty,Note\nApple,12,fresh\n\"Pear, green\",3,ripe\n```\n\n"
+                    . "{table}\n```tsv\nLang\tStatus\nPHP\tready\n```",
+            ],
             'smart_typography' => [
                 'title' => 'Dash-run and quote typography',
                 'blurb' => 'Two hyphens become an en dash, three become an em dash, and three dots become an ellipsis. '
@@ -611,7 +626,7 @@ class DemoController extends Controller
         ];
 
         foreach ($samples as &$sample) {
-            if (BaseCarveConverter::toCarve($sample['source']) !== $sample['source']."\n") {
+            if (($sample['canonical'] ?? true) && BaseCarveConverter::toCarve($sample['source']) !== $sample['source']."\n") {
                 throw new \LogicException("Syntax example is not canonical: {$sample['title']}");
             }
             $sample['html'] = $manager->toHtml($sample['source'], 'syntax');

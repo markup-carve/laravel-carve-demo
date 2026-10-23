@@ -25,4 +25,15 @@ class ExampleTest extends TestCase
             ->assertSee('parts/intro.crv')
             ->assertSee('Account status');
     }
+
+    public function test_includes_page_selects_regions_code_and_csv_data(): void
+    {
+        $this->get('/includes')
+            ->assertOk()
+            ->assertSee('<li>PHP 8.2 or newer</li>', escape: false)
+            ->assertDontSee('This intro stays out of the handbook')
+            ->assertSee('<code class="language-js">const server', escape: false)
+            ->assertDontSee('export default server')
+            ->assertSee('<td>Enterprise, annual</td>', escape: false);
+    }
 }
