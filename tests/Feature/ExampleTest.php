@@ -36,4 +36,14 @@ class ExampleTest extends TestCase
             ->assertDontSee('export default server')
             ->assertSee('<td>Enterprise, annual</td>', escape: false);
     }
+
+    public function test_includes_page_selects_csv_records_and_columns(): void
+    {
+        $html = $this->get('/includes')->assertOk()->viewData('file_html');
+
+        $this->assertSame([], $this->get('/includes')->viewData('file_warnings'));
+        $this->assertStringContainsString('<tr><th scope="col">Plan</th><th scope="col">Price</th></tr>', $html);
+        $this->assertStringContainsString('<tr><td>Team</td><td>49</td></tr>', $html);
+        $this->assertStringContainsString('<tr><td>Enterprise, annual</td><td>on request</td></tr>', $html);
+    }
 }
