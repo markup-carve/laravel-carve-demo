@@ -69,6 +69,16 @@ class SyntaxTest extends TestCase
         $response->assertSee('<th scope="col">Status</th>', escape: false);
     }
 
+    public function test_braced_cell_alignment_renders_column_and_cell_alignment(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('|= Item |={>} Qty |={~} Note |');
+        $response->assertSee('<th scope="col" style="text-align: right;">Qty</th>', escape: false);
+        $response->assertSee('<td style="text-align: center;">fresh</td>', escape: false);
+        $response->assertSee('<td style="text-align: left;">3</td>', escape: false);
+    }
+
     public function test_extension_examples_use_canonical_table_headers(): void
     {
         $response = $this->get('/extensions');
