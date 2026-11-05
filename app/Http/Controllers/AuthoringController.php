@@ -31,10 +31,13 @@ class AuthoringController extends Controller
         $post = new CarvePost(['body' => $source]);
         $commentSource = "# Reader heading\n\nThanks for the /clear/ explanation.";
         $lintSource = 'Use **bold** in Markdown.';
+        $suppressedSource = "%% carve-lint-disable-next-line markdown-strong-double-star\n".$lintSource;
         $markdown = "## Imported Markdown\n\nA **bold** word and an *italic* word.";
+        $alert = "> [!TIP]\n> A **bold** reminder: run `php artisan carve:lint` before you commit.";
         $html = '<h2>Imported HTML</h2><p>A <strong>bold</strong> word.</p>';
         $imports = [
             'Markdown' => ['input' => $markdown, 'source' => Carve::fromMarkdown($markdown)],
+            'GitHub alert' => ['input' => $alert, 'source' => Carve::fromMarkdown($alert)],
             'HTML' => ['input' => $html, 'source' => Carve::fromHtml($html)],
         ];
         foreach ($imports as &$import) {
@@ -71,6 +74,8 @@ class AuthoringController extends Controller
             'imports' => $imports,
             'lint_source' => $lintSource,
             'lint_findings' => Carve::lint($lintSource),
+            'suppressed_source' => $suppressedSource,
+            'suppressed_findings' => Carve::lint($suppressedSource),
         ]);
     }
 }

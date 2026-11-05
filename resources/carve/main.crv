@@ -16,3 +16,8 @@
 
 {table}
 {{ parts/plans.csv @code:csv }}
+
+## Paid plans
+
+{table}
+{{ parts/plans.csv @code:csv @rows:3-4 @cols:"Plan,Price" }}

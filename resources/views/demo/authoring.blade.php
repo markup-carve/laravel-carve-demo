@@ -92,7 +92,7 @@ $post = new CarvePost(['body' => $source]);
     <pre><code>$source = Carve::fromMarkdown($markdown);
 $source = Carve::fromHtml($html);
 $document = Carve::render($source);</code></pre>
-    <p>Imports return Carve source. The examples render it through the safe default converter.</p>
+    <p>Imports return Carve source. The examples render it through the safe default converter. A GitHub alert blockquote becomes an admonition.</p>
     @foreach ($imports as $format => $import)
         <h3>{{ $format }}</h3>
         <div class="columns">
@@ -111,6 +111,9 @@ $document = Carve::render($source);</code></pre>
             <li>Line {{ $finding->line }}, column {{ $finding->column }}: {{ $finding->message }} ({{ $finding->rule }})</li>
         @endforeach
     </ul>
+    <p>A <code>%% carve-lint-disable-next-line</code> comment silences the named rule on the next line. The comment renders nothing.</p>
+    <pre><code>Carve::lint({{ var_export($suppressed_source, true) }});</code></pre>
+    <p>{{ count($suppressed_findings) }} findings.</p>
     <p>Run these commands in a local checkout. They render, convert or lint files on disk.</p>
     <pre><code>php artisan carve:render resources/carve/authoring-guide.crv --format=html
 php artisan carve:render resources/carve/authoring-guide.crv --format=text
