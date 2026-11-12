@@ -95,4 +95,21 @@ class AuthoringTest extends TestCase
             File::deleteDirectory($directory);
         }
     }
+
+    public function test_markdown_alert_imports_as_an_admonition(): void
+    {
+        $import = $this->get('/authoring')->assertOk()->viewData('imports')['GitHub alert'];
+
+        $this->assertStringStartsWith("::: tip\n", $import['source']);
+        $this->assertStringContainsString('<aside class="admonition tip"', $import['rendered']->html);
+    }
+
+    public function test_lint_suppression_comment_silences_the_named_rule(): void
+    {
+        $response = $this->get('/authoring')->assertOk();
+
+        $this->assertNotEmpty($response->viewData('lint_findings'));
+        $this->assertSame([], $response->viewData('suppressed_findings'));
+        $response->assertSee('carve-lint-disable-next-line markdown-strong-double-star');
+    }
 }

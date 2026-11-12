@@ -577,6 +577,12 @@ class DemoController extends Controller
                 'blurb' => 'The |= marker defines a header cell directly, without a Markdown separator row.',
                 'source' => "|= Lang |= Status |\n| PHP | ready |\n| JS | ready |",
             ],
+            'table_alignment' => [
+                'title' => 'Table cell alignment',
+                'blurb' => 'Alignment goes in braces right after the cell marker: {<} left, {~} center, {>} right. '
+                    . 'A header cell sets its column, and a body cell can override it.',
+                'source' => "|= Item |={>} Qty |={~} Note |\n| Apple | 12 | fresh |\n| Pear |{<} 3 | ripe |",
+            ],
             'tight_loose' => [
                 'title' => 'Tight vs loose lists',
                 'blurb' => 'Blank lines between items make a list loose: each item is wrapped in <p>, adding vertical '

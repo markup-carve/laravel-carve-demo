@@ -7,7 +7,7 @@
     <h1>Includes</h1>
     <p>Includes can read trusted files or resolve application-provided snippets. Both paths remain explicit.</p>
     <h2>File-backed content</h2>
-    <p><code>toHtmlFileWithReport()</code> expands content inside the configured root.</p>
+    <p><code>toHtmlFileWithReport()</code> expands content inside the configured root. On a CSV or TSV table include, <code>@rows</code> picks records and <code>@cols</code> picks columns by header name.</p>
     <pre><code>{{ $file_source }}</code></pre>
     <h2>Rendered result</h2>
     <div class="rendered">{!! $file_html !!}</div>
