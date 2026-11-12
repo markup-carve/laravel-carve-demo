@@ -79,6 +79,32 @@ class SyntaxTest extends TestCase
         $response->assertSee('<td style="text-align: left;">3</td>', escape: false);
     }
 
+    public function test_span_markers_render_rowspan_and_colspan(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('| Total | 46 | < |');
+        $response->assertSee('<td rowspan="2">North</td>', escape: false);
+        $response->assertSee('<td colspan="2">46</td>', escape: false);
+    }
+
+    public function test_continuation_row_appends_to_the_row_above(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('+ | the orchard |');
+        $response->assertSee('<td>fresh from the orchard</td>', escape: false);
+    }
+
+    public function test_comment_line_keeps_the_list_tight(): void
+    {
+        $response = $this->get('/syntax');
+
+        $response->assertSee('%% TODO: link the release notes');
+        $response->assertSee("<li>Install the package</li>\n  <li>Publish the config</li>", escape: false);
+        $response->assertDontSee('<p>Install the package</p>', escape: false);
+    }
+
     public function test_extension_examples_use_canonical_table_headers(): void
     {
         $response = $this->get('/extensions');
