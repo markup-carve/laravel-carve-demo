@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class OptionsTest extends TestCase
@@ -32,7 +33,12 @@ class OptionsTest extends TestCase
         $this->assertContains('  heading level=1', $response->viewData('tree'));
         $this->assertStringStartsWith("= Notes\n", $response->viewData('formatted_source'));
         $this->assertStringContainsString("```php\necho 1;\n```\n\n|= Name |= Qty |\n| Apple | 3 |", $response->viewData('formatted_source'));
-        $this->assertSame(0, $response->viewData('fmt_check_exit'));
         $this->assertSame("  - A static Carve view\n", $response->viewData('outline'));
+    }
+
+    public function test_demo_carve_sources_are_canonical_and_lint_clean(): void
+    {
+        $this->assertSame(0, Artisan::call('carve:fmt', ['paths' => [resource_path('carve')], '--check' => true]), Artisan::output());
+        $this->assertSame(0, Artisan::call('carve:lint', ['paths' => [resource_path('carve')], '--include-root' => resource_path('carve')]), Artisan::output());
     }
 }

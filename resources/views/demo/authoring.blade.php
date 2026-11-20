@@ -118,6 +118,7 @@ $document = Carve::render($source);</code></pre>
     <pre><code>php artisan carve:render resources/carve/authoring-guide.crv --format=html
 php artisan carve:render resources/carve/authoring-guide.crv --format=text
 php artisan carve:convert README.md --output=storage/app/readme.crv
-php artisan carve:lint resources/carve</code></pre>
+php artisan carve:lint resources/carve --include-root=resources/carve
+php artisan carve:fmt resources/carve --check</code></pre>
 </div>
 @endsection

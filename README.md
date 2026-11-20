@@ -216,7 +216,7 @@ Run the file tools locally:
 php artisan carve:render resources/carve/authoring-guide.crv --format=html
 php artisan carve:render resources/carve/authoring-guide.crv --format=text
 php artisan carve:convert README.md --output=storage/app/readme.crv
-php artisan carve:lint resources/carve
+php artisan carve:lint resources/carve --include-root=resources/carve
 php artisan carve:fmt resources/carve --check
 ```
 

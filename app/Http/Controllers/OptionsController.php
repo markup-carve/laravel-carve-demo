@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Carve\OutlineWriter;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use MarkupCarve\Carve\Node;
@@ -73,7 +72,6 @@ class OptionsController extends Controller
         $guide = resource_path('carve/authoring-guide.crv');
         $outline = new CarveConverter();
         $outline->registerWriter(new OutlineWriter());
-        $fmtExit = Artisan::call('carve:fmt', ['paths' => [$guide], '--check' => true]);
 
         return view('demo.options', [
             'profiles' => Carve::profiles(),
@@ -86,8 +84,6 @@ class OptionsController extends Controller
             'tree' => self::outlineTree(Carve::parse("= Title\n\nA *strong* word.\n")),
             'messy_source' => $messy,
             'formatted_source' => Carve::format($messy),
-            'fmt_check_exit' => $fmtExit,
-            'fmt_check_output' => trim(Artisan::output()),
             'outline' => $outline->renderFileAs($guide, 'outline'),
         ]);
     }

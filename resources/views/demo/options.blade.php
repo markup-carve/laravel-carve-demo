@@ -59,7 +59,7 @@ Str::of('/Stringable/ macro')->carveText();</code></pre>
         <div><h3>Input</h3><pre><code>{{ $messy_source }}</code></pre></div>
         <div><h3>Carve::format()</h3><pre><code>{{ $formatted_source }}</code></pre></div>
     </div>
-    <p>The <code>carve:fmt</code> command checks or rewrites files. The authoring guide is canonical, so the check exits with {{ $fmt_check_exit }}.</p>
+    <p>The <code>carve:fmt</code> Artisan command checks or rewrites files; the demo's own <code>resources/carve</code> sources pass the check.</p>
     <pre><code>php artisan carve:fmt resources/carve --check
 php artisan carve:fmt resources/carve --write --align-tables</code></pre>
 </div>
