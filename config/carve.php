@@ -20,32 +20,28 @@ return [
 
     'converters' => [
 
-        // Default: safe rendering (XSS protection) with handy extensions.
+        // Default: safe rendering (raw HTML off) with handy extensions.
         // The @carve directive uses this converter; use @carveRaw for
         // trusted content that needs raw HTML passthrough.
         'default' => [
-            'safe_mode' => true,
+            'raw_html' => false,
             'extensions' => [
                 'details',
                 'code_group',
                 ['type' => 'autolink'],
-                [
-                    'type' => 'external_links',
-                    'internal_hosts' => ['localhost', '127.0.0.1', 'example.com'],
-                ],
+                ['type' => 'external_links'],
                 ['type' => 'smart_quotes'],
                 [
                     'type' => 'heading_permalinks',
                     'symbol' => '#',
-                    'position' => 'after',
-                    'class' => 'heading-anchor',
+                    'css_class' => 'heading-anchor',
                 ],
             ],
         ],
 
         // Print/PDF/email target: graceful degradation (spec static mode)
         'print' => [
-            'safe_mode' => true,
+            'raw_html' => false,
             'mode' => 'static',
             'extensions' => [
                 'details',
@@ -55,27 +51,26 @@ return [
 
         // Restricted comment markup with strict safe mode.
         'comment' => [
-            'safe_mode' => 'strict',
-            'preset' => 'comment',
-            'on_disallowed' => 'to_text',
+            'raw_html' => false,
+            'profile' => 'comment',
         ],
 
         // User-submitted content: safe mode ON (XSS protection)
         'user_content' => [
-            'safe_mode' => true,
+            'raw_html' => false,
         ],
 
         // Explicit raw-HTML passthrough for trusted administrator-authored
         // content only. Never select this profile for user submissions.
         'trusted' => [
-            'safe_mode' => false,
+            'raw_html' => true,
         ],
 
         // Editor preview profile: trusted symbol replacements and source-line
         // markers for scroll synchronization. Symbol HTML is configuration,
         // never user input.
         'editor_preview' => [
-            'safe_mode' => true,
+            'raw_html' => false,
             'symbols' => [
                 'spark' => '<span class="carve-symbol" aria-label="spark">✦</span>',
             ],
@@ -83,20 +78,16 @@ return [
         ],
 
         'with_mentions' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
-                [
-                    'type' => 'mentions',
-                    'mention_url' => 'https://github.com/{name}',
-                    'mention_class' => 'mention',
-                ],
             ],
+            'social' => ['mentionUrl' => 'https://github.com/{name}'],
         ],
 
         'with_toc' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
-                ['type' => 'table_of_contents', 'toc_class' => 'toc'],
+                ['type' => 'table_of_contents', 'css_class' => 'toc'],
                 // Expands ::: toc placement blocks in the source document.
                 'toc_placement',
                 ['type' => 'heading_permalinks'],
@@ -104,18 +95,18 @@ return [
         ],
 
         'with_wikilinks' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 [
                     'type' => 'wikilinks',
                     'url_template' => '/extensions?wiki={page}',
-                    'link_class' => 'wiki-link',
+                    'css_class' => 'wiki-link',
                 ],
             ],
         ],
 
         'with_default_attrs' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 [
                     'type' => 'default_attributes',
@@ -136,41 +127,37 @@ return [
         ],
 
         'with_frontmatter' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
-                [
-                    'type' => 'frontmatter',
-                    'default_format' => 'yaml',
-                    'render_as_comment' => true,
-                ],
+                // Frontmatter is core 0.2 syntax (C2-B-161): no registration.
             ],
         ],
 
         'with_semantic' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 ['type' => 'semantic_span'],
             ],
         ],
 
         'with_code_group' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 ['type' => 'code_group'],
             ],
         ],
 
         'with_mermaid' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 ['type' => 'mermaid'],
             ],
         ],
 
         'with_admonition' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
-                ['type' => 'admonition'],
+                // Admonitions are core 0.2 syntax: no registration.
             ],
         ],
 
@@ -179,7 +166,7 @@ return [
         // `puml` fences and emits <pre class="plantuml"> for a client-side
         // PlantUML renderer to hydrate (see the runtime note in the README).
         'with_plantuml' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 'plantuml',
             ],
@@ -191,7 +178,7 @@ return [
         // active content stripped. Safe under untrusted input, so safe_mode
         // stays on.
         'with_img_fence' => [
-            'safe_mode' => true,
+            'raw_html' => false,
             'extensions' => [
                 'img_fence',
             ],
@@ -207,7 +194,7 @@ return [
         // safe_mode is off so the JSON <script> wrappers survive - the sources
         // here are trusted author content, not user input.
         'with_diagrams' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 ['type' => 'fenced_render', 'language' => 'mermaid'],
                 ['type' => 'fenced_render', 'language' => 'd2'],
@@ -225,7 +212,7 @@ return [
         // tight/loose lists, strict column-0) with dash-run and quote
         // typography enabled, but no link/heading decoration to add noise.
         'syntax' => [
-            'safe_mode' => true,
+            'raw_html' => false,
             'extensions' => [
                 ['type' => 'smart_quotes'],
             ],
