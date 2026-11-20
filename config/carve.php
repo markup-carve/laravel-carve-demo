@@ -77,6 +77,12 @@ return [
             'source_lines' => true,
         ],
 
+        // Resolves include directives from include_snippets above; the
+        // resolver is attached in AppServiceProvider with CarveManager::extend.
+        'config_snippets' => [
+            'raw_html' => false,
+        ],
+
         'with_mentions' => [
             'raw_html' => true,
             'extensions' => [

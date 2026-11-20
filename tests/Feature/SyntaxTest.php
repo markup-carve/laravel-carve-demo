@@ -127,10 +127,10 @@ class SyntaxTest extends TestCase
     {
         $response = $this->get('/syntax');
 
-        // The escaped "### This stays literal" must not become an <h3>, while
+        // The escaped "=== This stays literal" must not become an <h3>, while
         // the unescaped heading must.
         $response->assertDontSee('<h3>This stays literal', escape: false);
-        $response->assertSee('\#\#\# This stays literal');
+        $response->assertSee('\=== This stays literal');
         $response->assertSee('This is a real heading');
     }
 

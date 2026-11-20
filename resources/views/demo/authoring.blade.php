@@ -108,7 +108,7 @@ $document = Carve::render($source);</code></pre>
     <pre><code>Carve::lint({{ var_export($lint_source, true) }});</code></pre>
     <ul>
         @foreach ($lint_findings as $finding)
-            <li>Line {{ $finding->line }}, column {{ $finding->column }}: {{ $finding->message }} ({{ $finding->rule }})</li>
+            <li>Line {{ $finding['line'] }}, column {{ $finding['column'] }}: {{ $finding['message'] }} ({{ $finding['code'] }})</li>
         @endforeach
     </ul>
     <p>A <code>%% carve-lint-disable-next-line</code> comment silences the named rule on the next line. The comment renders nothing.</p>
