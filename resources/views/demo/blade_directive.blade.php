@@ -44,9 +44,9 @@
             <pre><code>{{ $user_content }}</code></pre>
         </div>
         <div>
-            <h3>Rendered (Safe Mode)</h3>
+            <h3>Rendered (raw HTML off)</h3>
             <div class="rendered safe">
-                <span class="badge badge-safe">safe_mode: true</span>
+                <span class="badge badge-safe">raw_html: false</span>
                 {!! \MarkupCarve\LaravelCarve\Facades\Carve::toHtml($user_content, 'user_content') !!}
             </div>
         </div>
@@ -56,6 +56,6 @@
 <div class="card">
     <h2>Raw Directive</h2>
     <pre><code>@@carveRaw($trustedContent)</code></pre>
-    <p>The <code>@@carveRaw</code> directive renders Carve <em>without</em> safe mode. Use it only for content you fully control.</p>
+    <p>The <code>@@carveRaw</code> directive renders Carve with raw HTML passthrough (<code>raw_html</code> on). Use it only for content you fully control.</p>
 </div>
 @endsection

@@ -30,7 +30,7 @@
             @error('body')<div class="error">{{ $message }}</div>@enderror
             <small style="color: #666;">Supports <a href="https://github.com/markup-carve/carve" target="_blank">Carve markup</a></small>
 
-            <label for="comment">Comment (strict Carve validation, safe mode preview)</label>
+            <label for="comment">Comment (strict Carve validation, raw HTML off in the preview)</label>
             <textarea id="comment" name="comment" rows="4" placeholder="Optional comment with strict Carve validation">{{ old('comment', $article->comment) }}</textarea>
             @error('comment')<div class="error">{{ $message }}</div>@enderror
             <small style="color: #666;">Uses strict validation and the <code>user_content</code> profile</small>
@@ -62,7 +62,7 @@ class ArticleRequest extends FormRequest
         <pre><code>{{-- Trusted content --}}
 @@carve($article->body)
 
-{{-- User content (safe mode) --}}
+{{-- User content (raw HTML off) --}}
 &#123;!! Carve::toHtml($comment, 'user_content') !!&#125;</code></pre>
     </div>
 </div>
@@ -80,7 +80,7 @@ class ArticleRequest extends FormRequest
     @if ($preview['comment_html'])
     <h4>Comment</h4>
     <div class="rendered safe">
-        <span class="badge badge-safe">safe mode</span>
+        <span class="badge badge-safe">raw HTML off</span>
         {!! $preview['comment_html'] !!}
     </div>
     @endif

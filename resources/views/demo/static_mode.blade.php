@@ -42,7 +42,7 @@
     <pre><code>// config/carve.php
 'converters' => [
     'print' => [
-        'safe_mode' => true,
+        'raw_html' => false,
         'mode' => 'static',
         'extensions' => ['details', 'code_group'],
     ],

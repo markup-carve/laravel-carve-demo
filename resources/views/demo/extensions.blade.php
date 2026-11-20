@@ -37,10 +37,7 @@
             <div class="rendered">{!! $external_links_html !!}</div>
         </div>
     </div>
-    <pre><code>[
-    'type' => 'external_links',
-    'internal_hosts' => ['localhost', 'example.com'],
-]</code></pre>
+    <pre><code>['type' => 'external_links']</code></pre>
 </div>
 
 <div class="card">
@@ -75,14 +72,13 @@
     <pre><code>[
     'type' => 'heading_permalinks',
     'symbol' => '#',
-    'position' => 'after',
-    'class' => 'heading-anchor',
+    'css_class' => 'heading-anchor',
 ]</code></pre>
 </div>
 
 <div class="card">
     <h2>Mentions</h2>
-    <p>Converts @username to clickable profile links.</p>
+    <p>Converts @username to clickable profile links. Mentions are core Carve 0.2 syntax; the <code>social</code> setting gives them a URL.</p>
     <div class="columns">
         <div>
             <h3>Source</h3>
@@ -93,16 +89,12 @@
             <div class="rendered">{!! $mentions_html !!}</div>
         </div>
     </div>
-    <pre><code>[
-    'type' => 'mentions',
-    'mention_url' => 'https://github.com/{name}',
-    'user_class' => 'mention',
-]</code></pre>
+    <pre><code>'social' => ['mentionUrl' => 'https://github.com/{name}'],</code></pre>
 </div>
 
 <div class="card">
     <h2>Table of Contents</h2>
-    <p>Generates a table of contents from headings. Place it with a <code>::: toc</code> block.</p>
+    <p>Generates a table of contents from headings where a <code>::: toc</code> block stands. Without a placement block, <code>table_of_contents</code> prepends it instead.</p>
     <div class="columns">
         <div>
             <h3>Source</h3>
@@ -113,15 +105,13 @@
             <div class="rendered">{!! $toc_html !!}</div>
         </div>
     </div>
-    <pre><code>[
-    'type' => 'table_of_contents',
-    'toc_class' => 'toc',
-]</code></pre>
+    <pre><code>'toc_placement',
+['type' => 'heading_permalinks'],</code></pre>
 </div>
 
 <div class="card">
     <h2>Wikilinks</h2>
-    <p>Supports <code>[[Page Name]]</code> wiki-style links.</p>
+    <p>Links <code>:wiki[Page Name]</code> and <code>:wiki[Page Name|label]</code> through a URL template.</p>
     <div class="columns">
         <div>
             <h3>Source</h3>
@@ -135,7 +125,7 @@
     <pre><code>[
     'type' => 'wikilinks',
     'url_template' => '/extensions?wiki={page}',
-    'link_class' => 'wiki-link',
+    'css_class' => 'wiki-link',
 ]</code></pre>
 </div>
 
@@ -171,15 +161,13 @@
             <pre><code>{{ $frontmatter_source }}</code></pre>
         </div>
         <div>
-            <h3>Rendered (check HTML source for comment)</h3>
+            <h3>Rendered</h3>
             <div class="rendered">{!! $frontmatter_html !!}</div>
+            <h3>RenderedCarve::meta()</h3>
+            <pre><code>{{ json_encode($frontmatter_meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</code></pre>
         </div>
     </div>
-    <pre><code>[
-    'type' => 'frontmatter',
-    'default_format' => 'yaml',
-    'render_as_comment' => true,
-]</code></pre>
+    <p>Frontmatter is core Carve 0.2 syntax: it renders nothing, and <code>Carve::render($source)->meta()</code> reads it.</p>
 </div>
 
 <div class="card">

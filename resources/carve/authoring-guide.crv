@@ -1,4 +1,4 @@
-## A static Carve view
+== A static Carve view
 
 This document lives under the configured include root. Laravel renders it
 through its `.crv` view engine.

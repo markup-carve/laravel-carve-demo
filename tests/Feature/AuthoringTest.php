@@ -60,9 +60,9 @@ class AuthoringTest extends TestCase
             $this->assertFalse($samples[$label]['accepted']);
             $this->assertNotEmpty($samples[$label]['errors']);
         }
-        $this->assertStringContainsString('not allowed by the comment preset', implode(' ', $samples['Heading']['errors']));
+        $this->assertStringContainsString('the profile "comment" does not allow: heading', implode(' ', $samples['Heading']['errors']));
         $this->assertStringContainsString('must not exceed 80 characters', implode(' ', $samples['Character limit']['errors']));
-        $this->assertStringContainsString('renders as literal asterisks', implode(' ', $samples['Markdown spelling']['errors']));
+        $this->assertStringContainsString('is literal text in Carve, asterisks included', implode(' ', $samples['Markdown spelling']['errors']));
         $this->assertSame(81, mb_strlen($samples['Character limit']['source']));
         $this->assertStringNotContainsString('<h1', $response->viewData('comment')->html);
         $this->assertStringContainsString('# Reader heading', $response->viewData('comment')->html);
@@ -84,7 +84,7 @@ class AuthoringTest extends TestCase
         try {
             File::put($directory.'/bad.crv', '**Markdown bold**');
             $this->assertSame(1, Artisan::call('carve:lint', ['paths' => [$directory.'/bad.crv']]));
-            $this->assertStringContainsString('literal asterisks', Artisan::output());
+            $this->assertStringContainsString('markdown-strong-double-star', Artisan::output());
             File::put($directory.'/sample.md', '**Imported bold**');
             $this->assertSame(0, Artisan::call('carve:convert', [
                 'path' => $directory.'/sample.md',

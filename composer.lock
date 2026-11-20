@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dffa829306d3ef6d9b99911527ce3695",
+    "content-hash": "44b5becc6fc068fcf595e1a46eb3fe12",
     "packages": [
         {
             "name": "brick/math",
@@ -2039,24 +2039,25 @@
         },
         {
             "name": "markup-carve/carve-php",
-            "version": "0.1.17",
+            "version": "dev-next2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/carve-php.git",
-                "reference": "fa017b5e5260180e45cf8cb2add16c9adaad74a3"
+                "reference": "e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/fa017b5e5260180e45cf8cb2add16c9adaad74a3",
-                "reference": "fa017b5e5260180e45cf8cb2add16c9adaad74a3",
+                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d",
+                "reference": "e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.2"
+                "league/commonmark": "^2.9.2",
+                "php": "^8.2",
+                "php-collective/djot": "^0.1.35",
+                "symfony/polyfill-intl-normalizer": "^1.27"
             },
             "require-dev": {
-                "brianium/paratest": "^7.8",
-                "nikic/php-fuzzer": "^0.0.11",
                 "php-collective/code-sniffer": "^0.6.8",
                 "phpstan/phpstan": "^2.1.32",
                 "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0"
@@ -2098,7 +2099,7 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/carve-php/issues",
-                "source": "https://github.com/markup-carve/carve-php/tree/0.1.17"
+                "source": "https://github.com/markup-carve/carve-php/tree/next2"
             },
             "funding": [
                 {
@@ -2106,29 +2107,30 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-12T09:37:21+00:00"
+            "time": "2026-11-20T03:56:27+00:00"
         },
         {
             "name": "markup-carve/laravel-carve",
-            "version": "0.1.10",
+            "version": "dev-next2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/laravel-carve.git",
-                "reference": "d39d04d1f7c229a2e6aabcfe8ade38aac87dd2f3"
+                "reference": "68756699ad6005b812e51782d6b464022b18d4df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/d39d04d1f7c229a2e6aabcfe8ade38aac87dd2f3",
-                "reference": "d39d04d1f7c229a2e6aabcfe8ade38aac87dd2f3",
+                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/68756699ad6005b812e51782d6b464022b18d4df",
+                "reference": "68756699ad6005b812e51782d6b464022b18d4df",
                 "shasum": ""
             },
             "require": {
+                "ext-dom": "*",
                 "illuminate/console": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/database": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/support": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/view": "^11.0 || ^12.0 || ^13.0",
-                "markup-carve/carve-php": "^0.1.17",
+                "markup-carve/carve-php": "dev-next2#1ce70376fbcb06d4ac40493efd131becaf957f29",
                 "php": "^8.2",
                 "symfony/finder": "^7.0 || ^8.0"
             },
@@ -2179,9 +2181,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/laravel-carve/issues",
-                "source": "https://github.com/markup-carve/laravel-carve/tree/0.1.10"
+                "source": "https://github.com/markup-carve/laravel-carve/tree/next2"
             },
-            "time": "2026-11-12T10:47:02+00:00"
+            "time": "2026-11-20T04:35:04+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2694,6 +2696,72 @@
                 }
             ],
             "time": "2026-02-16T23:10:27+00:00"
+        },
+        {
+            "name": "php-collective/djot",
+            "version": "0.1.35",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-collective/djot-php.git",
+                "reference": "709058dd11572cd861aab35919244e12d84431a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-collective/djot-php/zipball/709058dd11572cd861aab35919244e12d84431a5",
+                "reference": "709058dd11572cd861aab35919244e12d84431a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "nikic/php-fuzzer": "^0.0.11",
+                "php-collective/code-sniffer": "^0.6.8",
+                "phpstan/phpstan": "^2.1.32",
+                "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0"
+            },
+            "suggest": {
+                "ext-intl": "Recommended for heading-ID transliteration: enables ICU romanization of non-Latin scripts (e.g. CJK, Arabic). Without it, a baked map covers Latin/Cyrillic/Greek/punctuation identically and other scripts fall back to generated `s-N` ids."
+            },
+            "bin": [
+                "bin/djot",
+                "bin/djot-watch"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Djot\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP Collective",
+                    "homepage": "https://github.com/php-collective"
+                }
+            ],
+            "description": "A PHP parser for Djot, a modern light markup language",
+            "homepage": "https://php-collective.github.io/djot-php/",
+            "keywords": [
+                "djot",
+                "markdown",
+                "markup",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/php-collective/djot-php/issues",
+                "source": "https://github.com/php-collective/djot-php/tree/0.1.35"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/dereuromark",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-11-11T11:34:56+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -8468,7 +8536,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "markup-carve/carve-php": 20,
+        "markup-carve/laravel-carve": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

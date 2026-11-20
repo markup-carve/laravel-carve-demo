@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use App\Models\CarvePost;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use MarkupCarve\Carve\Carve as Engine;
+use MarkupCarve\Carve\Diagnostics\Diagnostic;
 use MarkupCarve\LaravelCarve\Facades\Carve;
 use MarkupCarve\LaravelCarve\Rules\ValidCarve;
 
@@ -19,17 +21,17 @@ class AuthoringController extends Controller
         {"title": "Release notes", "author": "Demo editor"}
         ---
 
-        ## Release notes
+        == Release notes
 
         Store the /source/ and render it when needed.
 
-        ### Review checklist
+        === Review checklist
 
         - Check the original markup.
         - Read the rendered output.
         CARVE;
         $post = new CarvePost(['body' => $source]);
-        $commentSource = "# Reader heading\n\nThanks for the /clear/ explanation.";
+        $commentSource = "= Reader heading\n\nThanks for the /clear/ explanation.";
         $lintSource = 'Use **bold** in Markdown.';
         $suppressedSource = "%% carve-lint-disable-next-line markdown-strong-double-star\n".$lintSource;
         $markdown = "## Imported Markdown\n\nA **bold** word and an *italic* word.";
@@ -37,7 +39,7 @@ class AuthoringController extends Controller
         $html = '<h2>Imported HTML</h2><p>A <strong>bold</strong> word.</p>';
         $imports = [
             'Markdown' => ['input' => $markdown, 'source' => Carve::fromMarkdown($markdown)],
-            'GitHub alert' => ['input' => $alert, 'source' => Carve::fromMarkdown($alert)],
+            'GitHub alert' => ['input' => $alert, 'source' => Carve::fromMarkdown($alert, 'gfm')],
             'HTML' => ['input' => $html, 'source' => Carve::fromHtml($html)],
         ];
         foreach ($imports as &$import) {
@@ -48,7 +50,7 @@ class AuthoringController extends Controller
         $validation = [];
         foreach ([
             'Comment' => 'Thanks for the /clear/ explanation.',
-            'Heading' => '# A heading is not comment markup',
+            'Heading' => '= A heading is not comment markup',
             'Character boundary' => str_repeat('é', 80),
             'Character limit' => str_repeat('é', 81),
             'Markdown spelling' => $lintSource,
@@ -73,9 +75,22 @@ class AuthoringController extends Controller
             'validation' => $validation,
             'imports' => $imports,
             'lint_source' => $lintSource,
-            'lint_findings' => Carve::lint($lintSource),
+            'lint_findings' => self::findings($lintSource),
             'suppressed_source' => $suppressedSource,
-            'suppressed_findings' => Carve::lint($suppressedSource),
+            'suppressed_findings' => self::findings($suppressedSource),
         ]);
+    }
+
+    /**
+     * @return list<array{line: int, column: int, code: string, message: string}>
+     */
+    private static function findings(string $source): array
+    {
+        return array_map(static function (Diagnostic $finding) use ($source): array {
+            return Engine::positionOf($source, max(0, $finding->startOffset)) + [
+                'code' => $finding->code,
+                'message' => $finding->message,
+            ];
+        }, Carve::lint($source));
     }
 }

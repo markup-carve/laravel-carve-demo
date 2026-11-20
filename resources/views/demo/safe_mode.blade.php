@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Safe Mode Demo')
+@section('title', 'Safe Rendering Demo')
 
 @section('body')
 <div class="card">
-    <h1>Safe Mode Demo</h1>
-    <p>Safe mode escapes raw HTML tags in user input, preventing script injection attacks.</p>
+    <h1>Safe Rendering Demo</h1>
+    <p>Carve 0.2 keeps raw HTML off by default (<code>raw_html</code> is false), so raw HTML in user input is escaped. The default URL policy also drops unsafe schemes such as <code>javascript:</code> from links and image sources, whether or not raw HTML is on.</p>
     <p><strong>Protects against:</strong> <code>&lt;script&gt;</code>, <code>&lt;img onerror&gt;</code>, <code>&lt;div onmouseover&gt;</code>, and other HTML injection.</p>
 </div>
 
@@ -17,7 +17,7 @@
 <div class="columns">
     <div class="card">
         <h2><span class="badge badge-unsafe">UNSAFE</span> trusted Profile</h2>
-        <pre><code>'safe_mode' => false</code></pre>
+        <pre><code>'raw_html' => true</code></pre>
         <div class="warning">
             <strong>Warning:</strong> Raw HTML passes through!
         </div>
@@ -27,7 +27,7 @@
 
     <div class="card">
         <h2><span class="badge badge-safe">SAFE</span> user_content Profile</h2>
-        <pre><code>'safe_mode' => true</code></pre>
+        <pre><code>'raw_html' => false</code></pre>
         <div class="safe">
             <strong>Protected:</strong> HTML is escaped, scripts neutralized.
         </div>
@@ -44,10 +44,10 @@
 return [
     'converters' => [
         'trusted' => [
-            'safe_mode' => false, // For trusted content (admin, CMS)
+            'raw_html' => true,  // For trusted content (admin, CMS)
         ],
         'user_content' => [
-            'safe_mode' => true,  // For user-submitted content
+            'raw_html' => false, // For user-submitted content (the default)
         ],
     ],
 ];</code></pre>

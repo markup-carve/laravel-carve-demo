@@ -53,12 +53,11 @@ $post = new CarvePost(['body' => $source]);
 </div>
 
 <div class="card">
-    <h2>Comment preset and validation</h2>
-    <p>The <code>comment</code> profile uses strict safe mode and the comment preset. Disallowed markup becomes text for rendering; validation rejects it before saving.</p>
+    <h2>Comment profile and validation</h2>
+    <p>The <code>comment</code> converter uses the Carve <code>comment</code> profile with raw HTML off. A construct the profile does not allow is degraded to text for rendering and reported as a loss; validation rejects it before saving.</p>
     <pre><code>'comment' => [
-    'safe_mode' => 'strict',
-    'preset' => 'comment',
-    'on_disallowed' => 'to_text',
+    'raw_html' => false,
+    'profile' => 'comment',
 ]</code></pre>
     <div class="columns">
         <div><h3>Source</h3><pre><code>{{ $comment_source }}</code></pre></div>
@@ -90,9 +89,10 @@ $post = new CarvePost(['body' => $source]);
 <div class="card">
     <h2>Import Markdown and HTML</h2>
     <pre><code>$source = Carve::fromMarkdown($markdown);
+$source = Carve::fromMarkdown($alert, 'gfm');
 $source = Carve::fromHtml($html);
 $document = Carve::render($source);</code></pre>
-    <p>Imports return Carve source. The examples render it through the safe default converter. A GitHub alert blockquote becomes an admonition.</p>
+    <p>Imports return Carve source. The examples render it through the safe default converter. With the <code>gfm</code> flavor a GitHub alert blockquote becomes an admonition.</p>
     @foreach ($imports as $format => $import)
         <h3>{{ $format }}</h3>
         <div class="columns">
@@ -108,7 +108,7 @@ $document = Carve::render($source);</code></pre>
     <pre><code>Carve::lint({{ var_export($lint_source, true) }});</code></pre>
     <ul>
         @foreach ($lint_findings as $finding)
-            <li>Line {{ $finding->line }}, column {{ $finding->column }}: {{ $finding->message }} ({{ $finding->rule }})</li>
+            <li>Line {{ $finding['line'] }}, column {{ $finding['column'] }}: {{ $finding['message'] }} ({{ $finding['code'] }})</li>
         @endforeach
     </ul>
     <p>A <code>%% carve-lint-disable-next-line</code> comment silences the named rule on the next line. The comment renders nothing.</p>
@@ -118,6 +118,7 @@ $document = Carve::render($source);</code></pre>
     <pre><code>php artisan carve:render resources/carve/authoring-guide.crv --format=html
 php artisan carve:render resources/carve/authoring-guide.crv --format=text
 php artisan carve:convert README.md --output=storage/app/readme.crv
-php artisan carve:lint resources/carve</code></pre>
+php artisan carve:lint resources/carve --include-root=resources/carve
+php artisan carve:fmt resources/carve --check</code></pre>
 </div>
 @endsection
