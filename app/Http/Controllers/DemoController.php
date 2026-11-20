@@ -9,8 +9,6 @@ use App\Models\Article;
 use App\Carve\ConfigIncludeResolver;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use MarkupCarve\Carve\CarveConverter as BaseCarveConverter;
-use MarkupCarve\Carve\Transform\IncludeExpander;
 use MarkupCarve\LaravelCarve\Service\CarveConverterInterface;
 use MarkupCarve\LaravelCarve\Service\CarveManager;
 use MarkupCarve\LaravelCarve\Service\ExtensionFactory;
@@ -18,11 +16,11 @@ use MarkupCarve\LaravelCarve\Service\ExtensionFactory;
 class DemoController extends Controller
 {
     private const SAMPLE_DJOT = <<<'CARVE'
-    # Welcome to Carve
+    = Welcome to Carve
 
-    This is a paragraph with /emphasis/, *strong*, _underline_ and /*both combined*/.
+    This is a paragraph with /emphasis/, *strong*, {_underline_} and *strong with /emphasis/ inside*.
 
-    ## Features
+    == Features
 
     - Clean, consistent syntax
     - Task lists: `[x]` done, `[-]` dropped, `[>]` deferred
@@ -31,7 +29,7 @@ class DemoController extends Controller
     > One syntax, one meaning - and the same HTML from every implementation.
     ^ The Carve design principles
 
-    ### Code Example
+    === Code Example
 
     ```php
     $html = $carve->toHtml('Hello *world*!');
@@ -41,11 +39,11 @@ class DemoController extends Controller
     CARVE;
 
     private const USER_CONTENT = <<<'CARVE'
-    ## User Comment
+    == User Comment
 
     This is /user submitted/ content.
 
-    It uses *safe mode* to prevent XSS:
+    It renders with *raw HTML off* to prevent XSS:
 
     <script>alert('xss')</script>
 
@@ -127,11 +125,11 @@ class DemoController extends Controller
         Math survives too: $`E = mc^2`.
 
         ::: code-group
-        ``` bash [PHP]
+        ```bash [PHP]
         composer require markup-carve/laravel-carve
         ```
 
-        ``` bash [JavaScript]
+        ```bash [JavaScript]
         npm install @markup-carve/carve-js
         ```
         :::
@@ -147,7 +145,7 @@ class DemoController extends Controller
     public function safeMode(CarveManager $manager): View
     {
         $maliciousContent = <<<'CARVE'
-        # User Post
+        = User Post
 
         Normal content here.
 
@@ -179,25 +177,18 @@ class DemoController extends Controller
         ]);
     }
 
-    public function includes(CarveConverterInterface $carve): View
+    public function includes(CarveConverterInterface $carve, CarveManager $manager, ConfigIncludeResolver $resolver): View
     {
         $path = resource_path('carve/main.crv');
         $fileReport = $carve->toHtmlFileWithReport($path);
         $dynamicSource = <<<'CARVE'
-        # Account overview
+        = Account overview
 
         {{ account-status }}
 
         {{ support-hours }}
         CARVE;
-        $converter = new BaseCarveConverter(safeMode: true);
-        $expander = new IncludeExpander(
-            resolver: new ConfigIncludeResolver(config('carve.include_snippets')),
-            currentPath: 'config:account-overview',
-            source: $dynamicSource,
-            extensions: $converter->getExtensions(),
-        );
-        $dynamicDocument = $converter->transform($converter->parse($dynamicSource), $expander);
+        $dynamic = $manager->render($dynamicSource, 'config_snippets');
 
         return view('demo.file_includes', [
             'file_source' => (string) file_get_contents($path),
@@ -205,9 +196,9 @@ class DemoController extends Controller
             'file_dependencies' => $fileReport['dependencies'],
             'file_warnings' => $fileReport['warnings'],
             'dynamic_source' => $dynamicSource,
-            'dynamic_html' => $converter->render($dynamicDocument),
-            'dynamic_dependencies' => $expander->getDependencies(),
-            'dynamic_warnings' => $expander->getWarnings(),
+            'dynamic_html' => $dynamic->html,
+            'dynamic_dependencies' => $resolver->dependencies(),
+            'dynamic_warnings' => $dynamic->warnings,
         ]);
     }
 
@@ -220,7 +211,7 @@ class DemoController extends Controller
         CARVE;
 
         $externalLinksSource = <<<'CARVE'
-        Visit [our site](https://example.com) (internal) or [GitHub](https://github.com) (external).
+        Visit [our site](https://example.com) or [GitHub](https://github.com).
         CARVE;
 
         $smartQuotesSource = <<<'CARVE'
@@ -230,15 +221,15 @@ class DemoController extends Controller
         CARVE;
 
         $headingPermalinksSource = <<<'CARVE'
-        # Introduction
+        = Introduction
 
         Some intro text.
 
-        ## Getting Started
+        == Getting Started
 
         More content here.
 
-        ### Installation
+        === Installation
 
         Install instructions.
         CARVE;
@@ -251,29 +242,30 @@ class DemoController extends Controller
 
         $tocSource = <<<'CARVE'
         ::: toc
+
         :::
 
-        # Chapter 1
+        = Chapter 1
 
         Content for chapter 1.
 
-        ## Section 1.1
+        == Section 1.1
 
         Subsection content.
 
-        ## Section 1.2
+        == Section 1.2
 
         More content.
 
-        # Chapter 2
+        = Chapter 2
 
         Chapter 2 content.
         CARVE;
 
         $wikilinksSource = <<<'CARVE'
-        See [[Home]] for the main page.
+        See :wiki[Home] for the main page.
 
-        Related: [[Getting Started]] and [[API Reference]].
+        Related: :wiki[Getting Started] and :wiki[API Reference|the API docs].
         CARVE;
 
         $defaultAttrsSource = <<<'CARVE'
@@ -291,13 +283,13 @@ class DemoController extends Controller
         CARVE;
 
         $frontmatterSource = <<<'CARVE'
-        ---yaml
+        ---
         title: My Document
         author: John Doe
         date: 2026-01-15
         ---
 
-        # Document Title
+        = Document Title
 
         This content has YAML frontmatter.
         CARVE;
@@ -311,7 +303,7 @@ class DemoController extends Controller
         CARVE;
 
         $mermaidSource = <<<'CARVE'
-        ``` mermaid
+        ```mermaid
         graph LR
             A[Write Carve] --> B{Render}
             B --> C[Interactive HTML]
@@ -325,11 +317,11 @@ class DemoController extends Controller
         composer require markup-carve/laravel-carve
         ```
 
-        ``` bash [NPM]
+        ```bash [NPM]
         npm install @example/carve
         ```
 
-        ``` yaml [Docker]
+        ```yaml [Docker]
         services:
           app:
             image: php:8.2
@@ -342,7 +334,7 @@ class DemoController extends Controller
         This is a note.
         :::
 
-        ::: warning Custom Title
+        ::: warning "Custom Title"
         Be careful with this.
         :::
 
@@ -370,6 +362,7 @@ class DemoController extends Controller
             'default_attrs_html' => $manager->toHtml($defaultAttrsSource, 'with_default_attrs'),
             'frontmatter_source' => $frontmatterSource,
             'frontmatter_html' => $manager->toHtml($frontmatterSource, 'with_frontmatter'),
+            'frontmatter_meta' => $manager->render($frontmatterSource, 'with_frontmatter')->meta(),
             'semantic_source' => $semanticSource,
             'semantic_html' => $manager->toHtml($semanticSource, 'with_semantic'),
             'mermaid_source' => $mermaidSource,
@@ -383,7 +376,7 @@ class DemoController extends Controller
 
     public function diagrams(CarveManager $manager): View
     {
-        // Every FencedRenderExtension preset, keyed by the CSS class the
+        // Every fenced-render preset, keyed by the CSS class the
         // extension emits. Each entry carries a short blurb, its browser
         // renderer, and a valid sample so it actually draws in the gallery.
         $diagrams = [
@@ -392,7 +385,7 @@ class DemoController extends Controller
                 'renderer' => 'mermaid.js (ESM, jsDelivr)',
                 'blurb' => 'Flowcharts, sequence and state diagrams. Emits <pre class="mermaid">; mermaid.run() draws it.',
                 'source' => <<<'CARVE'
-                ``` mermaid
+                ```mermaid
                 graph LR
                     A[Write Carve] --> B{Render}
                     B --> C[Interactive HTML]
@@ -405,7 +398,7 @@ class DemoController extends Controller
                 'renderer' => 'public PlantUML server (~h hex encoding)',
                 'blurb' => 'UML shapes Mermaid does not cover (sequence, use case, component). Claims plantuml and puml fences.',
                 'source' => <<<'CARVE'
-                ``` plantuml
+                ```plantuml
                 @startuml
                 actor User
                 participant "Laravel App" as App
@@ -424,7 +417,7 @@ class DemoController extends Controller
                 'renderer' => '@hpcc-js/wasm Graphviz (WASM, jsDelivr)',
                 'blurb' => 'DOT graphs. Claims both dot and graphviz fences; rendered to SVG entirely in the browser.',
                 'source' => <<<'CARVE'
-                ``` graphviz
+                ```graphviz
                 digraph Pipeline {
                     rankdir=LR;
                     node [shape=box, style=rounded];
@@ -440,7 +433,7 @@ class DemoController extends Controller
                 'renderer' => 'Kroki server (POST /d2/svg)',
                 'blurb' => 'Terrastruct D2 diagrams. No practical in-browser build, so the demo posts the source to a public Kroki server; without network the source stays visible.',
                 'source' => <<<'CARVE'
-                ``` d2
+                ```d2
                 Author -> Carve: markup
                 Carve -> Browser: <pre class="d2">
                 Browser -> Kroki: render
@@ -453,7 +446,7 @@ class DemoController extends Controller
                 'renderer' => 'vega + vega-lite + vega-embed (jsDelivr)',
                 'blurb' => 'Declarative charts from a JSON spec. JSON mode: emits <div class="vega-lite"><script type="application/json">.',
                 'source' => <<<'CARVE'
-                ``` vega-lite
+                ```vega-lite
                 {
                   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                   "description": "A simple bar chart.",
@@ -476,7 +469,7 @@ class DemoController extends Controller
                 'renderer' => 'wavedrom + default skin (jsDelivr)',
                 'blurb' => 'Digital timing diagrams from a WaveJSON description.',
                 'source' => <<<'CARVE'
-                ``` wavedrom
+                ```wavedrom
                 {"signal": [
                   {"name": "clk",  "wave": "p......"},
                   {"name": "req",  "wave": "0.1..0."},
@@ -490,7 +483,7 @@ class DemoController extends Controller
                 'renderer' => 'chart.js (UMD, jsDelivr)',
                 'blurb' => 'Chart.js config as JSON. JSON mode: emits <div class="chart"><script type="application/json">.',
                 'source' => <<<'CARVE'
-                ``` chart
+                ```chart
                 {
                   "type": "doughnut",
                   "data": {
@@ -510,7 +503,7 @@ class DemoController extends Controller
                 'renderer' => 'abcjs (jsDelivr)',
                 'blurb' => 'Sheet music from ABC music notation, rendered to SVG.',
                 'source' => <<<'CARVE'
-                ``` abc
+                ```abc
                 X:1
                 T:Carve Fanfare
                 M:4/4
@@ -531,8 +524,7 @@ class DemoController extends Controller
         // onclick handler below are stripped) and emitted as a sandboxed
         // data:image/svg+xml <img>. Fully server-side, no client library needed.
         $imgFenceSource = <<<'CARVE'
-        {alt="Carve logo mark"}
-        ``` img
+        ```img
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
           <title>Carve logo mark</title>
           <rect width="120" height="120" rx="16" fill="#ff2d20"/>
@@ -564,7 +556,7 @@ class DemoController extends Controller
             ],
             'task_lists' => [
                 'title' => 'Task list markers',
-                'blurb' => 'Carve recognises done, dropped and deferred task states in addition to the plain checkbox.',
+                'blurb' => 'Carve recognizes done, dropped and deferred task states in addition to the plain checkbox.',
                 'source' => "- [x] Ship the gallery\n- [ ] Write the docs\n- [-] Drop the old approach\n- [>] Defer the polish",
             ],
             'ordered_lists' => [
@@ -599,7 +591,7 @@ class DemoController extends Controller
                 'title' => 'Comments inside a list',
                 'blurb' => 'A %% line comment between list items is dropped from the output and does not break the '
                     . 'list or make it loose.',
-                'source' => "- Install the package\n%% TODO: link the release notes\n- Publish the config\n- Render",
+                'source' => "- Install the package\n  %% TODO: link the release notes\n- Publish the config\n- Render",
             ],
             'tight_loose' => [
                 'title' => 'Tight vs loose lists',
@@ -613,13 +605,11 @@ class DemoController extends Controller
                 'source' => ":: Carve\n: A lightweight markup language for structured documents.\n"
                     . ":: Renderer\n: An engine that turns Carve source into HTML, text, Markdown, or ANSI.",
             ],
-            'continuation_marker' => [
-                'title' => 'Continuation marker',
-                'blurb' => 'A lone + attaches the next block to the open list item, quote, footnote or description, '
-                    . 'without indenting it. The list stays tight.',
-                'source' => "- Install the package\n+\n> Run composer from the project root.\n- Publish the config",
-                // The canonical writer spells the attached block as indentation instead.
-                'canonical' => false,
+            'item_continuation' => [
+                'title' => 'Blocks inside a list item',
+                'blurb' => 'A block indented to the item content column belongs to the item, after a blank line. '
+                    . 'Carve 0.2 has no + continuation marker: indentation alone attaches the block.',
+                'source' => "- Install the package\n\n  > Run composer from the project root.\n- Publish the config",
             ],
             'delimited_tables' => [
                 'title' => 'CSV and TSV tables',
@@ -645,12 +635,12 @@ class DemoController extends Controller
             'escaped_markers' => [
                 'title' => 'Escaped block markers',
                 'blurb' => 'A backslash keeps a block marker literal when it appears at the start of a line.',
-                'source' => "This paragraph is real.\n\n\\#\\#\\# This stays literal\n\n# This is a real heading",
+                'source' => "This paragraph is real.\n\n\\=== This stays literal\n\n= This is a real heading",
             ],
         ];
 
         foreach ($samples as &$sample) {
-            if (($sample['canonical'] ?? true) && BaseCarveConverter::toCarve($sample['source']) !== $sample['source']."\n") {
+            if ($manager->format($sample['source']) !== $sample['source']."\n") {
                 throw new \LogicException("Syntax example is not canonical: {$sample['title']}");
             }
             $sample['html'] = $manager->toHtml($sample['source'], 'syntax');
@@ -665,7 +655,7 @@ class DemoController extends Controller
     public function renderTargets(CarveConverterInterface $carve): View
     {
         $source = <<<'CARVE'
-        # Release notes
+        = Release notes
 
         Carve /renders/ to *four* targets from one source.
 
@@ -694,7 +684,7 @@ class DemoController extends Controller
     public function editorPreview(CarveManager $manager): View
     {
         $source = <<<'CARVE'
-        # Source-aware preview :spark:
+        = Source-aware preview :spark:
 
         Each rendered block carries its original 1-based line number, while
         the configured symbol is replaced with trusted presentation HTML.

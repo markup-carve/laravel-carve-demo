@@ -20,5 +20,7 @@ return [
         'syntax' => 'static',
         'render_targets' => 'static',
         'editor_preview' => 'browser-enhanced',
+        'options' => 'static',
+        'extension_catalog' => 'static',
     ],
 ];

@@ -36,7 +36,7 @@ public function show(CarveConverterInterface $carve): View
 </div>
 
 <div class="card">
-    <h2>Named Converter via CarveManager (Safe Mode)</h2>
+    <h2>Named Converter via CarveManager (user_content)</h2>
     <pre><code>use MarkupCarve\LaravelCarve\Service\CarveManager;
 
 public function show(CarveManager $manager): View
@@ -50,7 +50,7 @@ public function show(CarveManager $manager): View
             <pre><code>{{ $user_source }}</code></pre>
         </div>
         <div>
-            <h3>Safe Mode Output</h3>
+            <h3>user_content Output</h3>
             <div class="rendered safe">
                 <span class="badge badge-safe">XSS Protected</span>
                 {!! $safe_html !!}
@@ -65,10 +65,10 @@ public function show(CarveManager $manager): View
 return [
     'converters' => [
         'default' => [
-            'safe_mode' => false,
+            'raw_html' => true,
         ],
         'user_content' => [
-            'safe_mode' => true,
+            'raw_html' => false,
         ],
     ],
     'cache' => [

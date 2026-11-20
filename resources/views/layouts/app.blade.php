@@ -211,7 +211,7 @@
         <a href="{{ route('service') }}" @class(['active' => request()->routeIs('service')])>Service</a>
         <a href="{{ route('authoring') }}" @class(['active' => request()->routeIs('authoring')])>Authoring</a>
         <a href="{{ route('form') }}" @class(['active' => request()->routeIs('form*')])>Form</a>
-        <a href="{{ route('safe_mode') }}" @class(['active' => request()->routeIs('safe_mode')])>Safe Mode</a>
+        <a href="{{ route('safe_mode') }}" @class(['active' => request()->routeIs('safe_mode')])>Safe Rendering</a>
         <a href="{{ route('static_mode') }}" @class(['active' => request()->routeIs('static_mode')])>Static Mode</a>
         <a href="{{ route('plain_text') }}" @class(['active' => request()->routeIs('plain_text')])>Plain Text</a>
         <a href="{{ route('includes') }}" @class(['active' => request()->routeIs('includes')])>Includes</a>
@@ -220,6 +220,8 @@
         <a href="{{ route('syntax') }}" @class(['active' => request()->routeIs('syntax')])>Syntax</a>
         <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
         <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
+        <a href="{{ route('options') }}" @class(['active' => request()->routeIs('options')])>Options</a>
+        <a href="{{ route('extension_catalog') }}" @class(['active' => request()->routeIs('extension_catalog')])>Extension Catalog</a>
     </nav>
     <div class="repo-links">
         <a href="https://markup-carve.github.io/carve/">Carve website</a>
@@ -233,10 +235,10 @@
             onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}]});"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github.min.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/highlight.min.js"></script>
-    {{-- carve-grammars' definitions register themselves on window.hljs: carve, plus csv/tsv so delimited table bodies show their separators. --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.22/shiki/table-tokens.css">
-    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.22/highlightjs/carve.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@v0.1.22/highlightjs/delimited.js"></script>
+    {{-- carve-grammars next2 (Carve 0.2) definitions register themselves on window.hljs: carve, plus csv/tsv so delimited table bodies show their separators. --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@79511c4ba461/shiki/table-tokens.css">
+    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@79511c4ba461/highlightjs/carve.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/markup-carve/carve-grammars@79511c4ba461/highlightjs/delimited.js"></script>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
