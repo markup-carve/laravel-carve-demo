@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44b5becc6fc068fcf595e1a46eb3fe12",
+    "content-hash": "0c1423cd9dcc152adccd50ceeb590799",
     "packages": [
         {
             "name": "brick/math",
@@ -2043,12 +2043,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/carve-php.git",
-                "reference": "e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d"
+                "reference": "6ceebc52181efc1f5dfe6f5e7964b75c43f13a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d",
-                "reference": "e84ca2189d42e6cdde4acf7d5949e1f2c3763b7d",
+                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
+                "reference": "6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
                 "shasum": ""
             },
             "require": {
@@ -2107,7 +2107,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-20T03:56:27+00:00"
+            "time": "2026-11-20T10:04:01+00:00"
         },
         {
             "name": "markup-carve/laravel-carve",
@@ -2115,12 +2115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/laravel-carve.git",
-                "reference": "68756699ad6005b812e51782d6b464022b18d4df"
+                "reference": "fd120f60694777d09f6b6313e539cb331170e386"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/68756699ad6005b812e51782d6b464022b18d4df",
-                "reference": "68756699ad6005b812e51782d6b464022b18d4df",
+                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/fd120f60694777d09f6b6313e539cb331170e386",
+                "reference": "fd120f60694777d09f6b6313e539cb331170e386",
                 "shasum": ""
             },
             "require": {
@@ -2130,7 +2130,7 @@
                 "illuminate/database": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/support": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/view": "^11.0 || ^12.0 || ^13.0",
-                "markup-carve/carve-php": "dev-next2#1ce70376fbcb06d4ac40493efd131becaf957f29",
+                "markup-carve/carve-php": "dev-next2#6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
                 "php": "^8.2",
                 "symfony/finder": "^7.0 || ^8.0"
             },
@@ -2183,7 +2183,7 @@
                 "issues": "https://github.com/markup-carve/laravel-carve/issues",
                 "source": "https://github.com/markup-carve/laravel-carve/tree/next2"
             },
-            "time": "2026-11-20T04:35:04+00:00"
+            "time": "2026-11-20T10:51:45+00:00"
         },
         {
             "name": "monolog/monolog",
