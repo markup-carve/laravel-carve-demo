@@ -43,7 +43,7 @@ class DemoController extends Controller
 
     This is /user submitted/ content.
 
-    It uses *safe mode* to prevent XSS:
+    It renders with *raw HTML off* to prevent XSS:
 
     <script>alert('xss')</script>
 
@@ -211,7 +211,7 @@ class DemoController extends Controller
         CARVE;
 
         $externalLinksSource = <<<'CARVE'
-        Visit [our site](https://example.com) (internal) or [GitHub](https://github.com) (external).
+        Visit [our site](https://example.com) or [GitHub](https://github.com).
         CARVE;
 
         $smartQuotesSource = <<<'CARVE'
@@ -263,9 +263,9 @@ class DemoController extends Controller
         CARVE;
 
         $wikilinksSource = <<<'CARVE'
-        See [[Home]] for the main page.
+        See :wiki[Home] for the main page.
 
-        Related: [[Getting Started]] and [[API Reference]].
+        Related: :wiki[Getting Started] and :wiki[API Reference|the API docs].
         CARVE;
 
         $defaultAttrsSource = <<<'CARVE'
@@ -362,6 +362,7 @@ class DemoController extends Controller
             'default_attrs_html' => $manager->toHtml($defaultAttrsSource, 'with_default_attrs'),
             'frontmatter_source' => $frontmatterSource,
             'frontmatter_html' => $manager->toHtml($frontmatterSource, 'with_frontmatter'),
+            'frontmatter_meta' => $manager->render($frontmatterSource, 'with_frontmatter')->meta(),
             'semantic_source' => $semanticSource,
             'semantic_html' => $manager->toHtml($semanticSource, 'with_semantic'),
             'mermaid_source' => $mermaidSource,
@@ -375,7 +376,7 @@ class DemoController extends Controller
 
     public function diagrams(CarveManager $manager): View
     {
-        // Every FencedRenderExtension preset, keyed by the CSS class the
+        // Every fenced-render preset, keyed by the CSS class the
         // extension emits. Each entry carries a short blurb, its browser
         // renderer, and a valid sample so it actually draws in the gallery.
         $diagrams = [

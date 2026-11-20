@@ -50,25 +50,30 @@ See the [screenshot gallery](docs/screenshots/) for the home page, Includes, the
 | `/` | Home: overview of all pages |
 | `/blade-directive` | Using the `@carve` / `@carveRaw` / `@carveText` Blade directives |
 | `/facade` | Using the `Carve` facade for inline rendering |
-| `/authoring` | Rendered metadata, Eloquent casts, Blade components, static documents, presets, imports and CLI tools |
+| `/authoring` | Rendered metadata, Eloquent casts, Blade components, static documents, the comment profile, imports and CLI tools |
 | `/service` | Injecting `CarveConverterInterface` and `CarveManager` into services |
 | `/form` | Form validation with the `ValidCarve` rule |
-| `/safe-mode` | XSS protection for untrusted content |
+| `/safe-mode` | Raw HTML off and the URL policy for untrusted content |
+| `/static-mode` | Interactive and static (print) rendering of the same source |
 | `/plain-text` | Extracting plain text for search/excerpts |
 | `/includes` | Trusted file-backed content, a named region, source and CSV data included as code, CSV records and columns picked with `@rows` and `@cols`, and configuration-backed snippets |
-| `/extensions` | Live demo of all configured Carve extensions |
-| `/diagrams` | PlantUML fenced diagrams and sanitized SVG image fences (0.1.3) |
-| `/editor-preview` | Trusted symbols and source-line metadata for synchronized previews (0.1.5) |
+| `/extensions` | The extensions the demo's converter profiles enable, with their configuration |
+| `/diagrams` | Eight fenced diagram languages hydrated in the browser, and sanitized SVG image fences |
+| `/syntax` | Carve 0.2 syntax samples in canonical form |
+| `/render-targets` | One source rendered as HTML, plain text, Markdown and ANSI |
+| `/editor-preview` | Trusted symbols and source-line metadata for synchronized previews |
+| `/options` | Profiles, render settings (URL policy, heading ids, sections, typography, labels, strict losses), `Str` macros, the parsed tree, `Carve::format()` and a custom output writer |
+| `/extension-catalog` | Every extension name of `ExtensionFactory::types()`, each rendered from a sample |
 
 ## Features Demonstrated
 
 ### Blade Directives
 
 ```blade
-{{-- Safe (XSS-protected) render --}}
+{{-- Default profile: raw HTML off --}}
 @carve($article->body)
 
-{{-- Trusted content, no safe mode --}}
+{{-- Trusted content, raw HTML passthrough --}}
 @carveRaw($trustedContent)
 
 {{-- Plain text, HTML-escaped --}}
@@ -124,7 +129,7 @@ $request->validate([
 return [
     'converters' => [
         'default' => [
-            'safe_mode' => false,
+            'raw_html' => true,
             'extensions' => [
                 ['type' => 'autolink'],
                 ['type' => 'smart_quotes'],
@@ -132,15 +137,10 @@ return [
             ],
         ],
         'user_content' => [
-            'safe_mode' => true,
+            'raw_html' => false,
         ],
         'with_mentions' => [
-            'extensions' => [
-                [
-                    'type' => 'mentions',
-                    'user_url_template' => 'https://github.com/{username}',
-                ],
-            ],
+            'social' => ['mentionUrl' => 'https://github.com/{name}'],
         ],
     ],
 ];
@@ -151,24 +151,24 @@ return [
 The demo's converter profiles in `config/carve.php` enable these Carve extensions:
 
 - Autolink: Converts bare URLs to links
-- Admonition: Styled note/tip/warning/danger blocks
 - Code Group: Tabbed code blocks (`::: code-group`)
 - Default Attributes: Auto-applied `loading="lazy"`, etc.
 - Details: Native `<details>`/`<summary>` disclosure blocks
 - External Links: `target="_blank"` + `rel` attributes
-- Frontmatter: YAML/TOML/JSON frontmatter parsing
 - Heading Permalinks: Anchor links on headings
-- Image Fence: `img` / `image` fences render sanitized SVG as a sandboxed `data:image/svg+xml` `<img>` (`img_fence` shorthand, 0.1.3)
-- Mentions: `@username` → profile links
-- PlantUML: `plantuml` / `puml` fenced diagrams via the `plantuml` shorthand (0.1.3)
-- Semantic Spans: `<kbd>`, `<dfn>`, `<abbr>` from span syntax
+- Image Fence: `img` / `image` fences render sanitized SVG as a sandboxed `data:image/svg+xml` `<img>` (`img_fence`)
+- PlantUML: `plantuml` / `puml` fenced diagrams (`plantuml`)
+- Semantic Spans: `samp`, `var`, `cite` and `dfn` span keys
 - Smart Quotes: Typographic (curly) quotes
-- Table of Contents: Generated heading TOC via the `table_of_contents` extension
-- Wikilinks: `[[Page Name]]` wiki-style links
+- Table of Contents: placed at a `::: toc` block (`toc_placement`)
+- Wikilinks: `:wiki[Page Name]` links through a URL template
 
-All shorthand extension types are discoverable at runtime via
-`MarkupCarve\LaravelCarve\Service\ExtensionFactory::types()`, listed live on the
-`/diagrams` page.
+Admonitions, frontmatter and `@mentions` are core Carve 0.2 syntax and need no
+extension; mentions get their URL from the `social` setting.
+
+Every extension name is listed at runtime by
+`MarkupCarve\LaravelCarve\Service\ExtensionFactory::types()`; the
+`/extension-catalog` page renders a sample for each.
 
 ### Runtime note: PlantUML rendering
 
@@ -184,30 +184,31 @@ source simply stays as text. No PlantUML binary is required by the demo itself.
 
 See `config/carve.php` for the full example configuration covering every profile used by the demo.
 
-The `editor_preview` profile demonstrates the 0.1.5 `symbols` and
+The `editor_preview` profile demonstrates the `symbols` and
 `source_lines` options. Symbol values are trusted raw HTML configuration and
 must never be populated from user input. Source-line mode adds 1-based
 `data-source-line` attributes to rendered blocks for editor scroll sync.
 The demo also enables the self-contained `array` cache store; its feature tests
-render identical source through safe and trusted profiles to prove cached HTML
+render identical source through the default and trusted profiles to prove cached HTML
 cannot leak between converter configurations.
 
 ## Authoring examples
 
-Composer installs stable releases. The lockfile records the versions used
-by the demo and static export.
+On the `next2` branch Composer installs laravel-carve and carve-php from their
+`next2` branches (Carve 0.2, unreleased); the lockfile pins the commits used by
+the demo and static export.
 
 The `/authoring` page runs `Carve::render()` and displays JSON frontmatter and
 collected headings. An unsaved `CarvePost` model demonstrates `AsCarve` without
 a database write, and `<x-carve>` renders its value. The static document example
 uses `view()->file()` under `resources/carve`, inside the configured include root.
 
-The comment profile combines strict safe mode with the comment preset. Live
+The comment converter uses the Carve `comment` profile with raw HTML off. Live
 validation examples demonstrate forbidden headings, an 80-character limit and
 lint findings for Markdown spelling, and a `%% carve-lint-disable-next-line`
 comment silences one of them. Markdown and HTML imports show the source they
-produce and its output through the safe default converter; a GitHub alert
-blockquote imports as an admonition.
+produce and its output through the default converter; with the `gfm` flavor a
+GitHub alert blockquote imports as an admonition.
 
 Run the file tools locally:
 
@@ -216,6 +217,7 @@ php artisan carve:render resources/carve/authoring-guide.crv --format=html
 php artisan carve:render resources/carve/authoring-guide.crv --format=text
 php artisan carve:convert README.md --output=storage/app/readme.crv
 php artisan carve:lint resources/carve
+php artisan carve:fmt resources/carve --check
 ```
 
 The Authoring page also appears in the static export. Its results are generated

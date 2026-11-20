@@ -49,13 +49,13 @@ return [
             ],
         ],
 
-        // Restricted comment markup with strict safe mode.
+        // Restricted comment markup: the Carve comment profile, raw HTML off.
         'comment' => [
             'raw_html' => false,
             'profile' => 'comment',
         ],
 
-        // User-submitted content: safe mode ON (XSS protection)
+        // User-submitted content: raw HTML off (XSS protection)
         'user_content' => [
             'raw_html' => false,
         ],
@@ -93,7 +93,6 @@ return [
         'with_toc' => [
             'raw_html' => true,
             'extensions' => [
-                ['type' => 'table_of_contents', 'css_class' => 'toc'],
                 // Expands ::: toc placement blocks in the source document.
                 'toc_placement',
                 ['type' => 'heading_permalinks'],
@@ -168,7 +167,7 @@ return [
         ],
 
         // PlantUML fenced diagrams. The `plantuml` shorthand registers the
-        // FencedRenderExtension::plantuml() preset, which claims `plantuml` and
+        // FencedRender plantuml preset, which claims `plantuml` and
         // `puml` fences and emits <pre class="plantuml"> for a client-side
         // PlantUML renderer to hydrate (see the runtime note in the README).
         'with_plantuml' => [
@@ -179,10 +178,10 @@ return [
         ],
 
         // Sanitized SVG image fences. The `img_fence` shorthand registers the
-        // carve-php ImgFenceExtension: an `img` / `image` fence renders its SVG
+        // carve-php ImgFence extension: an `img` / `image` fence renders its SVG
         // body sandboxed into a `data:image/svg+xml` <img>, with scripts and
-        // active content stripped. Safe under untrusted input, so safe_mode
-        // stays on.
+        // active content stripped. Safe under untrusted input, so raw HTML
+        // stays off.
         'with_img_fence' => [
             'raw_html' => false,
             'extensions' => [
@@ -190,14 +189,14 @@ return [
             ],
         ],
 
-        // Full fenced-diagram gallery. Registers every FencedRenderExtension
+        // Full fenced-diagram gallery. Registers every FencedRender
         // preset so all eight diagram languages emit their client-hydration
         // markup at once. Text-mode presets emit <pre class="TYPE">source</pre>;
         // JSON-mode presets (vega-lite, chart) emit
         // <div class="TYPE"><script type="application/json">spec</script></div>.
         // A browser renderer per type (loaded on the Diagrams page) draws each
         // one; without it the source stays visible (graceful degradation).
-        // safe_mode is off so the JSON <script> wrappers survive - the sources
+        // Raw HTML is on so the JSON <script> wrappers survive - the sources
         // here are trusted author content, not user input.
         'with_diagrams' => [
             'raw_html' => true,

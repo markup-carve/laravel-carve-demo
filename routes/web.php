@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AuthoringController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\ExtensionCatalogController;
+use App\Http\Controllers\OptionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DemoController::class, 'index'])->name('home');
@@ -22,3 +24,5 @@ Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');
 Route::get('/syntax', [DemoController::class, 'syntax'])->name('syntax');
 Route::get('/render-targets', [DemoController::class, 'renderTargets'])->name('render_targets');
 Route::get('/editor-preview', [DemoController::class, 'editorPreview'])->name('editor_preview');
+Route::get('/options', OptionsController::class)->name('options');
+Route::get('/extension-catalog', ExtensionCatalogController::class)->name('extension_catalog');

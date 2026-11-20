@@ -39,7 +39,7 @@
 
     <div class="card">
         <h2>Authoring</h2>
-        <p>Rendered values, model casts, components, document views, presets and imports.</p>
+        <p>Rendered values, model casts, components, document views, profiles and imports.</p>
         <pre><code>$document = Carve::render($source);</code></pre>
         <p><a href="{{ route('authoring') }}">View Demo &rarr;</a></p>
     </div>
@@ -52,9 +52,9 @@
     </div>
 
     <div class="card">
-        <h2>Safe Mode</h2>
+        <h2>Safe Rendering</h2>
         <p>XSS protection for untrusted user content.</p>
-        <pre><code>'safe_mode' => true</code></pre>
+        <pre><code>'raw_html' => false</code></pre>
         <p><a href="{{ route('safe_mode') }}">View Demo &rarr;</a></p>
     </div>
 
@@ -122,6 +122,20 @@ $carve->toAnsi($src);</code></pre>
         <pre><code>'symbols' => ['spark' => '✦'],
 'source_lines' => true,</code></pre>
         <p><a href="{{ route('editor_preview') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
+        <h2>Profiles and Options</h2>
+        <p>URL policy, heading ids, sections, labels and strict losses per profile, plus <code>Str</code> macros, the parsed tree, <code>Carve::format()</code> and a custom output writer.</p>
+        <pre><code>'url_policy' => ['allow' => ['https']],</code></pre>
+        <p><a href="{{ route('options') }}">View Demo &rarr;</a></p>
+    </div>
+
+    <div class="card">
+        <h2>Extension Catalog</h2>
+        <p>Every extension name a profile accepts, each rendered from a sample.</p>
+        <pre><code>ExtensionFactory::types()</code></pre>
+        <p><a href="{{ route('extension_catalog') }}">View Demo &rarr;</a></p>
     </div>
 </div>
 @endsection

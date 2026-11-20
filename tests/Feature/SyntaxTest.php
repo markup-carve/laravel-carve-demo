@@ -22,8 +22,8 @@ class SyntaxTest extends TestCase
 
         $response->assertSeeInOrder([
             'highlight.min.js',
-            'carve-grammars@v0.1.22/highlightjs/carve.js',
-            'carve-grammars@v0.1.22/highlightjs/delimited.js',
+            'carve-grammars@79511c4ba461/highlightjs/carve.js',
+            'carve-grammars@79511c4ba461/highlightjs/delimited.js',
             'hljs.highlightElement',
         ], escape: false);
     }
