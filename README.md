@@ -194,9 +194,9 @@ cannot leak between converter configurations.
 
 ## Authoring examples
 
-On the `next2` branch Composer installs laravel-carve and carve-php from their
-`next2` branches (Carve 0.2, unreleased); the lockfile pins the commits used by
-the demo and static export.
+On `main` Composer installs laravel-carve and carve-php from their `next2`
+branches (Carve 0.2, unreleased); the lockfile pins the commits used by the demo
+and static export. The `0.1` branch keeps the 0.1 demo on published packages.
 
 The `/authoring` page runs `Carve::render()` and displays JSON frontmatter and
 collected headings. An unsaved `CarvePost` model demonstrates `AsCarve` without
