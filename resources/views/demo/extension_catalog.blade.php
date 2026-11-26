@@ -8,7 +8,7 @@
     <p>Every extension name that a profile's <code>extensions</code> list accepts, from <code>ExtensionFactory::types()</code>, rendered with a sample. A name is enough; an array passes options by their snake_case factory parameter names.</p>
     <pre><code>'extensions' => [
     'details',
-    ['type' => 'heading_levels', 'offset' => 1],
+    ['type' => 'external_links', 'target' => '_blank'],
 ],</code></pre>
     <p>{{ count($types) }} names: @foreach ($types as $type)<a href="#ext-{{ $type }}"><code>{{ $type }}</code></a>@if (!$loop->last), @endif @endforeach</p>
 </div>

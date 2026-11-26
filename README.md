@@ -194,7 +194,7 @@ cannot leak between converter configurations.
 
 ## Authoring examples
 
-On `main` Composer installs laravel-carve and carve-php from their `next2`
+On `main` Composer installs laravel-carve and carve-php from their `main`
 branches (Carve 0.2, unreleased); the lockfile pins the commits used by the demo
 and static export. The `0.1` branch keeps the 0.1 demo on published packages.
 

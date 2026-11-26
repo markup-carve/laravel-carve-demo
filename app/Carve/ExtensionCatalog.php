@@ -147,15 +147,6 @@ final class ExtensionCatalog
                 ```
                 CARVE,
             ],
-            'heading_levels' => [
-                'config' => ['type' => 'heading_levels', 'offset' => 1],
-                'blurb' => 'Shifts every heading level, here by one, for content embedded below a page title.',
-                'source' => <<<'CARVE'
-                = Title
-
-                == Section
-                CARVE,
-            ],
             'heading_numbers' => [
                 'config' => 'heading_numbers',
                 'blurb' => 'Numbers the headings hierarchically.',
