@@ -33,7 +33,8 @@
         <tbody>
             @foreach ([
                 '*strong text*',
-                '_emphasized text_',
+                '/emphasized text/',
+                '{_underlined text_}',
                 '`inline code`',
                 '[link](https://github.com/markup-carve/carve)',
                 'H{,2,}O',
@@ -52,8 +53,8 @@
 
 <div class="card">
     <h2>Plain Text</h2>
-    <pre><code>&#123;&#123; Carve::toText('# Hello *World*') &#125;&#125;</code></pre>
-    <p><strong>Result:</strong> <code>{{ trim(Carve::toText('# Hello *World*')) }}</code></p>
+    <pre><code>&#123;&#123; Carve::toText('= Hello *World*') &#125;&#125;</code></pre>
+    <p><strong>Result:</strong> <code>{{ trim(Carve::toText('= Hello *World*')) }}</code></p>
 </div>
 
 <div class="card">

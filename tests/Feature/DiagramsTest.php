@@ -47,8 +47,8 @@ class DiagramsTest extends TestCase
 
         // The img_fence shorthand emits a sandboxed data:image/svg+xml <img>.
         $response->assertSee('<img src="data:image/svg+xml', escape: false);
-        // The alt fallback / explicit alt is carried through.
-        $response->assertSee('alt="Carve logo mark"', escape: false);
+        // C2-X-059 writes one <img>; the SVG <title> names it, the img alt stays empty.
+        $response->assertSee('alt=""', escape: false);
     }
 
     public function test_img_fence_strips_active_svg_content(): void

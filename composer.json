@@ -15,7 +15,8 @@
         "ext-dom": "*",
         "laravel/framework": "^12.0 || ^13.0",
         "laravel/tinker": "^2.10.1 || ^3.0",
-        "markup-carve/laravel-carve": "^0.1.10"
+        "markup-carve/carve-php": "dev-next2#6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
+        "markup-carve/laravel-carve": "dev-next2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

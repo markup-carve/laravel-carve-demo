@@ -5,7 +5,7 @@
 @section('body')
 <div class="card">
     <h1>Live Diagram Gallery</h1>
-    <p>carve-php's <code>FencedRenderExtension</code> ships eight fenced-diagram presets.
+    <p>carve-php's <code>FencedRender</code> extension ships eight fenced-diagram presets.
        Each claims one or more fence languages and emits a client-hydration element -
        a <code>&lt;pre class="TYPE"&gt;</code> for text-mode presets, or a
        <code>&lt;div class="TYPE"&gt;&lt;script type="application/json"&gt;</code> for the
@@ -15,7 +15,7 @@
     <p>All eight are registered at once through the <code>with_diagrams</code> converter
        profile:</p>
     <pre><code>'with_diagrams' => [
-    'safe_mode' => false,
+    'raw_html' => true,
     'extensions' => [
         ['type' => 'fenced_render', 'language' => 'mermaid'],
         ['type' => 'fenced_render', 'language' => 'd2'],
@@ -69,7 +69,7 @@
     </div>
     <h3>Configuration</h3>
     <pre><code>'with_img_fence' => [
-    'safe_mode' => true,
+    'raw_html' => false,
     'extensions' => [
         'img_fence',
     ],
