@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c1423cd9dcc152adccd50ceeb590799",
+    "content-hash": "86fec8bd7815f281270fe4d4811aaaec",
     "packages": [
         {
             "name": "brick/math",
@@ -2039,33 +2039,36 @@
         },
         {
             "name": "markup-carve/carve-php",
-            "version": "dev-next2",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/carve-php.git",
-                "reference": "6ceebc52181efc1f5dfe6f5e7964b75c43f13a90"
+                "reference": "c82c14f20e85479a5f44da1f5bc281ccd20e8236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
-                "reference": "6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
+                "url": "https://api.github.com/repos/markup-carve/carve-php/zipball/c82c14f20e85479a5f44da1f5bc281ccd20e8236",
+                "reference": "c82c14f20e85479a5f44da1f5bc281ccd20e8236",
                 "shasum": ""
             },
             "require": {
-                "league/commonmark": "^2.9.2",
                 "php": "^8.2",
-                "php-collective/djot": "^0.1.35",
                 "symfony/polyfill-intl-normalizer": "^1.27"
             },
             "require-dev": {
+                "league/commonmark": "^2.9.2",
                 "php-collective/code-sniffer": "^0.6.8",
+                "php-collective/djot": "^0.1.35",
                 "phpstan/phpstan": "^2.1.32",
                 "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0"
             },
             "suggest": {
                 "ext-dom": "Required for HTML import and HTML heading-ID conversion.",
-                "ext-intl": "Recommended for heading-ID transliteration: enables ICU romanization of non-Latin scripts (e.g. CJK, Arabic). Without it, a baked map covers Latin/Cyrillic/punctuation identically and other scripts fall back to the generated `section` id."
+                "ext-intl": "Recommended for heading-ID transliteration: enables ICU romanization of non-Latin scripts (e.g. CJK, Arabic). Without it, a baked map covers Latin/Cyrillic/punctuation identically and other scripts fall back to the generated `section` id.",
+                "league/commonmark": "Required for Markdown and GFM import (^2.9.2).",
+                "php-collective/djot": "Required for Djot import (^0.1.35)."
             },
+            "default-branch": true,
             "bin": [
                 "bin/carve"
             ],
@@ -2099,7 +2102,7 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/carve-php/issues",
-                "source": "https://github.com/markup-carve/carve-php/tree/next2"
+                "source": "https://github.com/markup-carve/carve-php/tree/main"
             },
             "funding": [
                 {
@@ -2107,20 +2110,21 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-20T10:04:01+00:00"
+            "time": "2026-11-26T23:35:28+00:00",
+            "published-time": "2026-11-26T23:35:33+00:00"
         },
         {
             "name": "markup-carve/laravel-carve",
-            "version": "dev-next2",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markup-carve/laravel-carve.git",
-                "reference": "fd120f60694777d09f6b6313e539cb331170e386"
+                "reference": "fd94f668996af19bac81aa56c63f35095ab7d99f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/fd120f60694777d09f6b6313e539cb331170e386",
-                "reference": "fd120f60694777d09f6b6313e539cb331170e386",
+                "url": "https://api.github.com/repos/markup-carve/laravel-carve/zipball/fd94f668996af19bac81aa56c63f35095ab7d99f",
+                "reference": "fd94f668996af19bac81aa56c63f35095ab7d99f",
                 "shasum": ""
             },
             "require": {
@@ -2130,7 +2134,7 @@
                 "illuminate/database": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/support": "^11.0 || ^12.0 || ^13.0",
                 "illuminate/view": "^11.0 || ^12.0 || ^13.0",
-                "markup-carve/carve-php": "dev-next2#6ceebc52181efc1f5dfe6f5e7964b75c43f13a90",
+                "markup-carve/carve-php": "dev-main#c82c14f20e85479a5f44da1f5bc281ccd20e8236",
                 "php": "^8.2",
                 "symfony/finder": "^7.0 || ^8.0"
             },
@@ -2143,6 +2147,7 @@
             "suggest": {
                 "symfony/yaml": "Parse YAML frontmatter with RenderedCarve::meta()."
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2181,9 +2186,10 @@
             ],
             "support": {
                 "issues": "https://github.com/markup-carve/laravel-carve/issues",
-                "source": "https://github.com/markup-carve/laravel-carve/tree/next2"
+                "source": "https://github.com/markup-carve/laravel-carve/tree/main"
             },
-            "time": "2026-11-20T10:51:45+00:00"
+            "time": "2026-11-26T23:41:25+00:00",
+            "published-time": "2026-11-26T23:41:30+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2696,72 +2702,6 @@
                 }
             ],
             "time": "2026-02-16T23:10:27+00:00"
-        },
-        {
-            "name": "php-collective/djot",
-            "version": "0.1.35",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-collective/djot-php.git",
-                "reference": "709058dd11572cd861aab35919244e12d84431a5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-collective/djot-php/zipball/709058dd11572cd861aab35919244e12d84431a5",
-                "reference": "709058dd11572cd861aab35919244e12d84431a5",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.2"
-            },
-            "require-dev": {
-                "nikic/php-fuzzer": "^0.0.11",
-                "php-collective/code-sniffer": "^0.6.8",
-                "phpstan/phpstan": "^2.1.32",
-                "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0"
-            },
-            "suggest": {
-                "ext-intl": "Recommended for heading-ID transliteration: enables ICU romanization of non-Latin scripts (e.g. CJK, Arabic). Without it, a baked map covers Latin/Cyrillic/Greek/punctuation identically and other scripts fall back to generated `s-N` ids."
-            },
-            "bin": [
-                "bin/djot",
-                "bin/djot-watch"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Djot\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP Collective",
-                    "homepage": "https://github.com/php-collective"
-                }
-            ],
-            "description": "A PHP parser for Djot, a modern light markup language",
-            "homepage": "https://php-collective.github.io/djot-php/",
-            "keywords": [
-                "djot",
-                "markdown",
-                "markup",
-                "parser"
-            ],
-            "support": {
-                "issues": "https://github.com/php-collective/djot-php/issues",
-                "source": "https://github.com/php-collective/djot-php/tree/0.1.35"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/dereuromark",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-11-11T11:34:56+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -8547,5 +8487,5 @@
         "ext-dom": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
