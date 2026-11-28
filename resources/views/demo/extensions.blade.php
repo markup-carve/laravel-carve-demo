@@ -18,7 +18,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $autolink_html !!}</div>
+            <div class="rendered carve">{!! $autolink_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'autolink']</code></pre>
@@ -34,7 +34,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $external_links_html !!}</div>
+            <div class="rendered carve">{!! $external_links_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'external_links']</code></pre>
@@ -50,7 +50,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $smart_quotes_html !!}</div>
+            <div class="rendered carve">{!! $smart_quotes_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'smart_quotes']</code></pre>
@@ -66,7 +66,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $heading_permalinks_html !!}</div>
+            <div class="rendered carve">{!! $heading_permalinks_html !!}</div>
         </div>
     </div>
     <pre><code>[
@@ -86,7 +86,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $mentions_html !!}</div>
+            <div class="rendered carve">{!! $mentions_html !!}</div>
         </div>
     </div>
     <pre><code>'social' => ['mentionUrl' => 'https://github.com/{name}'],</code></pre>
@@ -102,7 +102,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $toc_html !!}</div>
+            <div class="rendered carve">{!! $toc_html !!}</div>
         </div>
     </div>
     <pre><code>'toc_placement',
@@ -119,7 +119,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $wikilinks_html !!}</div>
+            <div class="rendered carve">{!! $wikilinks_html !!}</div>
         </div>
     </div>
     <pre><code>[
@@ -139,7 +139,7 @@
         </div>
         <div>
             <h3>Rendered (inspect HTML)</h3>
-            <div class="rendered">{!! $default_attrs_html !!}</div>
+            <div class="rendered carve">{!! $default_attrs_html !!}</div>
         </div>
     </div>
     <pre><code>[
@@ -162,7 +162,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $frontmatter_html !!}</div>
+            <div class="rendered carve">{!! $frontmatter_html !!}</div>
             <h3>RenderedCarve::meta()</h3>
             <pre><code>{{ json_encode($frontmatter_meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</code></pre>
         </div>
@@ -180,7 +180,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $semantic_html !!}</div>
+            <div class="rendered carve">{!! $semantic_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'semantic_span']</code></pre>
@@ -197,7 +197,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $mermaid_html !!}</div>
+            <div class="rendered carve">{!! $mermaid_html !!}</div>
         </div>
     </div>
     <h3>Configuration</h3>
@@ -218,7 +218,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $code_group_html !!}</div>
+            <div class="rendered carve">{!! $code_group_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'code_group']</code></pre>
@@ -234,7 +234,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $admonition_html !!}</div>
+            <div class="rendered carve">{!! $admonition_html !!}</div>
         </div>
     </div>
     <pre><code>['type' => 'admonition']</code></pre>

@@ -22,6 +22,7 @@ Route::get('/includes', [DemoController::class, 'includes'])->name('includes');
 Route::get('/extensions', [DemoController::class, 'extensions'])->name('extensions');
 Route::get('/diagrams', [DemoController::class, 'diagrams'])->name('diagrams');
 Route::get('/syntax', [DemoController::class, 'syntax'])->name('syntax');
+Route::get('/code-lines', [DemoController::class, 'codeLines'])->name('code_lines');
 Route::get('/render-targets', [DemoController::class, 'renderTargets'])->name('render_targets');
 Route::get('/editor-preview', [DemoController::class, 'editorPreview'])->name('editor_preview');
 Route::get('/options', OptionsController::class)->name('options');

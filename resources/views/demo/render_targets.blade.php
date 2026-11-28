@@ -23,7 +23,7 @@ $carve->toAnsi($source);      // terminal / CLI</code></pre>
 <div class="columns">
     <div class="card">
         <h2>toHtml()</h2>
-        <div class="rendered">{!! $html !!}</div>
+        <div class="rendered carve">{!! $html !!}</div>
     </div>
 
     <div class="card">
@@ -52,7 +52,10 @@ $carve->toAnsi($source);      // terminal / CLI</code></pre>
         const el = document.getElementById('ansi-output');
         if (el) {
             const au = new AnsiUp();
-            el.innerHTML = au.ansi_to_html(el.textContent);
+            // ansi_up's xterm blue and dark grey are unreadable on the dark panel.
+            el.innerHTML = au.ansi_to_html(el.textContent)
+                .replaceAll('rgb(0,0,187)', 'rgb(108,182,255)')
+                .replaceAll('rgb(85,85,85)', 'rgb(139,148,158)');
         }
     } catch (e) { /* keep raw ANSI visible */ }
 </script>

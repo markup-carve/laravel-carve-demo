@@ -15,7 +15,7 @@ Carve::getDefaultProfile(); // {{ $default_profile }}</code></pre>
     <p>The default profile renders the source like this:</p>
     <div class="columns">
         <div><h3>Source</h3><pre><code>{{ $source }}</code></pre></div>
-        <div><h3>Default profile</h3><div class="rendered">{!! $default_html !!}</div></div>
+        <div><h3>Default profile</h3><div class="rendered carve">{!! $default_html !!}</div></div>
     </div>
     <pre><code>use MarkupCarve\LaravelCarve\Service\CarveConverter;
 use MarkupCarve\LaravelCarve\Service\RenderPolicy;
@@ -25,7 +25,7 @@ $converter = new CarveConverter(options: RenderPolicy::options($settings));</cod
         <h3 id="setting-{{ $key }}">{{ $setting['title'] }}</h3>
         <p>{{ $setting['blurb'] }}</p>
         <div class="columns">
-            <div><pre><code>{{ var_export($setting['config'], true) }}</code></pre></div>
+            <div><pre><code>{{ \Symfony\Component\VarExporter\VarExporter::export($setting['config']) }}</code></pre></div>
             <div>
                 @if ($setting['error'] !== null)
                     <p class="setting-error"><code>{{ $setting['error'] }}</code></p>
@@ -41,8 +41,8 @@ $converter = new CarveConverter(options: RenderPolicy::options($settings));</cod
     <h2>Str and Stringable macros</h2>
     <pre><code>Str::carve('*Str* macro');
 Str::of('/Stringable/ macro')->carveText();</code></pre>
-    <div class="rendered">{!! $str_html !!}</div>
-    <p><code>{{ trim($str_text) }}</code></p>
+    <div class="rendered carve">{!! $str_html !!}</div>
+    <pre><code>{{ trim($str_text) }}</code></pre>
 </div>
 
 <div class="card">

@@ -32,7 +32,7 @@
             <strong>Protected:</strong> HTML is escaped, scripts neutralized.
         </div>
         <h3>Rendered Output:</h3>
-        <div class="rendered">
+        <div class="rendered carve">
             {!! $safe_html !!}
         </div>
     </div>

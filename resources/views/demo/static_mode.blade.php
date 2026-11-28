@@ -22,7 +22,7 @@
         <h2>Interactive Profile (default)</h2>
         <pre><code>'mode' => 'interactive'</code></pre>
         <h3>Rendered:</h3>
-        <div class="rendered">{!! $interactive_html !!}</div>
+        <div class="rendered carve">{!! $interactive_html !!}</div>
         <h3>HTML:</h3>
         <pre><code>{{ $interactive_html }}</code></pre>
     </div>
@@ -31,7 +31,7 @@
         <h2>Static Profile</h2>
         <pre><code>'mode' => 'static'</code></pre>
         <h3>Rendered:</h3>
-        <div class="rendered">{!! $static_html !!}</div>
+        <div class="rendered carve">{!! $static_html !!}</div>
         <h3>HTML:</h3>
         <pre><code>{{ $static_html }}</code></pre>
     </div>

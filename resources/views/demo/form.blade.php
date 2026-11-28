@@ -73,13 +73,13 @@ class ArticleRequest extends FormRequest
 
     <h3>{{ $preview['title'] }}</h3>
 
-    <div class="rendered">
+    <div class="rendered carve">
         {!! $preview['body_html'] !!}
     </div>
 
     @if ($preview['comment_html'])
     <h4>Comment</h4>
-    <div class="rendered safe">
+    <div class="rendered carve safe">
         <span class="badge badge-safe">raw HTML off</span>
         {!! $preview['comment_html'] !!}
     </div>

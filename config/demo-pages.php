@@ -18,9 +18,10 @@ return [
         'extensions' => 'static',
         'diagrams' => 'browser-enhanced',
         'syntax' => 'static',
+        'code_lines' => 'browser-enhanced',
         'render_targets' => 'static',
         'editor_preview' => 'browser-enhanced',
         'options' => 'static',
-        'extension_catalog' => 'static',
+        'extension_catalog' => 'browser-enhanced',
     ],
 ];

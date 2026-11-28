@@ -38,18 +38,18 @@ protected function casts(): array
 }
 
 $post = new CarvePost(['body' => $source]);
-&lt;x-carve :source="$post->body" class="rendered" /&gt;</code></pre>
+&lt;x-carve :source="$post->body" class="rendered carve" /&gt;</code></pre>
     <h3>Stored attribute</h3>
     <pre><code>{{ $post->getAttributes()['body'] }}</code></pre>
     <h3>Component output</h3>
-    <x-carve :source="$post->body" class="rendered" />
+    <x-carve :source="$post->body" class="rendered carve" />
 </div>
 
 <div class="card">
     <h2>Static document views</h2>
     <p>A <code>.crv</code> view renders a static document. View variables are not interpolated. With includes enabled, the file must be inside the trusted include root.</p>
     <pre><code>view()->file(resource_path('carve/authoring-guide.crv'));</code></pre>
-    <div class="rendered">{!! $document_view !!}</div>
+    <div class="rendered carve">{!! $document_view !!}</div>
 </div>
 
 <div class="card">
@@ -61,7 +61,7 @@ $post = new CarvePost(['body' => $source]);
 ]</code></pre>
     <div class="columns">
         <div><h3>Source</h3><pre><code>{{ $comment_source }}</code></pre></div>
-        <div><h3>Restricted output</h3><div class="rendered">{{ $comment }}</div></div>
+        <div><h3>Restricted output</h3><div class="rendered carve">{{ $comment }}</div></div>
     </div>
     <pre><code>ValidCarve::preset('comment')->maxLength(80)->lint()</code></pre>
     <p>The limit counts characters. Eighty accented characters pass; 81 exceed the limit.</p>
@@ -99,20 +99,20 @@ $document = Carve::render($source);</code></pre>
             <div><h4>Input</h4><pre><code>{{ $import['input'] }}</code></pre></div>
             <div><h4>Carve source</h4><pre><code>{{ $import['source'] }}</code></pre></div>
         </div>
-        <div class="rendered">{{ $import['rendered'] }}</div>
+        <div class="rendered carve">{{ $import['rendered'] }}</div>
     @endforeach
 </div>
 
 <div class="card">
     <h2>Lint and Artisan tools</h2>
-    <pre><code>Carve::lint({{ var_export($lint_source, true) }});</code></pre>
+    <pre><code>Carve::lint({{ \Symfony\Component\VarExporter\VarExporter::export($lint_source) }});</code></pre>
     <ul>
         @foreach ($lint_findings as $finding)
             <li>Line {{ $finding['line'] }}, column {{ $finding['column'] }}: {{ $finding['message'] }} ({{ $finding['code'] }})</li>
         @endforeach
     </ul>
     <p>A <code>%% carve-lint-disable-next-line</code> comment silences the named rule on the next line. The comment renders nothing.</p>
-    <pre><code>Carve::lint({{ var_export($suppressed_source, true) }});</code></pre>
+    <pre><code>Carve::lint({{ \Symfony\Component\VarExporter\VarExporter::export($suppressed_source) }});</code></pre>
     <p>{{ count($suppressed_findings) }} findings.</p>
     <p>Run these commands in a local checkout. They render, convert or lint files on disk.</p>
     <pre><code>php artisan carve:render resources/carve/authoring-guide.crv --format=html

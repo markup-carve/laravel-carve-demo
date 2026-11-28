@@ -20,7 +20,7 @@
     </div>
     <div class="card">
         <h2>Rendered preview</h2>
-        <div class="rendered">{!! $html !!}</div>
+        <div class="rendered carve">{!! $html !!}</div>
         <h3>Generated HTML</h3>
         <pre><code>{{ $html }}</code></pre>
     </div>

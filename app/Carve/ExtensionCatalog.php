@@ -62,8 +62,8 @@ final class ExtensionCatalog
                 echo $html; <2>
                 ```
 
-                1. Render the source.
-                2. Print the result.
+                <1> Render the source.
+                <2> Print the result.
                 CARVE,
             ],
             'code_group' => [
@@ -185,7 +185,7 @@ final class ExtensionCatalog
                 'config' => 'index_terms',
                 'blurb' => 'Collects :index[...] terms into an index directive with back-links.',
                 'source' => <<<'CARVE'
-                Carve renders :index[HTML] and plain text.
+                Carve renders HTML :index[HTML] and plain text.
 
                 ::: index
 

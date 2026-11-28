@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Laravel Carve Demo')</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>📝</text></svg>">
+    {{-- carve-css styles every construct the engine emits; the rules below only adapt it to this demo. --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/markup-carve/carve-css@5c3547fe489ea86c42eed08e9b27639ac81d72f5/src/carve.css">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -63,10 +65,6 @@
         .rendered > :first-child { margin-top: 0; }
         .rendered > :last-child { margin-bottom: 0; }
         .rendered ul, .rendered ol { padding-left: 1.5rem; }
-        .rendered li > input[type="checkbox"] { margin: 0 0.5rem 0 0; vertical-align: -0.1em; }
-        .rendered li:has(> input[type="checkbox"]) { list-style: none; }
-        .rendered li[data-task-state="-"] { text-decoration: line-through; opacity: 0.65; }
-        .rendered li[data-task-state=">"]::before { content: "↪"; margin-left: -1.25rem; margin-right: 0.35rem; }
         .rendered blockquote {
             border-left: 4px solid #ff2d20;
             margin: 0;
@@ -79,6 +77,9 @@
         .rendered table { border-collapse: collapse; width: 100%; }
         .rendered th, .rendered td { border: 1px solid #ddd; padding: 6px 12px; }
         .rendered th { background: #f1f1f1; text-align: left; }
+        /* carve-css drops the last row's rule; this demo frames every cell. */
+        .rendered tbody tr:last-child :is(th, td) { border-bottom: 1px solid #ddd; }
+        .setting-error code { display: block; padding: 10px 12px; border: 1px solid #f1b8b4; border-radius: 6px; background: #fff4f3; color: #9b1c12; white-space: pre-wrap; }
         .rendered hr { border: 0; border-top: 1px solid #ddd; margin: 1.5em 0; }
         .rendered img, .rendered svg, .rendered canvas { max-width: 100%; height: auto; }
         .rendered pre.mermaid, .diagram-draw > pre[class] { background: #fff; color: #222; border: 1px dashed #ddd; }
@@ -197,6 +198,23 @@
         .static-preview { background: #e8f0fe; border: 1px solid #7aa2e3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; }
         .validation-results { overflow-x: auto; }
         .validation-results code { overflow-wrap: anywhere; white-space: normal; }
+        /* Rendered code uses the light GitHub theme highlight.js loads, so its panel is light too. */
+        .rendered pre { background: #f6f8fa; color: #24292e; border: 1px solid #d0d7de; }
+        .rendered pre code.hljs { background: transparent; padding: 0; }
+        .rendered figure { margin: 1em 0; }
+        .rendered figcaption { margin-top: 0.5em; color: #666; font-size: 0.9em; font-style: italic; }
+        /* carve-css tokens in this demo's palette. */
+        .rendered.carve {
+          --carve-sunk: #eaeef2;
+          --carve-rule: #d0d7de;
+          --carve-ink: #24292e;
+          --carve-ink-soft: #57606a;
+          --carve-accent: #d6261a;
+          --carve-radius: 6px;
+          --carve-font-mono: 'SF Mono', Monaco, monospace;
+          --carve-code-line-highlight: #fff8c5;
+          --carve-code-line-marker: #d4a72c;
+        }
     </style>
     @stack('head')
 </head>
@@ -218,6 +236,7 @@
         <a href="{{ route('extensions') }}" @class(['active' => request()->routeIs('extensions')])>Extensions</a>
         <a href="{{ route('diagrams') }}" @class(['active' => request()->routeIs('diagrams')])>Diagrams</a>
         <a href="{{ route('syntax') }}" @class(['active' => request()->routeIs('syntax')])>Syntax</a>
+        <a href="{{ route('code_lines') }}" @class(['active' => request()->routeIs('code_lines')])>Code Lines</a>
         <a href="{{ route('render_targets') }}" @class(['active' => request()->routeIs('render_targets')])>Render Targets</a>
         <a href="{{ route('editor_preview') }}" @class(['active' => request()->routeIs('editor_preview')])>Editor Preview</a>
         <a href="{{ route('options') }}" @class(['active' => request()->routeIs('options')])>Options</a>
@@ -242,11 +261,10 @@
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-        // highlight fenced code blocks (language-* classes from Carve), but
-        // leave mermaid sources alone
-        document.querySelectorAll('pre code[class*="language-"]').forEach((el) => {
-            window.hljs.highlightElement(el);
-        });
+        {!! file_get_contents(resource_path('js/carve-code-blocks.js')) !!}
+        // Highlight fenced code blocks (language-* classes from Carve); mermaid
+        // sources have no such class and stay untouched.
+        enhanceCodeBlocks(document, (el) => window.hljs.highlightElement(el));
         // Hydrate PlantUML fences (<pre class="plantuml">) into rendered SVG via
         // the public PlantUML server, using its ~h hex source encoding. This is a
         // progressive enhancement: without it the diagram source stays visible.

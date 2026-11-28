@@ -157,7 +157,7 @@ class DemoController extends Controller
 
         [Click me](javascript:alert('XSS'))
 
-        ![unsafe candidates](safe.png){srcset="safe.png 1x, javascript:alert(1) 2x"}
+        ![unsafe candidates](https://placehold.co/150){srcset="https://placehold.co/150 1x, javascript:alert(1) 2x"}
 
         More normal content.
         CARVE;
@@ -649,6 +649,17 @@ class DemoController extends Controller
 
         return view('demo.syntax', [
             'samples' => $samples,
+        ]);
+    }
+
+    public function codeLines(CarveConverterInterface $carve): View
+    {
+        $source = (string) file_get_contents(resource_path('carve/code-lines.crv'));
+        $html = $carve->toHtml($source);
+
+        return view('demo.code_lines', [
+            'source' => $source,
+            'html' => $html,
         ]);
     }
 

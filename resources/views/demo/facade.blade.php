@@ -16,7 +16,7 @@
     <h2>Basic Usage</h2>
     <pre><code>&#123;!! Carve::toHtml('/emphasis/ and *strong*') !!&#125;</code></pre>
     <p><strong>Result:</strong></p>
-    <div class="rendered">
+    <div class="rendered carve">
         {!! Carve::toHtml('/emphasis/ and *strong*') !!}
     </div>
 </div>
@@ -44,7 +44,7 @@
             ] as $snippet)
                 <tr>
                     <td style="padding: 10px; border-bottom: 1px solid #eee;"><code>{{ $snippet }}</code></td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;"><div class="rendered">{!! Carve::toHtml($snippet) !!}</div></td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;"><div class="rendered carve">{!! Carve::toHtml($snippet) !!}</div></td>
                 </tr>
             @endforeach
         </tbody>

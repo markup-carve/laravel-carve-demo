@@ -23,7 +23,7 @@
         </div>
         <div>
             <h3>Rendered</h3>
-            <div class="rendered">{!! $sample['html'] !!}</div>
+            <div class="rendered carve">{!! $sample['html'] !!}</div>
         </div>
     </div>
 </div>

@@ -25,7 +25,7 @@ public function show(CarveConverterInterface $carve): View
         </div>
         <div>
             <h3>toHtml() Output</h3>
-            <div class="rendered">
+            <div class="rendered carve">
                 {!! $html !!}
             </div>
         </div>
@@ -51,7 +51,7 @@ public function show(CarveManager $manager): View
         </div>
         <div>
             <h3>user_content Output</h3>
-            <div class="rendered safe">
+            <div class="rendered carve safe">
                 <span class="badge badge-safe">XSS Protected</span>
                 {!! $safe_html !!}
             </div>

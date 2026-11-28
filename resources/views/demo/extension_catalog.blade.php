@@ -17,11 +17,15 @@
 <div class="card" id="ext-{{ $name }}">
     <h2><code>{{ $name }}</code></h2>
     <p>{{ $entry['blurb'] }}</p>
-    <pre><code>{{ var_export($entry['config'], true) }}</code></pre>
+    <pre><code>{{ \Symfony\Component\VarExporter\VarExporter::export($entry['config']) }}</code></pre>
     <div class="columns">
         <div><h3>Source</h3><pre><code>{{ $entry['source'] }}</code></pre></div>
-        <div><h3>Rendered</h3><div class="rendered">{!! $entry['html'] !!}</div></div>
+        <div><h3>Rendered</h3><div class="rendered carve">{!! $entry['html'] !!}</div></div>
     </div>
 </div>
 @endforeach
 @endsection
+
+@push('scripts')
+@include('demo.partials.diagram-renderers', ['scope' => '[id^="ext-"] .rendered'])
+@endpush

@@ -19,7 +19,7 @@
         </div>
         <div>
             <h3>Rendered (HTML)</h3>
-            <div class="rendered">
+            <div class="rendered carve">
                 @carve($carve_content)
             </div>
         </div>
@@ -45,7 +45,7 @@
         </div>
         <div>
             <h3>Rendered (raw HTML off)</h3>
-            <div class="rendered safe">
+            <div class="rendered carve safe">
                 <span class="badge badge-safe">raw_html: false</span>
                 {!! \MarkupCarve\LaravelCarve\Facades\Carve::toHtml($user_content, 'user_content') !!}
             </div>
